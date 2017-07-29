@@ -1,0 +1,51 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "24.0.0"
+
+    defaultConfig {
+        applicationId "com.odfbox"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 4
+        versionName "1.0.4"
+
+        //解决AS重新编译Jar包的Bug
+        multiDexEnabled true
+        // 不让gradle自动生成不同屏幕分辨率的png图
+        generatedDensities = []
+        manifestPlaceholders = [
+                serverDoMain: "https://api.odfbox.com/",//正式站点服务器地址
+        ]
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main() {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+}
+
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile project(':PhotoSelector')
+    compile 'com.google.zxing:core:3.3.0'
+    compile 'com.alibaba:fastjson:1.2.30'
+    compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+    compile 'com.github.Cutta:GifView:1.1'
+    compile 'com.jiechic.library:xUtils:2.6.14'
+}
+
