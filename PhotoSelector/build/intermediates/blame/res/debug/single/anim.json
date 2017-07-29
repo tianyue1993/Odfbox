@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\debug\\anim\\translate_down_current.xml",
+        "source": "D:\\Odfbox\\PhotoSelector\\res\\anim\\translate_down_current.xml"
+    },
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\debug\\anim\\activity_alpha_action_in.xml",
+        "source": "D:\\Odfbox\\PhotoSelector\\res\\anim\\activity_alpha_action_in.xml"
+    },
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\debug\\anim\\translate_up.xml",
+        "source": "D:\\Odfbox\\PhotoSelector\\res\\anim\\translate_up.xml"
+    },
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\debug\\anim\\pb_default.xml",
+        "source": "D:\\Odfbox\\PhotoSelector\\res\\anim\\pb_default.xml"
+    },
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\debug\\anim\\translate_down.xml",
+        "source": "D:\\Odfbox\\PhotoSelector\\res\\anim\\translate_down.xml"
+    },
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\debug\\anim\\translate_up_current.xml",
+        "source": "D:\\Odfbox\\PhotoSelector\\res\\anim\\translate_up_current.xml"
+    }
+]

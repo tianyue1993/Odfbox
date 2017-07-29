@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
+        "source": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\ic_checkbox_pressed.9.png",
+        "source": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\ic_checkbox_pressed.9.png"
+    },
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\ic_checkbox_normal.9.png",
+        "source": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\ic_checkbox_normal.9.png"
+    }
+]

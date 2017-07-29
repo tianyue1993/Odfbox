@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\translate_down.xml",
+        "source": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\bundles\\debug\\res\\anim\\translate_down.xml"
+    },
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\translate_down_current.xml",
+        "source": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\bundles\\debug\\res\\anim\\translate_down_current.xml"
+    },
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\translate_up_current.xml",
+        "source": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\bundles\\debug\\res\\anim\\translate_up_current.xml"
+    },
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\pb_default.xml",
+        "source": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\bundles\\debug\\res\\anim\\pb_default.xml"
+    },
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\translate_up.xml",
+        "source": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\bundles\\debug\\res\\anim\\translate_up.xml"
+    },
+    {
+        "merged": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\activity_alpha_action_in.xml",
+        "source": "D:\\Odfbox\\PhotoSelector\\build\\intermediates\\bundles\\debug\\res\\anim\\activity_alpha_action_in.xml"
+    }
+]
