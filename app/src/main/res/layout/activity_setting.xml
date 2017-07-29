@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    tools:context="com.odfbox.activity.SettingActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/ll_address"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/probability"
+        android:layout_marginTop="22dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="48dp"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="常用地址设置"
+            android:textColor="@color/text_grey"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:src="@mipmap/ic_more" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_version"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/ll_address"
+        android:layout_marginTop="10dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/version_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="48dp"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="版本1.0"
+            android:textColor="@color/text_grey"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:src="@mipmap/ic_more" />
+
+
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/ll_version"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="140dp"
+        android:background="@color/button_bg"
+        android:scaleType="fitXY"
+        android:text="退出"
+        android:textColor="@color/white" />
+</RelativeLayout>

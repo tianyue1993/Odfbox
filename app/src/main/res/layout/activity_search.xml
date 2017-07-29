@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/mapview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/ic_location" />
+
+    <RelativeLayout
+        android:id="@+id/ll_search"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/black"
+        android:paddingBottom="5dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_round"
+            android:drawableLeft="@mipmap/ic_search_black"
+            android:drawablePadding="5dp"
+            android:ellipsize="end"
+            android:hint="请输入位置"
+            android:imeOptions="actionSearch"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_input"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/ll_search"
+        android:background="@color/gray_bg">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/ic_location"
+            android:gravity="center"
+            android:text="移动"
+            android:textColor="@color/text_grey" />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/text1"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="选位置"
+            android:textColor="@color/text_grey" />
+
+        <EditText
+            android:id="@+id/jd"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/text2"
+            android:background="@color/white"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:hint="经度"
+            android:singleLine="true"
+            android:textColor="@color/text_grey"
+            android:textColorHint="@color/grey"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/wd"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/jd"
+            android:background="@color/white"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:hint="纬度"
+            android:singleLine="true"
+            android:textColor="@color/text_grey"
+            android:textColorHint="@color/grey"
+            android:textSize="12sp" />
+
+
+        <EditText
+            android:id="@+id/didian"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/text2"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/jd"
+            android:background="@color/white"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:hint="地点"
+            android:singleLine="true"
+            android:textColor="@color/text_grey"
+            android:textColorHint="@color/grey"
+            android:textSize="12sp" />
+
+
+        <Button
+            android:id="@+id/sure"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_below="@+id/jd"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/didian"
+            android:background="@color/button_bg"
+            android:scaleType="fitXY"
+            android:text="确定"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

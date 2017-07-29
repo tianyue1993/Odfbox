@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_search_location"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.odfbox.activity.SetComLocationActivity">
+
+    <RelativeLayout
+        android:id="@+id/ll_search"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/black">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:padding="5dp"
+            android:src="@mipmap/ic_back" />
+
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/back"
+            android:background="@drawable/bg_round"
+            android:drawableLeft="@mipmap/ic_search_black"
+            android:drawablePadding="5dp"
+            android:hint="去哪里找光交箱"
+            android:imeOptions="actionSearch"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/where"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_search"
+        android:background="@color/black">
+
+
+        <TextView
+            android:id="@+id/to_mybox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/ic_done"
+            android:gravity="center"
+            android:text="我不知道位置"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/my_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/where"
+        android:background="@color/gray_bg">
+
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="我的位置"
+            android:textColor="@color/text_grey" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/com_address"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_below="@+id/my_address"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/search_address_bg">
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/ic_star1" />
+
+        <TextView
+            android:id="@+id/address1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@+id/image1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="常用地址1"
+            android:textColor="@color/text_grey"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/set_address1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/image1"
+            android:text="设置地址"
+            android:textColor="@color/button_bg"
+            android:textSize="15sp" />
+
+
+        <ImageView
+            android:id="@+id/line1"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:background="@color/gray_bg" />
+
+
+        <ImageView
+            android:id="@+id/image2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/line1"
+            android:src="@mipmap/ic_star1" />
+
+        <TextView
+            android:id="@+id/address2"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@+id/image2"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="常用地址2"
+            android:textColor="@color/text_grey"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/set_address2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address2"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/image2"
+            android:text="设置地址"
+            android:textColor="@color/button_bg"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/com_address"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/search_address_bg"></ListView>
+
+
+</RelativeLayout>

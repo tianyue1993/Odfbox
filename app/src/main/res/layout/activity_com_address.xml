@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_com_address"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    tools:context="com.odfbox.activity.ComAddressActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/ll_address1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/login_edit_bg">
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/ic_star1" />
+
+        <TextView
+            android:id="@+id/address1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@+id/image1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="常用地址1"
+            android:textColor="@color/text_grey"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/set_address1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/image1"
+            android:text="设置地址"
+            android:textColor="@color/button_bg"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:src="@mipmap/ic_more" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/ll_address2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/ll_address1"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/login_edit_bg">
+
+        <ImageView
+            android:id="@+id/image2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/ic_star1" />
+
+        <TextView
+            android:id="@+id/address2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@+id/image2"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="常用地址1"
+            android:textColor="@color/text_grey"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/set_address2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address2"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/image2"
+            android:text="设置地址"
+            android:textColor="@color/button_bg"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:src="@mipmap/ic_more" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

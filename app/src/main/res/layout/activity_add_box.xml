@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    tools:context="com.odfbox.activity.AddBoxActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/box_image"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_add_image" />
+
+        <ImageView
+            android:id="@+id/box_near_image"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_add_image" />
+
+        <ImageView
+            android:id="@+id/box_inner_image"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_add_image" />
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/rl_image"
+        android:layout_alignRight="@+id/rl_image"
+        android:layout_below="@+id/rl_image"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="5dp"
+        android:text="光交箱周边照片"
+        android:textColor="@color/text_grey"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_image"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="19dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginTop="5dp"
+        android:text="光交箱内部照片"
+        android:textColor="@color/text_grey"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_alignLeft="@+id/rl_image"
+        android:layout_alignStart="@+id/rl_image"
+        android:layout_below="@+id/rl_image"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:text="光交箱照片"
+        android:textColor="@color/text_grey"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="5dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/jwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:text="经纬度"
+        android:textColor="@color/text_grey" />
+
+    <EditText
+        android:id="@+id/wd"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/jwd"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/map_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/line1"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@mipmap/ic_map"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="地图定位"
+        android:textColor="@color/button_bg" />
+
+
+    <TextView
+        android:id="@+id/current_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/map_address"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/map_address"
+        android:gravity="center"
+        android:text="当前位置"
+        android:textColor="@color/button_bg"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_describe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/jd"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:text="光交箱位置描述"
+        android:textColor="@color/text_grey" />
+
+    <EditText
+        android:id="@+id/ed_describe"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@+id/tv_describe"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ed_describe"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:text="光交箱编号"
+        android:textColor="@color/text_grey" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ed_code"
+        android:textColor="@color/button_bg"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/jd"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@+id/wd"
+        android:layout_alignLeft="@+id/tv_describe"
+        android:layout_alignStart="@+id/tv_describe"
+        android:layout_alignTop="@+id/wd"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textSize="11sp" />
+
+    <EditText
+        android:id="@+id/ed_code"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@+id/tv_code"
+        android:layout_alignStart="@+id/tv_code"
+        android:layout_below="@+id/tv_code"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_code"
+        android:layout_alignBottom="@+id/tv_code"
+        android:layout_alignLeft="@+id/wd"
+        android:layout_alignStart="@+id/wd"
+        android:text="光交名称"
+        android:textColor="@color/text_grey" />
+
+    <EditText
+        android:id="@+id/ed_name"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginRight="25dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+
+    <ImageView
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/ed_code"
+        android:layout_marginTop="5dp"
+        android:background="@color/grey" />
+
+
+    <EditText
+        android:id="@+id/ed_factory"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@+id/tv_code"
+        android:layout_alignStart="@+id/tv_code"
+        android:layout_below="@+id/tv_factory"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+
+    <Spinner
+        android:id="@+id/ed_type"
+        android:layout_width="70dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/tv_factory"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/ed_factory"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_factory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ed_factory"
+        android:layout_alignStart="@+id/ed_factory"
+        android:layout_below="@+id/line2"
+        android:layout_marginTop="5dp"
+        android:text="光交箱厂家"
+        android:textColor="@color/text_grey" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ed_type"
+        android:layout_alignStart="@+id/ed_type"
+        android:layout_below="@+id/line2"
+        android:layout_marginTop="5dp"
+        android:text="型号"
+        android:textColor="@color/text_grey" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="70dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/tv_type"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/ed_type"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_spiner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/spinner1"
+        android:layout_alignStart="@+id/spinner1"
+        android:layout_below="@+id/line2"
+        android:layout_marginTop="5dp"
+        android:text="材质"
+        android:textColor="@color/text_grey" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ed_factory"
+        android:layout_alignStart="@+id/ed_factory"
+        android:layout_below="@+id/ed_factory"
+        android:layout_marginTop="5dp"
+        android:text="配纤容量"
+        android:textColor="@color/text_grey" />
+
+
+    <EditText
+        android:id="@+id/ed_content"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@+id/tv_code"
+        android:layout_alignStart="@+id/tv_code"
+        android:layout_below="@+id/tv_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:inputType="number"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ed_time"
+        android:layout_alignStart="@+id/ed_time"
+        android:layout_below="@+id/ed_factory"
+        android:layout_marginTop="5dp"
+        android:text="安装日期"
+        android:textColor="@color/text_grey" />
+
+    <ImageView
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/ed_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/grey" />
+
+    <TextView
+        android:id="@+id/tv_terminal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ed_factory"
+        android:layout_alignStart="@+id/ed_factory"
+        android:layout_below="@+id/line3"
+        android:layout_marginTop="5dp"
+        android:text="终端编号"
+        android:textColor="@color/text_grey" />
+
+
+    <EditText
+        android:id="@+id/ed_terminal"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@+id/tv_code"
+        android:layout_alignStart="@+id/tv_code"
+        android:layout_below="@+id/tv_terminal"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/image_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_terminal"
+        android:layout_toRightOf="@+id/ed_terminal"
+        android:src="@mipmap/ic_scan_code" />
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/image_scan"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/button_bg"
+        android:scaleType="fitXY"
+        android:text="新增光交箱"
+        android:textColor="@color/white" />
+
+    <EditText
+        android:id="@+id/ed_time"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_alignEnd="@+id/tv_spiner"
+        android:layout_alignRight="@+id/tv_spiner"
+        android:layout_below="@+id/tv_time"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+</RelativeLayout>

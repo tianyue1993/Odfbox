@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="10dip">
+
+
+    <DatePicker
+        android:id="@+id/time_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/button_bg"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner" />
+
+
+    <ImageView
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_below="@+id/time_picker"
+        android:background="@color/black" />
+
+    <Button
+        android:id="@+id/commit"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/line1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@color/button_bg"
+        android:text="确定"
+        android:textColor="@color/white" />
+
+
+</RelativeLayout>

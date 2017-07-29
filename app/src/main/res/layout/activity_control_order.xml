@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_control_order"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.odfbox.activity.ControlOrderActivity">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:background="@color/gray_bg"
+        android:gravity="center"
+        android:text="工单信息"
+        android:textColor="@color/black" />
+
+    <ImageView
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/text"
+        android:background="@color/grey" />
+
+
+    <RelativeLayout
+        android:id="@+id/work_news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:background="@color/gray_bg"
+        android:orientation="vertical"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:id="@+id/code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:text="工单号："
+            android:textColor="@color/text_grey"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="85dp"
+            android:layout_marginTop="8dp"
+            android:text="状态："
+            android:textColor="@color/text_grey"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/manager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/state"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/state"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="5dp"
+            android:text="发起人:"
+            android:textColor="@color/text_grey"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/state"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:text="工单类型:"
+            android:textColor="@color/text_grey"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/starttime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/type"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:text="发起时间:"
+            android:textColor="@color/text_grey"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/endtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/state"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/manager"
+            android:layout_marginRight="25dp"
+            android:singleLine="true"
+            android:text="完成时间:"
+            android:textColor="@color/text_grey"
+            android:textSize="11sp" />
+
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/starttime"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:text="工单内容:"
+            android:textColor="@color/text_grey"
+            android:textSize="11sp" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/work_news"
+        android:background="@color/white" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line2"
+        android:background="@color/gray_bg">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25dp"
+            android:gravity="center_vertical"
+            android:text="任务列表"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25dp"
+            android:gravity="center_vertical"
+            android:text="任务数：0"
+            android:textColor="@color/button_bg" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_count"
+        android:dividerHeight="5dp"
+        android:scrollbars="none"></ListView>
+
+    <RelativeLayout
+        android:id="@+id/rl_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_bg"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/text_work"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:text="工单处理情况"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/ed_work_control"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:layout_below="@+id/text_work"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:gravity="top"
+            android:hint="请输入工单完成情况，字数500字以内"
+            android:maxLength="500"
+            android:textColor="@color/text_grey"
+            android:textColorHint="@color/grey"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/commit"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@+id/ed_work_control"
+            android:layout_marginBottom="7.5dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="7.5dp"
+            android:background="@color/button_bg"
+            android:text="提交"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

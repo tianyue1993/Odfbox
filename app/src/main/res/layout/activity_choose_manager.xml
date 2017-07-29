@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_choose_manager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    tools:context="com.odfbox.activity.ChooseManagerActivity">
+
+
+    <TextView
+        android:id="@+id/textUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="8dp"
+        android:text="账号"
+        android:textColor="@color/text_grey" />
+
+
+    <EditText
+        android:id="@+id/et_textUser"
+        android:layout_width="130dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/textUser"
+        android:layout_marginLeft="25dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="130dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textUser"
+        android:layout_marginRight="25dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/et_name"
+        android:layout_marginTop="8dp"
+        android:text="姓名"
+        android:textColor="@color/text_grey" />
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/et_textUser"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/button_bg"
+        android:scaleType="fitXY"
+        android:text="查询"
+        android:textColor="@color/white" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_button"
+        android:layout_marginTop="20dp"
+        android:scrollbars="none"></ListView>
+</RelativeLayout>

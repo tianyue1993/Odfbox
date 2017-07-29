@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_box_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    tools:context="com.odfbox.activity.BoxDetailActivity">
+
+    <com.odfbox.views.SmoothImageView
+        android:id="@+id/image_box"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="13dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_box_image1" />
+
+    <com.odfbox.views.SmoothImageView
+        android:id="@+id/image_inner"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="13dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_box_image1" />
+
+    <com.odfbox.views.SmoothImageView
+        android:id="@+id/image_near"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="13dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_box_image1" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_box"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:text="光交箱照片"
+        android:textColor="@color/text_grey"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_box"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:text="光交箱内部照片"
+        android:textColor="@color/text_grey"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/image_box"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="5dp"
+        android:text="光交箱周边照片"
+        android:textColor="@color/text_grey"
+        android:textSize="12sp" />
+
+
+    <ImageView
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/text1"
+        android:layout_marginTop="5dp"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:id="@+id/ll_change"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/grey"
+            android:gravity="center"
+            android:text="放弃修改"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/btn_sure"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/button_bg"
+            android:gravity="center"
+            android:text="提交修改"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/jwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:text="经纬度"
+        android:textColor="@color/text_grey" />
+
+    <TextView
+        android:id="@+id/wd"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/jwd"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey" />
+
+    <TextView
+        android:id="@+id/map_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/line1"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@mipmap/ic_map"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="地图定位"
+        android:textColor="@color/button_bg" />
+
+
+    <TextView
+        android:id="@+id/current_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/map_address"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/map_address"
+        android:gravity="center"
+        android:text="当前位置"
+        android:textColor="@color/button_bg"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_describe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/jd"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:text="光交箱位置描述"
+        android:textColor="@color/text_grey" />
+
+    <EditText
+        android:id="@+id/ed_describe"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@+id/tv_describe"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ed_describe"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:text="光交箱编号"
+        android:textColor="@color/text_grey" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ed_code"
+        android:textColor="@color/button_bg"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/jd"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@+id/wd"
+        android:layout_alignLeft="@+id/tv_describe"
+        android:layout_alignStart="@+id/tv_describe"
+        android:layout_alignTop="@+id/wd"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey" />
+
+    <EditText
+        android:id="@+id/ed_code"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@+id/tv_code"
+        android:layout_alignStart="@+id/tv_code"
+        android:layout_below="@+id/tv_code"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_code"
+        android:layout_alignBottom="@+id/tv_code"
+        android:layout_alignLeft="@+id/wd"
+        android:layout_alignStart="@+id/wd"
+        android:text="光交名称"
+        android:textColor="@color/text_grey" />
+
+    <EditText
+        android:id="@+id/ed_name"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginRight="25dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+
+    <ImageView
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/ed_code"
+        android:layout_marginTop="5dp"
+        android:background="@color/grey" />
+
+
+    <EditText
+        android:id="@+id/ed_factory"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@+id/tv_code"
+        android:layout_alignStart="@+id/tv_code"
+        android:layout_below="@+id/tv_factory"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+
+    <Spinner
+        android:id="@+id/ed_type"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/tv_factory"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/ed_factory"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_factory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ed_factory"
+        android:layout_alignStart="@+id/ed_factory"
+        android:layout_below="@+id/line2"
+        android:layout_marginTop="5dp"
+        android:text="光交箱厂家"
+        android:textColor="@color/text_grey" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ed_type"
+        android:layout_alignStart="@+id/ed_type"
+        android:layout_below="@+id/line2"
+        android:layout_marginTop="5dp"
+        android:text="型号"
+        android:textColor="@color/text_grey" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/tv_type"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/ed_type"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_spiner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/spinner1"
+        android:layout_alignStart="@+id/spinner1"
+        android:layout_below="@+id/line2"
+        android:layout_marginTop="5dp"
+        android:text="材质"
+        android:textColor="@color/text_grey" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ed_factory"
+        android:layout_alignStart="@+id/ed_factory"
+        android:layout_below="@+id/ed_factory"
+        android:layout_marginTop="5dp"
+        android:text="配纤容量"
+        android:textColor="@color/text_grey" />
+
+
+    <EditText
+        android:id="@+id/ed_content"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@+id/tv_code"
+        android:layout_alignStart="@+id/tv_code"
+        android:layout_below="@+id/tv_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+
+    <EditText
+        android:id="@+id/ed_time"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/tv_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/ed_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ed_time"
+        android:layout_alignStart="@+id/ed_time"
+        android:layout_below="@+id/ed_factory"
+        android:layout_marginTop="5dp"
+        android:text="安装日期"
+        android:textColor="@color/text_grey" />
+
+    <ImageView
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/ed_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/grey" />
+
+    <TextView
+        android:id="@+id/tv_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ed_factory"
+        android:layout_alignStart="@+id/ed_factory"
+        android:layout_below="@+id/line3"
+        android:layout_marginTop="5dp"
+        android:text="状态"
+        android:textColor="@color/text_grey" />
+
+
+    <EditText
+        android:id="@+id/ed_state"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@+id/tv_code"
+        android:layout_alignStart="@+id/tv_code"
+        android:layout_below="@+id/tv_state"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/tv_terminal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ed_terminal"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/line3"
+        android:layout_marginTop="5dp"
+        android:text="终端编号"
+        android:textColor="@color/text_grey" />
+
+
+    <EditText
+        android:id="@+id/ed_terminal"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_terminal"
+        android:layout_marginRight="25dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/last_close_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ed_state"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/grey"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/tv_eltric"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ed_state"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@+id/eltric"
+        android:text="电池电量"
+        android:textColor="@color/grey"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/eltric"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ed_state"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="5dp"
+        android:text="90%"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="11sp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>

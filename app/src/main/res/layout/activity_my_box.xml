@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    tools:context="com.odfbox.activity.MyBoxActivity">
+
+    <ImageView
+        android:id="@id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_below="@id/title"
+        android:background="@color/grey" />
+
+    <RelativeLayout
+        android:id="@+id/ll_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:text="光交箱编号"
+            android:textColor="@color/text_grey" />
+
+        <EditText
+            android:id="@+id/ed_code"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            android:layout_alignLeft="@+id/tv_code"
+            android:layout_alignStart="@+id/tv_code"
+            android:layout_below="@+id/tv_code"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textColor="@color/text_grey"
+            android:textColorHint="@color/grey"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ed_name"
+            android:layout_marginTop="5dp"
+            android:text="光交名称"
+            android:textColor="@color/text_grey" />
+
+        <EditText
+            android:id="@+id/ed_name"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginRight="25dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textColor="@color/text_grey"
+            android:textColorHint="@color/grey"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_serail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ed_code"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:text="光交箱终端号"
+            android:textColor="@color/text_grey" />
+
+        <EditText
+            android:id="@+id/ed_serail"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_below="@+id/tv_serail"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="85dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textColor="@color/text_grey"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ed_serail"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:text="光交箱位置描述"
+            android:textColor="@color/text_grey" />
+
+        <EditText
+            android:id="@+id/ed_describe"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_below="@+id/tv_describe"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="85dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textColor="@color/text_grey"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/search"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_describe"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@color/button_bg"
+            android:text="查询" />
+
+        <ImageView
+            android:id="@+id/sacn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/ed_serail"
+            android:layout_below="@+id/ed_name"
+            android:layout_marginRight="25dp"
+            android:src="@mipmap/ic_scan_code"
+            android:text="查询" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_below="@+id/count"
+        android:background="@color/grey"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/ll_search"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        android:text="共有0条记录"
+        android:textColor="@color/text_grey"
+        android:textSize="13dp" />
+
+    <com.odfbox.views.DownPullRefreshListView
+        android:id="@+id/listview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line2"
+        android:dividerHeight="10dp" />
+
+    <LinearLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:text="总数"
+            android:textColor="@color/text_grey"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/warses"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:text="报警数"
+            android:textColor="@color/text_grey"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/offlines"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:text="离线数"
+            android:textColor="@color/text_grey"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/openes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:text="总数"
+            android:textColor="@color/text_grey"
+            android:textSize="13dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

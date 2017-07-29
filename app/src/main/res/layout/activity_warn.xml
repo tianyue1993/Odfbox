@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg">
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_search"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:text="涉及0个光交箱"
+        android:textColor="@color/button_bg"
+        android:textSize="11sp" />
+
+    <LinearLayout
+        android:id="@+id/ll_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_title"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox_order"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@drawable/things_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:saveEnabled="true"
+            android:text="按光交箱编号排序"
+            android:textColor="@color/text_grey"
+            android:textSize="14sp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_warns"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/things_selector"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            android:text="告警优先"
+            android:textColor="@color/text_grey"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <com.odfbox.views.DownPullRefreshListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_type"
+        android:layout_marginTop="10dp"
+        android:background="@color/gray_bg"
+        android:dividerHeight="2dp"
+        android:scrollbars="none">
+
+    </com.odfbox.views.DownPullRefreshListView>
+
+    <RelativeLayout
+        android:id="@+id/ll_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:background="@color/gray_bg"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:text="开始时间"
+            android:textColor="@color/text_grey" />
+
+        <TextView
+            android:id="@+id/start_time"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            android:layout_alignLeft="@+id/tv_code"
+            android:layout_alignStart="@+id/tv_code"
+            android:layout_below="@+id/tv_code"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textColor="@color/text_grey"
+            android:textColorHint="@color/grey"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/end_time"
+            android:layout_marginTop="5dp"
+            android:text="结束时间"
+            android:textColor="@color/text_grey" />
+
+        <TextView
+            android:id="@+id/end_time"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginRight="25dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textColor="@color/text_grey"
+            android:textColorHint="@color/grey"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/jwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/start_time"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:text="光交箱编号"
+            android:textColor="@color/text_grey" />
+
+        <TextView
+            android:id="@+id/tvname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ed_wd"
+            android:layout_below="@+id/start_time"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/jwd"
+            android:text="光交箱名称"
+            android:textColor="@color/text_grey" />
+
+        <EditText
+            android:id="@+id/ed_jd"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            android:layout_alignLeft="@+id/tv_code"
+            android:layout_alignStart="@+id/tv_code"
+            android:layout_below="@+id/jwd"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textColor="@color/text_grey"
+            android:textColorHint="@color/grey"
+            android:textSize="12sp" />
+
+
+        <EditText
+            android:id="@+id/ed_wd"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/jwd"
+            android:layout_marginRight="25dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textColor="@color/text_grey"
+            android:textColorHint="@color/grey"
+            android:textSize="12sp" />
+
+
+        <Button
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/ed_jd"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/button_bg"
+            android:text="查询" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
