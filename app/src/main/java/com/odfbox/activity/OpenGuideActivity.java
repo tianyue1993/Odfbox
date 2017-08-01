@@ -113,9 +113,10 @@ public class OpenGuideActivity extends BaseActivity {
                 }
             }
 
+
             @Override
-            public void onFailure() {
-                super.onFailure();
+            public void onFailure(String msg) {
+                super.onFailure(msg);
                 exist = DialogFactory.getDialogFactory().showCommonDialog(mContext, "服务器处理异常", "取消", "确定", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -130,6 +131,7 @@ public class OpenGuideActivity extends BaseActivity {
                     }
                 });
             }
+
         });
 
     }

@@ -2,9 +2,8 @@
     <string name="app_name">物联网光交箱</string>
     <string name="network_error">网络错误</string>
     <string name="loading_data">正在加载</string>
-    <string name="login_data">           如果是第一次登录，请管理员在后台添加手机账号，然后可通过验证码确认身份登录！</string>
 
-    <string name="reget_check_code">重新发送</string>
+    <string name="reget_check_code">重新获取</string>
     <string name="down_pull_flush">下拉刷新</string>
     <string name="loadmore">加载更多</string>
 </resources>

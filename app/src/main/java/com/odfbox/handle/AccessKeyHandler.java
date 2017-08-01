@@ -8,6 +8,7 @@ import com.odfbox.entity.AccessKey;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -25,8 +26,8 @@ public class AccessKeyHandler extends BaseResponseHandler {
 
     }
 
-    public void onFailure() {
-        Toast.makeText(OdfboxApplication.getContext(), "操作失败", Toast.LENGTH_SHORT).show();
+    public void onFailure(String msg) {
+        Toast.makeText(OdfboxApplication.getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -37,8 +38,15 @@ public class AccessKeyHandler extends BaseResponseHandler {
                 postRunnable(new Runnable() {
                     @Override
                     public void run() {
-                        if (statusCode == 200) {
-                            onSuccess(JSON.parseObject(response.toString(), AccessKey.class));
+
+                        try {
+                            if (statusCode == 200) {
+                                onSuccess(JSON.parseObject(response.toString(), AccessKey.class));
+                            } else {
+                                onFailure(response.getString("detail"));
+                            }
+                        } catch (JSONException e) {
+                            onFailure(e.getMessage());
                         }
                     }
                 });
@@ -49,19 +57,19 @@ public class AccessKeyHandler extends BaseResponseHandler {
     @Override
     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
         super.onFailure(statusCode, headers, responseString, throwable);
-        onFailure();
+        onFailure(responseString);
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
         super.onFailure(statusCode, headers, throwable, errorResponse);
-        onFailure();
+        onFailure(throwable.getMessage());
     }
 
     @Override
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
         super.onFailure(statusCode, headers, throwable, errorResponse);
-        onFailure();
+        onFailure(throwable.getMessage());
     }
 
 }

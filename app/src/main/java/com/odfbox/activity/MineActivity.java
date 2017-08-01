@@ -78,7 +78,7 @@ public class MineActivity extends BaseActivity {
                 startActivity(new Intent(mContext, WarnListActivity.class));
                 break;
             case R.id.add_box:
-                startActivity(new Intent(mContext, AddBoxActivity.class));
+                startActivity(new Intent(mContext, AddDemoActivity.class));
                 break;
             case R.id.my_box:
                 startActivity(new Intent(mContext, MyBoxActivity.class));

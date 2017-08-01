@@ -221,8 +221,8 @@ public class EventControlActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onFailure() {
-                        super.onFailure();
+                    public void onFailure(String msg) {
+                        super.onFailure(msg);
                         cancelmDialog();
                     }
 
@@ -258,8 +258,8 @@ public class EventControlActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onFailure() {
-                        super.onFailure();
+                    public void onFailure(String msg) {
+                        super.onFailure(msg);
                         cancelmDialog();
                     }
 

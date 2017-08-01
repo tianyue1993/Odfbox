@@ -153,8 +153,8 @@ public class ControlOrderActivity extends BaseActivity {
                 }
 
                 @Override
-                public void onFailure() {
-                    super.onFailure();
+                public void onFailure(String msg) {
+                    super.onFailure(msg);
                     cancelmDialog();
                 }
 
@@ -250,8 +250,8 @@ public class ControlOrderActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure() {
-                super.onFailure();
+            public void onFailure(String msg) {
+                super.onFailure(msg);
                 cancelmDialog();
             }
         });

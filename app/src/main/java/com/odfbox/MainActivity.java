@@ -118,7 +118,7 @@ public class MainActivity extends BaseActivity {
     BDLocation mLocation = null;
     public boolean ifOpen = true;
     public float zoom = 16;
-    BitmapDescriptor warnbitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_marka_warn);
+    BitmapDescriptor warnbitmap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_marka_warn);
     BitmapDescriptor markabitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_marka);
 
     @Override
@@ -321,8 +321,8 @@ public class MainActivity extends BaseActivity {
                                                                                                                    }
 
                                                                                                                    @Override
-                                                                                                                   public void onFailure() {
-                                                                                                                       super.onFailure();
+                                                                                                                   public void onFailure(String msg) {
+                                                                                                                       super.onFailure(msg);
                                                                                                                        cancelmDialog();
                                                                                                                    }
 
@@ -483,7 +483,6 @@ public class MainActivity extends BaseActivity {
                     getList(geoCodeResult.getLocation().longitude + "", geoCodeResult.getLocation().latitude + "", "2000");
                     MapStatus mMapStatus = new MapStatus.Builder()
                             .target(new LatLng(geoCodeResult.getLocation().latitude, geoCodeResult.getLocation().longitude))
-                            .zoom(zoom)
                             .build();
                     MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
                     mBaiduMap.animateMapStatus(mMapStatusUpdate);
@@ -556,8 +555,8 @@ public class MainActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure() {
-                super.onFailure();
+            public void onFailure(String msg) {
+                super.onFailure(msg);
                 cancelmDialog();
             }
 
@@ -586,7 +585,6 @@ public class MainActivity extends BaseActivity {
                             if (commen.results.get(0).position != null) {
                                 MapStatus mMapStatus = new MapStatus.Builder()
                                         .target(new LatLng(commen.results.get(0).position.latitude_baidu, commen.results.get(0).position.longitude_baidu))
-                                        .zoom(zoom)
                                         .build();
                                 MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
                                 mBaiduMap.animateMapStatus(mMapStatusUpdate);
@@ -602,7 +600,6 @@ public class MainActivity extends BaseActivity {
                             if (commen.results.get(1).position != null) {
                                 MapStatus mMapStatus = new MapStatus.Builder()
                                         .target(new LatLng(commen.results.get(1).position.latitude_baidu, commen.results.get(1).position.longitude_baidu))
-                                        .zoom(zoom)
                                         .build();
                                 MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
                                 mBaiduMap.animateMapStatus(mMapStatusUpdate);
@@ -618,7 +615,6 @@ public class MainActivity extends BaseActivity {
                             if (commen.results.get(2).position != null) {
                                 MapStatus mMapStatus = new MapStatus.Builder()
                                         .target(new LatLng(commen.results.get(2).position.latitude_baidu, commen.results.get(2).position.longitude_baidu))
-                                        .zoom(zoom)
                                         .build();
                                 MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
                                 mBaiduMap.animateMapStatus(mMapStatusUpdate);
@@ -641,15 +637,11 @@ public class MainActivity extends BaseActivity {
 
         if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
-        }
-
-        else if (ContextCompat.checkSelfPermission(this, ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
+        } else if (ContextCompat.checkSelfPermission(this, ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{ACCESS_NETWORK_STATE}, 3);
-        }
-        else if (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        } else if (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE}, 5);
-        }
-        else if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+        } else if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, 6);
         }
     }
@@ -669,7 +661,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode!=6) {
+        if (requestCode != 6) {
             getPemmission();
         }
 

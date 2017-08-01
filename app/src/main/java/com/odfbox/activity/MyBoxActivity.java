@@ -325,12 +325,9 @@ public class MyBoxActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure() {
-                super.onFailure();
+            public void onFailure(String msg) {
+                super.onFailure(msg);
                 cancelmDialog();
-                listview.onRefreshComplete();
-                loadStatus = false;
-                loadingProgressBar.setVisibility(View.GONE);
             }
         });
     }

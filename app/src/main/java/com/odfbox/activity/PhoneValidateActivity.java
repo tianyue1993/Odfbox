@@ -2,7 +2,6 @@ package com.odfbox.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -50,7 +49,7 @@ public class PhoneValidateActivity extends BaseActivity implements TextWatcher {
         setContentView(R.layout.activity_phone_validate);
         OdfboxApplication.addActivity(this);
         ButterKnife.bind(this);
-        setTitleTextView("手机号验证", null);
+        setTitleTextView("手机验证", null);
         // 获取编辑框焦点
         phoneNumber.setFocusable(true);
         //打开软键盘
@@ -106,8 +105,8 @@ public class PhoneValidateActivity extends BaseActivity implements TextWatcher {
             }
 
             @Override
-            public void onFailure() {
-                super.onFailure();
+            public void onFailure(String msg) {
+                super.onFailure(msg);
                 cancelmDialog();
             }
         });
@@ -117,15 +116,19 @@ public class PhoneValidateActivity extends BaseActivity implements TextWatcher {
     CountDownTimer timer = new CountDownTimer(60 * 1000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
-            sendCode.setText(millisUntilFinished / 1000 + "秒后重发");
+            sendCode.setText(millisUntilFinished / 1000 + "秒可重发");
             sendCode.setClickable(false);
+            sendCode.setBackgroundColor(getResources().getColor(R.color.button_grey));
+            sendCode.setTextColor(getResources().getColor(R.color.text_grey));
+
         }
 
         @Override
         public void onFinish() {
             sendCode.setClickable(true);
             sendCode.setText(R.string.reget_check_code);
-            sendCode.setTextColor(Color.parseColor("#F7B23f"));
+            sendCode.setTextColor(getResources().getColor(R.color.white));
+            sendCode.setBackgroundColor(getResources().getColor(R.color.button_bg));
         }
     };
 
@@ -155,8 +158,8 @@ public class PhoneValidateActivity extends BaseActivity implements TextWatcher {
             }
 
             @Override
-            public void onFailure() {
-                super.onFailure();
+            public void onFailure(String msg) {
+                super.onFailure(msg);
                 cancelmDialog();
             }
 
@@ -215,8 +218,8 @@ public class PhoneValidateActivity extends BaseActivity implements TextWatcher {
 
 
             @Override
-            public void onFailure() {
-                super.onFailure();
+            public void onFailure(String msg) {
+                super.onFailure(msg);
                 cancelmDialog();
             }
         });

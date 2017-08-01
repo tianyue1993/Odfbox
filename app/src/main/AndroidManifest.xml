@@ -60,6 +60,7 @@
             android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -88,7 +89,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SelectPicPopupWindowActivity"
-
             android:screenOrientation="portrait"
             android:theme="@style/MyDialogStyleBottom" />
         <activity android:name=".activity.ComAddressActivity" />
@@ -170,7 +170,8 @@
         <activity android:name=".activity.TaskControlActivity" />
         <activity android:name=".activity.EventControlActivity" />
         <activity android:name=".activity.GuideSecondActivity" />
-        <activity android:name=".activity.GuideThirdActivity"></activity>
+        <activity android:name=".activity.GuideThirdActivity" />
+        <activity android:name=".activity.AddDemoActivity"></activity>
     </application>
 
 </manifest>

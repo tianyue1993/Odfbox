@@ -14,8 +14,10 @@
     <!-- 灰色 -->
     <color name="grey">#808080</color>
 
+    <color name="button_grey">#dddddd</color>
+
     <color name="text_grey">#3a3a3a</color>
-    <color name="button_bg">#3a5fcd</color>
+    <color name="button_bg">#2e68dd</color>
 
     <color name="transparent">#00000000</color>
 

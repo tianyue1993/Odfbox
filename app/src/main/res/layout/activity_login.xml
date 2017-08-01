@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#fefdf3"
     tools:context="com.odfbox.activity.LoginActivity">
 
 
@@ -11,7 +11,7 @@
         android:id="@+id/ic_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="25dp"
         android:src="@mipmap/ic_campany_logo" />
 
 
@@ -21,11 +21,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ic_logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
         android:gravity="center_horizontal"
         android:text="物联网光交箱"
         android:textColor="#2e68dd"
-        android:textSize="22sp" />
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/help"
@@ -50,7 +51,7 @@
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginTop="10dp"
-        android:text="@string/login_data"
+        android:text="        如果是第一次登录，请管理员在后台添加手机账号，然后可通过验证码确认身份登录！"
         android:textColor="@color/text_grey" />
 
     <ImageView
@@ -68,7 +69,7 @@
         android:layout_below="@+id/tu"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/button_bg"
         android:scaleType="fitXY"
         android:text="立即登录"
         android:textColor="@color/white" />
