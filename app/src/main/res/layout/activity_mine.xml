@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/avator"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:text="18511303640"
         android:textColor="@color/white"
         android:textSize="16sp" />
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/phone"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:text="云南移动分公司"
         android:textColor="@color/white"
         android:textSize="16sp" />
@@ -100,6 +100,7 @@
         android:background="@color/white">
 
         <TextView
+            android:id="@+id/text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -110,6 +111,20 @@
             android:text="事件、告警"
             android:textColor="@color/text_grey"
             android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/undo_count1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/text2"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="[0]"
+            android:textColor="@color/red"
+            android:textSize="10sp" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -218,6 +233,7 @@
             android:background="@color/white">
 
             <TextView
+                android:id="@+id/text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -228,6 +244,19 @@
                 android:text="我的工单"
                 android:textColor="@color/text_grey"
                 android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/undo_count2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/text1"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:text="[0]"
+                android:textColor="@color/red"
+                android:textSize="10sp" />
 
             <ImageView
                 android:layout_width="wrap_content"

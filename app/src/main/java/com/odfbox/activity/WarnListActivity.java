@@ -70,7 +70,7 @@ public class WarnListActivity extends BaseActivity {
     protected ArrayList<Warns> list = new ArrayList<Warns>();
     private WarnsAdapter mAdapter;
     public boolean isVisible = true;
-    public boolean alrming = false;
+    public boolean alrming = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -308,7 +308,12 @@ public class WarnListActivity extends BaseActivity {
                 super.onSuccess(commen);
                 cancelmDialog();
                 list = commen.results;
-                textTitle.setText("事件和告警记录" + commen.count + "条");
+                if (Integer.parseInt(commen.count) > 10) {
+                    textTitle.setText("事件和告警记录,共计" + (page_number) * 10 + "条");
+                } else {
+                    textTitle.setText("事件和告警记录,共计" + commen.count + "条");
+                }
+
                 if (list.size() > 0) {
                     if (listview.getFooterViewsCount() == 0) {
                         listview.addFooterView(footer);

@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.odfbox.OdfboxApplication;
 import com.odfbox.R;
 import com.odfbox.adapter.EventListAdapter;
@@ -95,6 +96,8 @@ public class WarnDetailActivity extends BaseActivity {
                 getList();
             }
         });
+
+
     }
 
     public void initData() {
@@ -121,7 +124,7 @@ public class WarnDetailActivity extends BaseActivity {
             public void onSuccess(EventList commen) {
                 super.onSuccess(commen);
                 cancelmDialog();
-                textTitle.setText("事件和告警记录共" + commen.count + "条");
+                textTitle.setText("事件和告警记录，共计" + commen.count + "条");
                 adapter = new EventListAdapter(mContext, commen.results);
                 listview.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
@@ -144,7 +147,7 @@ public class WarnDetailActivity extends BaseActivity {
     public void getBoxDetail() {
         client.getBoxDetail(mContext, warns.odf_box, new BoxDetailHandler() {
             @Override
-            public void onSuccess(Odfbox odfbox) {
+            public void onSuccess(final Odfbox odfbox) {
                 super.onSuccess(odfbox);
                 if (odfbox != null) {
                     if (odfbox.serial_text != null) {
@@ -156,11 +159,44 @@ public class WarnDetailActivity extends BaseActivity {
                     }
 
                 }
+
+                if (odfbox.picture.thumbnail_url != null) {
+                    ImageLoader.getInstance().displayImage("http:" + odfbox.picture.thumbnail_url, image);
+                    image.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(mContext, SpaceImageDetailActivity.class);
+                            if (odfbox.picture != null) {
+                                intent.putExtra("images", "http:" + odfbox.picture.url);
+                            }
+                            int[] location = new int[2];
+                            image.getLocationOnScreen(location);
+                            intent.putExtra("locationX", location[0]);
+                            intent.putExtra("locationY", location[1]);
+                            intent.putExtra("width", image.getWidth());
+                            intent.putExtra("height", image.getHeight());
+                            mContext.startActivity(intent);
+                        }
+                    });
+                }
                 if (odfbox != null) {
                     boxDetail = odfbox;
                 } else {
                     boxDetail = new Odfbox();
                 }
+
+                address.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.putExtra("type", "box");
+                        intent.putExtra("lat", odfbox.latitude_baidu + "");
+                        intent.putExtra("lon", odfbox.longitude_baidu + "");
+                        intent.setClass(mContext, OdfboxLocationActivity.class);
+                        mContext.startActivity(intent);
+                    }
+                });
+
 
             }
         });

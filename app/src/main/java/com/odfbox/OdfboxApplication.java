@@ -157,7 +157,7 @@ public class OdfboxApplication extends Application {
         if (parms.equals("")) {
             return BASE_URL + "orgs/" + prefs.getOrgId() + "/odf_boxes/?offset=" + offset + "&limit=10&ordering=-id";
         } else {
-            return BASE_URL + "orgs/" + prefs.getOrgId() + "/odf_boxes/?offset=" + offset + "&limit=10ordering=-id" + parms;
+            return BASE_URL + "orgs/" + prefs.getOrgId() + "/odf_boxes/?offset=" + offset + "&limit=10&ordering=-id" + parms;
         }
 
     }
@@ -198,9 +198,9 @@ public class OdfboxApplication extends Application {
 
     public static String ENENTLIST(String task_id, boolean isWarns) {
         if (isWarns) {
-            return BASE_URL + "orgs/" + prefs.getOrgId() + "/events_history/?related=odf_box&odf_box=" + task_id + "&ordering=-alarm";
+            return BASE_URL + "orgs/" + prefs.getOrgId() + "/events_history/?related=odf_box&odf_box=" + task_id + "&ordering=-alarm,-id";
         } else {
-            return BASE_URL + "orgs/" + prefs.getOrgId() + "/events_history/?related=odf_box&odf_box=" + task_id;
+            return BASE_URL + "orgs/" + prefs.getOrgId() + "/events_history/?related=odf_box&odf_box=" + task_id + "&ordering=-id";
         }
 
     }
@@ -236,6 +236,21 @@ public class OdfboxApplication extends Application {
 
     public static String OPENBOX(String lock_pk) {
         return BASE_URL + "orgs/" + prefs.getOrgId() + "/odf_box_locks/" + lock_pk + "/commands/";
+    }
+
+
+    public static String CONSTANTDEFINE(String type) {
+        return BASE_URL + "constant-define/?category=" + type;
+    }
+
+
+    public static String UNTREATED() {
+        return BASE_URL + "orgs/" + prefs.getOrgId() + "/events_history/?ordering=-id&alarm=true&treat_state=untreated&limit=1";
+    }
+
+
+    public static String ORDERUNTREATED() {
+        return BASE_URL + "orgs/" + prefs.getOrgId() + "/users/" + prefs.getUserId() + "/task_sheets/?state_category=待处理&limit=1";
     }
 
 

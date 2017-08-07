@@ -20,6 +20,8 @@ import com.odfbox.entity.Org;
 import com.odfbox.handle.CommentHandler;
 import com.odfbox.handle.OrgHandler;
 
+import java.text.NumberFormat;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,12 +31,9 @@ public class ChooseCompanyActivity extends BaseActivity {
 
     @Bind(R.id.listview)
     GridView listview;
-
     @Bind(R.id.sure)
     Button sure;
-
     AccessKey accessKey;
-
     public int selectPosition = 0;
 
     @Override
@@ -107,8 +106,14 @@ public class ChooseCompanyActivity extends BaseActivity {
             @Override
             public void onSuccess(Org org) {
                 super.onSuccess(org);
-                double percent = org.odf_box_monitored / org.total_odf_box;
-                prefs.saveBoxData(percent * 100 + "", org.total_odf_box + "");
+                if (org.odf_box_monitored != 0f && org.total_odf_box != null) {
+                    float percent = (org.odf_box_monitored / (float) org.total_odf_box);
+                    NumberFormat nt = NumberFormat.getPercentInstance();
+                    //设置百分数精确度2即保留两位小数
+                    nt.setMinimumFractionDigits(2);
+                    //最后格式化并输出
+                    prefs.saveBoxData(nt.format(percent), org.total_odf_box + "");
+                }
                 prefs.saveOrgName(org.name);
                 Log.d("getOrg", "getOrg: " + org.toString());
             }

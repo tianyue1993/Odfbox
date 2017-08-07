@@ -187,7 +187,7 @@ public class ControlOrderActivity extends BaseActivity {
 
 
             if (workOrder.appoint_to_name != null) {
-                manager.setText("发起人：" + workOrder.appoint_to_name);
+                manager.setText("发起人：" + workOrder.appoint_from_name);
             } else {
                 manager.setText("发起人：----");
             }
@@ -229,6 +229,7 @@ public class ControlOrderActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         getTaskList();
+
     }
 
     public void getTaskList() {
@@ -237,6 +238,7 @@ public class ControlOrderActivity extends BaseActivity {
             @Override
             public void onSuccess(TaskList commen) {
                 super.onSuccess(commen);
+                count.setText("任务数:" + commen.count);
                 cancelmDialog();
                 adapter = new TaskAdapter(mContext, commen.results);
                 listview.setAdapter(adapter);

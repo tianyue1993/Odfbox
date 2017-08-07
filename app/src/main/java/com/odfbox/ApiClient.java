@@ -177,5 +177,17 @@ public class ApiClient {
         asyncHttpClient.post(context, OdfboxApplication.HANDLE(id), params, "application/json", handler);
     }
 
+    public void getConstantDefine(Context context, String type, BaseResponseHandler handler) {
+        asyncHttpClient.get(context, OdfboxApplication.CONSTANTDEFINE(type), handler);
+    }
+
+    public void getUntreated(Context context, BaseResponseHandler handler) {
+        asyncHttpClient.get(context, OdfboxApplication.UNTREATED(), handler);
+    }
+
+    public void getOrderUntreated(Context context, BaseResponseHandler handler) {
+        asyncHttpClient.get(context, OdfboxApplication.ORDERUNTREATED(), handler);
+    }
+
 
 }

@@ -408,14 +408,14 @@
         android:text="新增光交箱"
         android:textColor="@color/white" />
 
-    <EditText
+    <TextView
         android:id="@+id/ed_time"
         android:layout_width="100dp"
         android:layout_height="25dp"
         android:layout_alignEnd="@+id/tv_spiner"
         android:layout_alignRight="@+id/tv_spiner"
         android:layout_below="@+id/tv_time"
-        android:background="@color/white"
+        android:background="@color/button_grey"
         android:gravity="center"
         android:textColor="@color/text_grey"
         android:textColorHint="@color/grey"

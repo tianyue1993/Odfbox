@@ -1,8 +1,12 @@
 package com.odfbox.activity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 
 import com.cunoraz.gifview.library.GifView;
@@ -23,6 +27,8 @@ public class GuideSecondActivity extends BaseActivity {
     GifView guide;
     Dialog dialog;
     Dialog exist;
+    Vibrator vibrator;
+    private MediaPlayer mPlayer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +39,6 @@ public class GuideSecondActivity extends BaseActivity {
         setTitleTextView("开锁引导", null);
         intent = getIntent();
         id = intent.getStringExtra("id");
-        getProgress();
         guide.setVisibility(View.VISIBLE);
         guide.setGifResource(R.mipmap.ic_secondx);
         guide.getGifResource();
@@ -43,7 +48,6 @@ public class GuideSecondActivity extends BaseActivity {
                 guide.play();
             }
         });
-//        timer.start();
         setLeftTextView(R.mipmap.ic_back, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +65,34 @@ public class GuideSecondActivity extends BaseActivity {
                 });
             }
         });
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        long[] pattern = {100, 400, 100, 400}; // 停止 开启 停止 开启
+        vibrator.vibrate(3000); //重复两次上面的pattern 如果只想震动一次，index设为-1
+        mPlayer = MediaPlayer.create(this, R.raw.music);
+        mPlayer.start();
+        getProgress();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        vibrator.cancel();
+        mPlayer.stop();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        vibrator.cancel();
+        mPlayer.stop();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        vibrator.cancel();
     }
 
     @Override
@@ -80,17 +112,20 @@ public class GuideSecondActivity extends BaseActivity {
 
     }
 
+
     public void getProgress() {
         client.getBoxDetail(mContext, id, new BoxDetailHandler() {
             @Override
             public void onSuccess(Odfbox odfbox) {
                 super.onSuccess(odfbox);
+//                long[] pattern = {100, 400, 100, 400}; // 停止 开启 停止 开启
+//                vibrator.vibrate(100); //重复两次上面的pattern 如果只想震动一次，index设为-1
+                Log.d("Odfboxdata", "onSuccess: " + odfbox.smart_lock.business_state);
                 if (odfbox.smart_lock.business_state.equals("已打开")) {
                     intent.setClass(mContext, GuideThirdActivity.class);
                     startActivity(intent);
                     finish();
                 } else if (odfbox.smart_lock.business_state.equals("上锁")) {
-
                     exist = DialogFactory.getDialogFactory().showCommonDialog(mContext, "操作超时", "取消", "确定", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

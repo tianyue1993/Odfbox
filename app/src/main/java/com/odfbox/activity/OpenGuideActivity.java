@@ -89,7 +89,6 @@ public class OpenGuideActivity extends BaseActivity {
             public void onSuccess(Odfbox odfbox) {
                 super.onSuccess(odfbox);
                 if (odfbox.smart_lock.business_state.equals("已授权")) {
-
                     intent.setClass(mContext, GuideSecondActivity.class);
                     startActivity(intent);
                     finish();

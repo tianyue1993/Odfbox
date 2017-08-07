@@ -34,6 +34,7 @@ import java.util.Iterator;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+
 public class WorkOrderActivity extends BaseActivity {
 
     @Bind(R.id.checkbox_undo)
@@ -122,7 +123,11 @@ public class WorkOrderActivity extends BaseActivity {
                     page_number = 0;
                     adaptList.clear();
                     adapter.notifyDataSetChanged();
+                    textTitle.setText("工单,共计" + 0 + "条");
                     getList("");
+                    if (listview.getFooterViewsCount() > 0) {
+                        listview.removeFooterView(footer);
+                    }
                 }
             }
         });
@@ -135,11 +140,14 @@ public class WorkOrderActivity extends BaseActivity {
                     isVisible = true;
                     adaptList.clear();
                     adapter.notifyDataSetChanged();
+                    textTitle.setText("工单,共计" + 0 + "条");
+                    if (listview.getFooterViewsCount() > 0) {
+                        listview.removeFooterView(footer);
+                    }
                 }
             }
         });
 
-        initData();
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,6 +219,35 @@ public class WorkOrderActivity extends BaseActivity {
         );
 
 
+        if (getIntent() != null) {
+            String serail = getIntent().getStringExtra("serial");
+            if (serail != null) {
+                code.setText(serail);
+                checkboxSearch.setChecked(true);
+                checkboxUndo.setChecked(false);
+                llSearch.setVisibility(View.VISIBLE);
+                isVisible = true;
+                adaptList.clear();
+                adapter.notifyDataSetChanged();
+                getList("&serial=" + code.getText().toString());
+            } else {
+                initData();
+            }
+        }
+
+        //条目点击进入webview详情
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                WorkOrder workOrder = adapter.getItem(position - 1);
+                Intent intent = new Intent(mContext, ControlOrderActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("workOrder", workOrder);
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -229,7 +266,11 @@ public class WorkOrderActivity extends BaseActivity {
                 super.onSuccess(commen);
                 cancelmDialog();
                 list = commen.results;
-                textTitle.setText("共有" + commen.count + "条工单");
+                if (commen.count > 10) {
+                    textTitle.setText("工单,共计" + (page_number) * 10 + "条");
+                } else {
+                    textTitle.setText("工单,共计" + commen.count + "条");
+                }
                 if (list.size() > 0) {
                     if (listview.getFooterViewsCount() == 0) {
                         listview.addFooterView(footer);
@@ -332,18 +373,7 @@ public class WorkOrderActivity extends BaseActivity {
                 }
             }
         });
-        //条目点击进入webview详情
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                WorkOrder workOrder = adapter.getItem(position - 1);
-                Intent intent = new Intent(mContext, ControlOrderActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("workOrder", workOrder);
-                intent.putExtras(bundle);
-                mContext.startActivity(intent);
-            }
-        });
+
 
     }
 }

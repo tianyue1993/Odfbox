@@ -10,7 +10,7 @@ public class Org extends Entity {
     public String name;
     public String logo;
     public Integer total_odf_box;
-    public Integer odf_box_monitored;
+    public float odf_box_monitored;
     public String odf_box_count;
 
     @Override

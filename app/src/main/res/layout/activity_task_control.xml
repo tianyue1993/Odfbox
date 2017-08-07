@@ -40,7 +40,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="10dp"
-            android:text="工单号："
+            android:text="工单号：----"
             android:textColor="@color/text_grey"
             android:textSize="11sp" />
 
@@ -51,7 +51,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="85dp"
             android:layout_marginTop="8dp"
-            android:text="状态："
+            android:text="状态：----"
             android:textColor="@color/text_grey"
             android:textSize="11sp" />
 
@@ -64,7 +64,9 @@
             android:layout_below="@+id/state"
             android:layout_marginRight="25dp"
             android:layout_marginTop="5dp"
-            android:text="发起人:"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="发起人:----"
             android:textColor="@color/text_grey"
             android:textSize="11sp" />
 
@@ -76,7 +78,7 @@
             android:layout_below="@+id/state"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="5dp"
-            android:text="工单类型:"
+            android:text="工单类型:----"
             android:textColor="@color/text_grey"
             android:textSize="11sp" />
 
@@ -88,7 +90,7 @@
             android:layout_below="@+id/type"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="5dp"
-            android:text="发起时间:"
+            android:text="发起时间:----"
             android:textColor="@color/text_grey"
             android:textSize="11sp" />
 
@@ -102,7 +104,7 @@
             android:layout_marginRight="25dp"
             android:layout_marginTop="5dp"
             android:singleLine="true"
-            android:text="要求完成时间:"
+            android:text="要求完成时间:----"
             android:textColor="@color/text_grey"
             android:textSize="11sp" />
 
@@ -116,7 +118,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="5dp"
-            android:text="工单内容:"
+            android:text="工单内容:----"
             android:textColor="@color/text_grey"
             android:textSize="11sp" />
     </RelativeLayout>
@@ -136,7 +138,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="25dp"
             android:layout_marginTop="8dp"
-            android:text="状态："
+            android:text="状态：----"
             android:textColor="@color/text_grey"
             android:textSize="11sp"
             android:visibility="invisible" />
@@ -149,7 +151,7 @@
             android:layout_below="@+id/state_task"
             android:layout_marginRight="25dp"
             android:layout_marginTop="5dp"
-            android:text="完成时间:"
+            android:text="完成时间:----"
             android:textColor="@color/text_grey"
             android:textSize="11sp" />
 
@@ -212,7 +214,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="5dp"
-            android:text="完成情况:"
+            android:text="完成情况:----"
             android:textColor="@color/text_grey"
             android:textSize="11sp" />
 
@@ -223,7 +225,7 @@
             android:layout_above="@+id/type_task"
             android:layout_alignLeft="@+id/type_task"
             android:layout_alignStart="@+id/type_task"
-            android:text="任务单号："
+            android:text="任务单号：----"
             android:textColor="@color/text_grey"
             android:textSize="11sp" />
 

@@ -118,7 +118,7 @@ public class BoxDetailActivity extends BaseActivity {
     @Bind(R.id.ed_content)
     EditText edContent;
     @Bind(R.id.ed_time)
-    EditText edTime;
+    TextView edTime;
     @Bind(R.id.tv_time)
     TextView tvTime;
     @Bind(R.id.line3)
@@ -443,14 +443,14 @@ public class BoxDetailActivity extends BaseActivity {
         } else {
             lock.install_date = "";
         }
-        if (!StringUtils.isEmpty(edName.getText().toString())){
+        if (!StringUtils.isEmpty(edName.getText().toString())) {
             lock.name = edName.getText().toString();
         } else {
             lock.name = "";
         }
 
         if (odfbox.smart_lock != null) {
-            if (!"".equals(edTerminal.getText().toString().trim() )) {
+            if (!"".equals(edTerminal.getText().toString().trim())) {
                 lock.serial_no = edTerminal.getText().toString();
                 object.put("smart_lock", lock);
             } else {
@@ -459,13 +459,13 @@ public class BoxDetailActivity extends BaseActivity {
             }
         }
 
-        if (!StringUtils.isEmpty(attachments.get(0).base64 )) {
+        if (!StringUtils.isEmpty(attachments.get(0).base64)) {
             object.put("picture", attachments.get(0));
         }
-        if (!StringUtils.isEmpty(attachments.get(1).base64 )) {
+        if (!StringUtils.isEmpty(attachments.get(1).base64)) {
             object.put("inside_picture", attachments.get(1));
         }
-        if (!StringUtils.isEmpty(attachments.get(2).base64) ) {
+        if (!StringUtils.isEmpty(attachments.get(2).base64)) {
             object.put("env_picture", attachments.get(2));
         }
 
@@ -688,14 +688,14 @@ public class BoxDetailActivity extends BaseActivity {
                     cropPhoto(Uri.fromFile(mUriFile));
                     break;
                 case GETADDRESS:
-                    if (!StringUtils.isEmpty(data.getStringExtra("jd") )) {
+                    if (!StringUtils.isEmpty(data.getStringExtra("jd"))) {
                         jd.setText(data.getStringExtra("jd"));
                     }
-                    if (!StringUtils.isEmpty(data.getStringExtra("wd") )) {
+                    if (!StringUtils.isEmpty(data.getStringExtra("wd"))) {
                         wd.setText(data.getStringExtra("wd"));
                     }
 
-                    if (!StringUtils.isEmpty(data.getStringExtra("address") )) {
+                    if (!StringUtils.isEmpty(data.getStringExtra("address"))) {
                         edDescribe.setText(data.getStringExtra("address"));
                     }
                     break;

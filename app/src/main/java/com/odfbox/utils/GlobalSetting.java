@@ -187,7 +187,7 @@ public class GlobalSetting {
     }
 
     public String[] getBoxData() {
-        String[] strings = {getSharedPreferences().getString(COVERAGE_RATE, "0"), getSharedPreferences().getString(TOTAL_ODF_BOX, "0")};
+        String[] strings = {getSharedPreferences().getString(COVERAGE_RATE, "0%"), getSharedPreferences().getString(TOTAL_ODF_BOX, "0")};
         return strings;
     }
 

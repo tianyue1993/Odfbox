@@ -20,7 +20,7 @@ import com.odfbox.adapter.MyOdfboxAdapter;
 import com.odfbox.entity.BoxList;
 import com.odfbox.entity.Odfbox;
 import com.odfbox.handle.BoxListHandler;
-import com.odfbox.handle.CommentHandler;
+import com.odfbox.handle.CommentNoWarnHandler;
 import com.odfbox.utils.StringUtils;
 import com.odfbox.views.DownPullRefreshListView;
 import com.odfbox.zxing.activity.CaptureActivity;
@@ -267,7 +267,7 @@ public class MyBoxActivity extends BaseActivity {
 
 
     public void getCount() {
-        client.getBoxCount(mContext, new CommentHandler() {
+        client.getBoxCount(mContext, new CommentNoWarnHandler() {
             @Override
             public void onSuccess(String commen) {
                 super.onSuccess(commen);

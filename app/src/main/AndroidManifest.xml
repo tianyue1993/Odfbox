@@ -92,9 +92,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyDialogStyleBottom" />
         <activity android:name=".activity.ComAddressActivity" />
-        <activity
-            android:name=".activity.WarnDetailActivity"
-            android:launchMode="singleInstance" />
+        <activity android:name=".activity.WarnDetailActivity" />
         <activity android:name=".activity.ChooseManagerActivity" />
         <activity android:name=".activity.ControlOrderActivity" />
         <activity android:name=".activity.BoxDetailActivity" />
@@ -172,6 +170,7 @@
         <activity android:name=".activity.GuideSecondActivity" />
         <activity android:name=".activity.GuideThirdActivity" />
         <activity android:name=".activity.AddDemoActivity"></activity>
+        <activity android:name=".activity.OdfboxLocationActivity"></activity>
     </application>
 
 </manifest>

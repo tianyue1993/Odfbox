@@ -31,7 +31,7 @@ public class DialogFactory {
         final Dialog customDialog = new Dialog(context, R.style.commonDialog);
         WindowManager.LayoutParams localLayoutParams = customDialog.getWindow().getAttributes();
         customDialog.onWindowAttributesChanged(localLayoutParams);
-        customDialog.setCanceledOnTouchOutside(true);
+        customDialog.setCanceledOnTouchOutside(false);
         customDialog.setCancelable(true);
         customDialog.setContentView(view);
         TextView span_view = (TextView) view.findViewById(R.id.span_view);
@@ -73,7 +73,6 @@ public class DialogFactory {
                 });
             }
         }
-
 
         customDialog.show();
         return customDialog;

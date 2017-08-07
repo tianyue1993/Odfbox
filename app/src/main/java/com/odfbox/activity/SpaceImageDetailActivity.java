@@ -2,6 +2,7 @@ package com.odfbox.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView.ScaleType;
 
@@ -40,6 +41,21 @@ public class SpaceImageDetailActivity extends Activity {
         } else {
             imageView.setImageResource(R.mipmap.ic_box_image1);
         }
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.setOnTransformListener(new SmoothImageView.TransformListener() {
+                    @Override
+                    public void onTransformComplete(int mode) {
+                        if (mode == 2) {
+                            finish();
+                        }
+                    }
+                });
+                imageView.transformOut();
+            }
+        });
 
 
     }

@@ -1,10 +1,9 @@
-package com.odfbox;
+package com.odfbox.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -18,9 +17,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -31,7 +28,6 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.geocode.GeoCodeOption;
@@ -41,18 +37,12 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.odfbox.activity.BaseActivity;
-import com.odfbox.activity.BoxDetailActivity;
-import com.odfbox.activity.MineActivity;
-import com.odfbox.activity.OpenGuideActivity;
-import com.odfbox.activity.SetComLocationActivity;
-import com.odfbox.activity.WarnListActivity;
+import com.odfbox.OdfboxApplication;
+import com.odfbox.R;
 import com.odfbox.entity.BoxList;
 import com.odfbox.entity.Odfbox;
-import com.odfbox.entity.WarnsList;
 import com.odfbox.handle.BoxListHandler;
 import com.odfbox.handle.CommentHandler;
-import com.odfbox.handle.WarnHandler;
 import com.odfbox.utils.BoxUtils;
 import com.odfbox.views.DialogFactory;
 
@@ -67,7 +57,11 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.ACCESS_NETWORK_STATE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class MainActivity extends BaseActivity {
+/**
+ * Created by admin on 2017/8/7.
+ */
+
+public class OdfboxLocationActivity extends BaseActivity {
 
     @Bind(R.id.text1)
     TextView text1;
@@ -129,126 +123,40 @@ public class MainActivity extends BaseActivity {
         OdfboxApplication.addActivity(this);
         getPemmission();
         setTitleTextView("物联网光交箱", null);
-        timer.start();
         mMapView = (MapView) findViewById(R.id.mapview);
         mBaiduMap = mMapView.getMap();
         mBaiduMap.setMyLocationEnabled(true);
         //从列表跳转显示光交箱
-        if (getIntent().getStringExtra("type") != null) {
-            refresh.setVisibility(View.GONE);
-            backCurrent.setVisibility(View.GONE);
-            llWarns.setVisibility(View.GONE);
-            setLeftTextView(R.mipmap.ic_back, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
-            if (getIntent().getStringExtra("lat") != null && getIntent().getStringExtra("lon") != null) {
-                LatLng latLng = new LatLng(Double.parseDouble(getIntent().getStringExtra("lat")), Double.parseDouble(getIntent().getStringExtra("lon")));
-                MapStatus mMapStatus = new MapStatus.Builder()
-                        .target(latLng).zoom(zoom)
-                        .build();
-                //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
-                MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-                //改变地图状态
-                mBaiduMap.animateMapStatus(mMapStatusUpdate);
-                //构建Marker图标
-                BitmapDescriptor bitmap = BitmapDescriptorFactory
-                        .fromResource(R.mipmap.icon_marka);
-                //构建MarkerOption，用于在地图上添加Marker
-                OverlayOptions option1 = new MarkerOptions()
-                        .position(latLng)
-                        .icon(bitmap);
-                //在地图上添加Marker，并显示
-                mBaiduMap.addOverlay(option1);
-            } else {
-                showToast("没有找到此光交箱的位置");
+        refresh.setVisibility(View.GONE);
+        backCurrent.setVisibility(View.GONE);
+        llWarns.setVisibility(View.GONE);
+        setLeftTextView(R.mipmap.ic_back, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
-
-
+        });
+        if (getIntent().getStringExtra("lat") != null && getIntent().getStringExtra("lon") != null) {
+            LatLng latLng = new LatLng(Double.parseDouble(getIntent().getStringExtra("lat")), Double.parseDouble(getIntent().getStringExtra("lon")));
+            MapStatus mMapStatus = new MapStatus.Builder()
+                    .target(latLng).zoom(zoom)
+                    .build();
+            //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+            MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+            //改变地图状态
+            mBaiduMap.animateMapStatus(mMapStatusUpdate);
+            //构建Marker图标
+            BitmapDescriptor bitmap = BitmapDescriptorFactory
+                    .fromResource(R.mipmap.icon_marka);
+            //构建MarkerOption，用于在地图上添加Marker
+            OverlayOptions option1 = new MarkerOptions()
+                    .position(latLng)
+                    .icon(bitmap);
+            //在地图上添加Marker，并显示
+            mBaiduMap.addOverlay(option1);
         } else {
-            llWarns.setVisibility(View.VISIBLE);
-            refresh.setVisibility(View.VISIBLE);
-            backCurrent.setVisibility(View.VISIBLE);
-            getEventList();
-            setRightImage(R.mipmap.ic_white_search, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivityForResult(new Intent(mContext, SetComLocationActivity.class), SETLOCATIONCODE);
-                }
-            });
-            setLeftTextView(R.mipmap.ic_menu, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(mContext, MineActivity.class));
-                }
-            });
-
-            // 定位初始化
-            mLocClient = new LocationClient(mContext);
-            mLocClient.registerLocationListener(new MyLocationListenner());
-            final LocationClientOption option = new LocationClientOption();
-            option.setOpenGps(true); // 打开gps
-            option.setCoorType("bd09ll"); // 设置坐标类型
-            option.setScanSpan(1000);
-            mLocClient.setLocOption(option);
-            mLocClient.start();
-            LatLng ll = new LatLng(100, 100);
-            final MapStatus.Builder builder = new MapStatus.Builder();
-            builder.target(ll).zoom(zoom);
-            mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-
+            showToast("没有找到此光交箱的位置");
         }
-
-        llWarns.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ifOpen) {
-                    text1.setVisibility(View.GONE);
-                    text2.setVisibility(View.GONE);
-                    text3.setVisibility(View.GONE);
-                    text4.setVisibility(View.GONE);
-                    ifOpen = false;
-                } else {
-                    text1.setVisibility(View.VISIBLE);
-                    text2.setVisibility(View.VISIBLE);
-                    text3.setVisibility(View.VISIBLE);
-                    text4.setVisibility(View.VISIBLE);
-                    ifOpen = true;
-                }
-            }
-        });
-        titile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(mContext, WarnListActivity.class));
-            }
-        });
-        backCurrent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mLocation != null) {
-                    MapStatus mMapStatus = new MapStatus.Builder()
-                            .target(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()))
-                            .zoom(zoom)
-                            .build();
-                    MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-                    mBaiduMap.animateMapStatus(mMapStatusUpdate);
-                }
-
-            }
-        });
-
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mLocation != null && mapStatus != null) {
-                    getList(mLocation.getLongitude() + "", mLocation.getLatitude() + "", BoxUtils.getZoom(BoxUtils.getZoom((int) mapStatus.zoom)) + "");
-                }
-
-            }
-        });
 
 
         mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
@@ -428,56 +336,6 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    public class MyLocationListenner implements BDLocationListener {
-
-        @Override
-        public void onReceiveLocation(final BDLocation location) {
-            if (location == null || mMapView == null) {
-                return;
-            }
-            mLocation = location;
-            mBaiduMap.clear();
-            MyLocationData locData = new MyLocationData.Builder()
-                    .accuracy(location.getRadius())
-                    .direction(100).latitude(location.getLatitude())
-                    .longitude(location.getLongitude()).build();
-            final GeoCoder geoCoder = GeoCoder.newInstance();
-            geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(new LatLng(location.getLatitude(), location.getLongitude())));
-            geoCoder.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
-                @Override
-                public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
-                }
-
-                @Override
-                public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
-                    String adress = reverseGeoCodeResult.getAddress();
-                    if (!TextUtils.isEmpty(adress)) {
-                        prefs.saveCurrentAddress(location.getLongitude() + "", location.getLatitude() + "", adress);
-                    }
-                }
-            });
-            mBaiduMap.setMyLocationData(locData);
-
-            if (isFirstLoc) {
-                isFirstLoc = false;
-                LatLng ll = new LatLng(location.getLatitude(),
-                        location.getLongitude());
-                MapStatus.Builder builder = new MapStatus.Builder();
-                builder.target(ll).zoom(zoom);
-                mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-            }
-            getList(location.getLongitude() + "", location.getLatitude() + "", 2000 + "");
-        }
-
-        @Override
-        public void onConnectHotSpotMessage(String s, int i) {
-
-        }
-
-
-    }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -576,69 +434,6 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    public void getEventList() {
-        client.getMainWarnList(mContext, new WarnHandler() {
-            @Override
-            public void onSuccess(final WarnsList commen) {
-                super.onSuccess(commen);
-                int size = commen.results.size();
-                if (size > 2) {
-                    llWarns.setVisibility(View.VISIBLE);
-                    text1.setText(commen.results.get(0).time + "\n" + commen.results.get(0).text);
-                    text2.setText(commen.results.get(1).time + "\n" + commen.results.get(1).text);
-                    text3.setText(commen.results.get(2).time + "\n" + commen.results.get(2).text);
-                    text1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (commen.results.get(0).position != null) {
-                                MapStatus mMapStatus = new MapStatus.Builder()
-                                        .target(new LatLng(commen.results.get(0).position.latitude_baidu, commen.results.get(0).position.longitude_baidu))
-                                        .build();
-                                MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-                                mBaiduMap.animateMapStatus(mMapStatusUpdate);
-                            } else {
-                                showToast("没有找到对应的光交箱");
-                            }
-                        }
-                    });
-
-                    text2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (commen.results.get(1).position != null) {
-                                MapStatus mMapStatus = new MapStatus.Builder()
-                                        .target(new LatLng(commen.results.get(1).position.latitude_baidu, commen.results.get(1).position.longitude_baidu))
-                                        .build();
-                                MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-                                mBaiduMap.animateMapStatus(mMapStatusUpdate);
-                            } else {
-                                showToast("没有找到对应的光交箱");
-                            }
-                        }
-                    });
-
-                    text3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (commen.results.get(2).position != null) {
-                                MapStatus mMapStatus = new MapStatus.Builder()
-                                        .target(new LatLng(commen.results.get(2).position.latitude_baidu, commen.results.get(2).position.longitude_baidu))
-                                        .build();
-                                MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-                                mBaiduMap.animateMapStatus(mMapStatusUpdate);
-                            } else {
-                                showToast("没有找到对应的光交箱");
-                            }
-                        }
-                    });
-
-
-                } else {
-                    llWarns.setVisibility(View.GONE);
-                }
-            }
-        });
-    }
 
     public void getPemmission() {
 
@@ -655,18 +450,6 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    CountDownTimer timer = new CountDownTimer(6000 * 1000, 5000) {
-        @Override
-        public void onTick(long millisUntilFinished) {
-            getEventList();
-        }
-
-        @Override
-        public void onFinish() {
-            timer.start();
-        }
-    };
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode != 6) {
@@ -674,6 +457,5 @@ public class MainActivity extends BaseActivity {
         }
 
     }
-
 
 }

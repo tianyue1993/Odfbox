@@ -64,6 +64,8 @@
             android:layout_below="@+id/state"
             android:layout_marginRight="25dp"
             android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="发起人:"
             android:textColor="@color/text_grey"
             android:textSize="11sp" />

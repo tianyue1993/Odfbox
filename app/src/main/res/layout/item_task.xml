@@ -36,7 +36,7 @@
         android:layout_below="@+id/state"
         android:layout_marginRight="25dp"
         android:layout_marginTop="5dp"
-        android:text="完成时间:"
+        android:text="完成时间:----"
         android:textColor="@color/text_grey"
         android:textSize="11sp" />
 
@@ -84,7 +84,7 @@
         android:layout_below="@+id/type"
         android:layout_marginRight="25dp"
         android:layout_marginTop="5dp"
-        android:text="要求完成时间:"
+        android:text="要求完成时间:----"
         android:textColor="@color/text_grey"
         android:textSize="11sp"
         android:visibility="invisible" />
@@ -99,7 +99,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="5dp"
-        android:text="完成情况:"
+        android:text="完成情况:----"
         android:textColor="@color/text_grey"
         android:textSize="11sp" />
 

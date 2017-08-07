@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.odfbox.MainActivity;
 import com.odfbox.R;
+import com.odfbox.activity.OdfboxLocationActivity;
 import com.odfbox.activity.OpenGuideActivity;
 import com.odfbox.activity.SpaceImageDetailActivity;
 import com.odfbox.entity.Odfbox;
@@ -132,7 +132,7 @@ public class MyOdfboxAdapter extends BoxBaseAdapter<Odfbox> {
                     intent.putExtra("type", "box");
                     intent.putExtra("lat", mInfo.latitude_baidu + "");
                     intent.putExtra("lon", mInfo.longitude_baidu + "");
-                    intent.setClass(mContext, MainActivity.class);
+                    intent.setClass(mContext, OdfboxLocationActivity.class);
                     mContext.startActivity(intent);
                 }
             });

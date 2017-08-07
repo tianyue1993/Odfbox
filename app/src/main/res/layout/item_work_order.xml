@@ -36,6 +36,7 @@
         android:layout_below="@+id/state"
         android:layout_marginRight="25dp"
         android:layout_marginTop="5dp"
+        android:singleLine="true"
         android:text="发起人:----"
         android:textColor="@color/text_grey"
         android:textSize="11sp" />
@@ -54,7 +55,7 @@
 
     <TextView
         android:id="@+id/starttime"
-        android:layout_width="50dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/type"

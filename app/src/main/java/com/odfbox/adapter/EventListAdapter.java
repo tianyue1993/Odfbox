@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.odfbox.R;
 import com.odfbox.activity.EventControlActivity;
+import com.odfbox.activity.WorkOrderActivity;
 import com.odfbox.entity.Event;
 
 import java.util.ArrayList;
@@ -69,6 +70,14 @@ public class EventListAdapter extends BoxBaseAdapter<Event> {
             }
             if (mInfo.task_sheet != null) {
                 holder.tv_code.setText(mInfo.task_sheet.serial);
+                holder.tv_code.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, WorkOrderActivity.class);
+                        intent.putExtra("serial", mInfo.task_sheet.serial);
+                        mContext.startActivity(intent);
+                    }
+                });
             } else {
                 holder.tv_code.setText("----");
             }

@@ -47,9 +47,9 @@ public class WarnsAdapter extends BoxBaseAdapter<Warns> {
 
         if (mInfo != null) {
             if (mInfo.alarm) {
-                holder.time.setTextColor(mContext.getResources().getColor(R.color.red));
+                holder.event.setTextColor(mContext.getResources().getColor(R.color.red));
             } else {
-                holder.time.setTextColor(mContext.getResources().getColor(R.color.text_grey));
+                holder.event.setTextColor(mContext.getResources().getColor(R.color.text_grey));
             }
             holder.time.setText(mInfo.time);
             holder.event.setText(mInfo.text);

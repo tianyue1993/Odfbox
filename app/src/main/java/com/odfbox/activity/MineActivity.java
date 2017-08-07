@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.odfbox.OdfboxApplication;
 import com.odfbox.R;
+import com.odfbox.entity.WarnsList;
+import com.odfbox.handle.WarnHandler;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -55,6 +57,10 @@ public class MineActivity extends BaseActivity {
     LinearLayout llManager;
     @Bind(R.id.ll_user)
     LinearLayout llUser;
+    @Bind(R.id.undo_count1)
+    TextView undoCount1;
+    @Bind(R.id.undo_count2)
+    TextView undoCount2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +71,15 @@ public class MineActivity extends BaseActivity {
         phone.setText(prefs.getUserPhone());
         company.setText(prefs.getOrgName());
         count.setText("光交箱总数：" + prefs.getBoxData()[1]);
-        probability.setText("监控覆盖率：" + prefs.getBoxData()[0] + "%");
+        probability.setText("监控覆盖率：" + prefs.getBoxData()[0] + "");
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getUntreated();
+        getOrderUntreated();
     }
 
     @OnClick({R.id.back, R.id.ll_warn, R.id.add_box, R.id.my_box, R.id.add_workorder, R.id.my_manager, R.id.user_help, R.id.my_setting})
@@ -78,7 +92,7 @@ public class MineActivity extends BaseActivity {
                 startActivity(new Intent(mContext, WarnListActivity.class));
                 break;
             case R.id.add_box:
-                startActivity(new Intent(mContext, AddDemoActivity.class));
+                startActivity(new Intent(mContext, AddBoxActivity.class));
                 break;
             case R.id.my_box:
                 startActivity(new Intent(mContext, MyBoxActivity.class));
@@ -97,4 +111,25 @@ public class MineActivity extends BaseActivity {
                 break;
         }
     }
+
+    public void getUntreated() {
+        client.getUntreated(mContext, new WarnHandler() {
+            @Override
+            public void onSuccess(WarnsList commen) {
+                super.onSuccess(commen);
+                undoCount1.setText("[" + commen.count + "]");
+            }
+        });
+    }
+
+    public void getOrderUntreated() {
+        client.getOrderUntreated(mContext, new WarnHandler() {
+            @Override
+            public void onSuccess(WarnsList commen) {
+                super.onSuccess(commen);
+                undoCount2.setText("[" + commen.count + "]");
+            }
+        });
+    }
+
 }

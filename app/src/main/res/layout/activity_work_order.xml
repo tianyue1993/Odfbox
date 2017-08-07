@@ -14,7 +14,7 @@
         android:layout_below="@+id/ll_search"
         android:layout_marginTop="5dp"
         android:gravity="center_horizontal"
-        android:text="涉及78"
+        android:text=""
         android:textColor="@color/button_bg"
         android:textSize="11sp" />
 

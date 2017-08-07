@@ -56,6 +56,8 @@ public class WorkOrderAdapter extends BoxBaseAdapter<WorkOrder> {
                 holder.endtime.setText("要求完成时间：" + mInfo.accomplish_time);
             if (mInfo.appoint_from_name != null)
                 holder.manager.setText("发起人：" + mInfo.appoint_from_name);
+            if (mInfo.task_sheet_type != null)
+                holder.type.setText("工单类型：" + mInfo.task_sheet_type);
 
         }
 

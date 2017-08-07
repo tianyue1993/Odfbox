@@ -51,6 +51,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.odfbox.R.id.ed_time;
+
 public class AddBoxActivity extends BaseActivity {
     @Bind(R.id.textView)
     TextView textView;
@@ -110,8 +112,8 @@ public class AddBoxActivity extends BaseActivity {
     ImageView imageScan;
     @Bind(R.id.add)
     Button add;
-    @Bind(R.id.ed_time)
-    EditText edTime;
+    @Bind(ed_time)
+    TextView edTime;
     @Bind(R.id.box_image)
     ImageView boxImage;
     @Bind(R.id.box_near_image)
@@ -146,6 +148,9 @@ public class AddBoxActivity extends BaseActivity {
     String picture2 = "";
     String picture3 = "";
 
+    String[] OdfBoxModel = new String[100];
+    String[] OdfBoxMaterial;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,9 +167,13 @@ public class AddBoxActivity extends BaseActivity {
         }
 
 
+        getConstantDefine("OdfBoxModel");
+        getConstantDefine("OdfBoxMaterial");
+
+
         // 建立数据源
-        final String[] type = getResources().getStringArray(R.array.type);
-        final String[] caizhi = getResources().getStringArray(R.array.caizhi);
+        String[] type = getResources().getStringArray(R.array.type);
+        String[] caizhi = getResources().getStringArray(R.array.caizhi);
         // 建立Adapter并且绑定数据源
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, type);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, caizhi);
@@ -241,6 +250,21 @@ public class AddBoxActivity extends BaseActivity {
 
 
         }
+    }
+
+
+    public void getConstantDefine(final String type) {
+        client.getConstantDefine(mContext, type, new CommentHandler() {
+            @Override
+            public void onSuccess(String commen) {
+                super.onSuccess(commen);
+                if (type.equals("OdfBoxMaterial")) {
+//                    OdfBoxMaterial = commen.toCharArray();
+                } else if (type.equals("OdfBoxModel")) {
+
+                }
+            }
+        });
     }
 
     public void addBox() {
