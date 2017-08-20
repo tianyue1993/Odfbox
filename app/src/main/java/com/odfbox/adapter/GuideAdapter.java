@@ -61,7 +61,7 @@ public class GuideAdapter extends BoxBaseAdapter<GuideList.Guide> {
                     public void onClick(View v) {
                         File file = new File(Environment
                                 .getExternalStorageDirectory()
-                                + "/odf", mInfo.file_name + ".pdf");
+                                + "/odf", mInfo.file_name + "");
                         openPDFReader(file);
                     }
                 });
@@ -168,6 +168,10 @@ public class GuideAdapter extends BoxBaseAdapter<GuideList.Guide> {
                         Toast.LENGTH_SHORT).show();
             }
 
+        } else {
+            Toast.makeText(mContext,
+                    "No Application Available to View PDF",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }

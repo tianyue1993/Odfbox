@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.baidu.mapapi.SDKInitializer;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
@@ -94,11 +97,13 @@ public class OdfboxApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SDKInitializer.initialize(getApplicationContext());
+        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "sDCH6H63zs9e1Zqd6lyZOmo6");
         mCon = getApplicationContext();
         application = this;
         prefs = GlobalSetting.getInstance(this);
         initDoMain();
         initImageLoader();
+        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "sDCH6H63zs9e1Zqd6lyZOmo6");
     }
 
     /**
@@ -164,9 +169,9 @@ public class OdfboxApplication extends Application {
 
     public static String WORKORDERLIST(String offset, String parms) {
         if (parms.equals("")) {
-            return BASE_URL + "orgs/" + prefs.getOrgId() + "/users/" + prefs.getUserId() + "/task_sheets/?offset=" + offset + "&limit=10&ordering=-id&related=odf_box";
+            return BASE_URL + "orgs/" + prefs.getOrgId() + "/users/" + prefs.getUserId() + "/task_sheets/?offset=" + offset + "&limit=10&ordering=-id&related=odf_box&state_category=待处理";
         } else {
-            return BASE_URL + "orgs/" + prefs.getOrgId() + "/users/" + prefs.getUserId() + "/task_sheets/?offset=" + offset + "&limit=10&ordering=-id&related=odf_box&search=" + parms;
+            return BASE_URL + "orgs/" + prefs.getOrgId() + "/users/" + prefs.getUserId() + "/task_sheets/?offset=" + offset + "&limit=10&ordering=-id&related=odf_box" + parms;
         }
     }
 
@@ -231,7 +236,7 @@ public class OdfboxApplication extends Application {
     }
 
     public static String MAINEVENT() {
-        return BASE_URL + "/orgs/" + prefs.getOrgId() + "/events_history/" + "?&ordering=-id&alarm=true&limit=3&odf_box_only=true";
+        return BASE_URL + "/orgs/" + prefs.getOrgId() + "/events_history/" + "?&ordering=-id&alarm=true&limit=3&odf_box_only=true&treat_state=untreated";
     }
 
     public static String OPENBOX(String lock_pk) {
@@ -253,6 +258,28 @@ public class OdfboxApplication extends Application {
         return BASE_URL + "orgs/" + prefs.getOrgId() + "/users/" + prefs.getUserId() + "/task_sheets/?state_category=待处理&limit=1";
     }
 
+
+    public static String VERSION() {
+        return BASE_URL + "download/apps/?ordering=-revision&limit=1&platform=Android";
+    }
+
+    public static String LOGINSTATE() {
+        return BASE_URL + "util_views/login_state/" + prefs.getUserId() + "/";
+    }
+
+
+    public static String getAppVersions() {// 当前应用的版本号
+        PackageManager manager = mCon.getPackageManager();
+        try {
+            PackageInfo info = manager.getPackageInfo(
+                    mCon.getPackageName(), 0);
+            return info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            // can't run
+            e.printStackTrace();
+            return "" + 1.0;
+        }
+    }
 
 }
 

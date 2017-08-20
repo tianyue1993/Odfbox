@@ -12,11 +12,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,12 +29,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.odfbox.OdfboxApplication;
 import com.odfbox.R;
 import com.odfbox.entity.Attachments;
-import com.odfbox.entity.Tasks;
-import com.odfbox.entity.WorkOrder;
+import com.odfbox.entity.SmartLock;
 import com.odfbox.handle.CommentHandler;
 import com.odfbox.utils.BoxUtils;
 import com.odfbox.utils.GetPathFromUri4kitkat;
 import com.odfbox.utils.StringUtils;
+import com.odfbox.zxing.activity.CaptureActivity;
 
 import org.apache.http.entity.StringEntity;
 
@@ -47,63 +52,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TaskControlActivity extends BaseActivity {
-    Tasks tasks;
-    WorkOrder workOrder;
-    @Bind(R.id.code)
-    TextView code;
-    @Bind(R.id.state)
-    TextView state;
-    @Bind(R.id.manager)
-    TextView manager;
-    @Bind(R.id.type)
-    TextView type;
-    @Bind(R.id.starttime)
-    TextView starttime;
-    @Bind(R.id.endtime)
-    TextView endtime;
-    @Bind(R.id.content)
-    TextView content;
-    @Bind(R.id.work_news)
-    RelativeLayout workNews;
-    @Bind(R.id.state_task)
-    TextView stateTask;
-    @Bind(R.id.time)
-    TextView time;
-    @Bind(R.id.type_task)
-    TextView typeTask;
-    @Bind(R.id.tv_state)
-    TextView tvState;
-    @Bind(R.id.describle)
-    TextView describle;
-    @Bind(R.id.endtime_task)
-    TextView endtimeTask;
-    @Bind(R.id.complete)
-    TextView complete;
-    @Bind(R.id.code_task)
-    TextView codeTask;
-    @Bind(R.id.task_news)
-    RelativeLayout taskNews;
-    @Bind(R.id.ed_task_control)
-    EditText edTaskControl;
-    @Bind(R.id.text_notice)
-    TextView textNotice;
-    @Bind(R.id.image1)
-    ImageView image1;
-    @Bind(R.id.image2)
-    ImageView image2;
-    @Bind(R.id.image3)
-    ImageView image3;
-    @Bind(R.id.rl_image)
-    RelativeLayout rlImage;
-    @Bind(R.id.commit)
-    Button commit;
-    @Bind(R.id.activity_task_control)
-    RelativeLayout activityTaskControl;
-
-    String picture1 = "";
-    String picture2 = "";
-    String picture3 = "";
+public class AddDemoActivity extends BaseActivity {
 
     /**
      * 头像文件
@@ -118,6 +67,76 @@ public class TaskControlActivity extends BaseActivity {
 
     protected Bitmap photo;
     protected File mCurrentPhotoFile;
+    @Bind(R.id.box_image)
+    ImageView boxImage;
+    @Bind(R.id.box_near_image)
+    ImageView boxNearImage;
+    @Bind(R.id.box_inner_image)
+    ImageView boxInnerImage;
+    @Bind(R.id.rl_image)
+    RelativeLayout rlImage;
+    @Bind(R.id.textView)
+    TextView textView;
+    @Bind(R.id.textView3)
+    TextView textView3;
+    @Bind(R.id.textView2)
+    TextView textView2;
+    @Bind(R.id.line1)
+    ImageView line1;
+    @Bind(R.id.jwd)
+    TextView jwd;
+    @Bind(R.id.wd)
+    EditText wd;
+    @Bind(R.id.map_address)
+    TextView mapAddress;
+    @Bind(R.id.current_address)
+    TextView currentAddress;
+    @Bind(R.id.tv_describe)
+    TextView tvDescribe;
+    @Bind(R.id.ed_describe)
+    EditText edDescribe;
+    @Bind(R.id.tv_code)
+    TextView tvCode;
+    @Bind(R.id.jd)
+    EditText jd;
+    @Bind(R.id.ed_code)
+    EditText edCode;
+    @Bind(R.id.tv_name)
+    TextView tvName;
+    @Bind(R.id.ed_name)
+    EditText edName;
+    @Bind(R.id.line2)
+    ImageView line2;
+    @Bind(R.id.ed_factory)
+    EditText edFactory;
+    @Bind(R.id.ed_type)
+    Spinner edType;
+    @Bind(R.id.tv_factory)
+    TextView tvFactory;
+    @Bind(R.id.tv_type)
+    TextView tvType;
+    @Bind(R.id.spinner1)
+    Spinner spinnercaizhi;
+    @Bind(R.id.tv_spiner)
+    TextView tvSpiner;
+    @Bind(R.id.tv_content)
+    TextView tvContent;
+    @Bind(R.id.ed_content)
+    EditText edContent;
+    @Bind(R.id.tv_time)
+    TextView tvTime;
+    @Bind(R.id.line3)
+    ImageView line3;
+    @Bind(R.id.tv_terminal)
+    TextView tvTerminal;
+    @Bind(R.id.ed_terminal)
+    EditText edTerminal;
+    @Bind(R.id.image_scan)
+    ImageView imageScan;
+    @Bind(R.id.add)
+    Button add;
+    @Bind(R.id.ed_time)
+    TextView edTime;
     private Uri photoUri;
     private File mUriFile;
     private static final int CAMERA_PIC = 21;
@@ -129,176 +148,182 @@ public class TaskControlActivity extends BaseActivity {
 
     ArrayList<Attachments> attachments = new ArrayList<>();
 
+    String picture1 = "";
+    String picture2 = "";
+    String picture3 = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_control);
-        ButterKnife.bind(this);
         OdfboxApplication.addActivity(this);
-        setTitleTextView("任务处理", null);
-        Bundle bundle = getIntent().getExtras();
-        tasks = (Tasks) bundle.getSerializable("tasks");
-        workOrder = (WorkOrder) bundle.getSerializable("order");
-        initOrderData();
-        commit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (edTaskControl.getText().toString().length() > 0) {
-                    putTaskControl();
-                } else {
-                    showToast("请输入处理内容");
-                }
-            }
-        });
+        setContentView(R.layout.activity_add_box);
+        ButterKnife.bind(this);
+        setTitleTextView("新增光交箱demo", null);
 
         for (int i = 0; i < 3; i++) {
             Attachments a = new Attachments();
             a.mimetype = "image/jpeg";
+            a.base64 = "";
             attachments.add(a);
         }
 
+
+        // 建立数据源
+        final String[] type = getResources().getStringArray(R.array.type);
+        final String[] caizhi = getResources().getStringArray(R.array.caizhi);
+        // 建立Adapter并且绑定数据源
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, type);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, caizhi);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //绑定 Adapter到控件
+        edType.setAdapter(typeAdapter);
+        spinnercaizhi.setAdapter(adapter2);
+        edType.setSelection(0, true);
+        spinnercaizhi.setSelection(0, true);
+        edType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv = (TextView) view;
+                tv.setTextColor(getResources().getColor(R.color.text_grey));    //设置颜色
+                tv.setTextSize(12.0f);    //设置大小
+                tv.setGravity(Gravity.CENTER_HORIZONTAL);   //设置居中
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        spinnercaizhi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv = (TextView) view;
+                tv.setTextColor(getResources().getColor(R.color.text_grey));    //设置颜色
+                tv.setTextSize(12.0f);    //设置大小
+                tv.setGravity(Gravity.CENTER_HORIZONTAL);   //设置居中
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
 
-    public void putTaskControl() {
-        showProgress(0, true);
-        JSONObject params = new JSONObject();
-        params.put("worker_comment", edTaskControl.getText().toString().trim());
-        if (attachments.size() > 0) {
-            if (attachments.size() == 1) {
-                if (attachments.get(0).base64 != null) {
-                    params.put("attachments", attachments);
-                }
-            } else if (attachments.size() == 2) {
-                if (attachments.get(0).base64 != null && attachments.get(1).base64 != null) {
-                    params.put("attachments", attachments);
-                }
-            } else {
-                if (attachments.get(0).base64 != null && attachments.get(1).base64 != null && attachments.get(2).base64 != null) {
-                    params.put("attachments", attachments);
-                }
-            }
-        }
+    @OnClick({R.id.map_address, R.id.current_address, R.id.image_scan, R.id.add, R.id.box_image, R.id.box_near_image, R.id.box_inner_image})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.map_address:
+                startActivityForResult(new Intent(mContext, SearchActivity.class), GETADDRESS);
+                break;
+            case R.id.current_address:
+                jd.setText(prefs.getCurrentAddress()[0]);
+                wd.setText(prefs.getCurrentAddress()[1]);
+                edDescribe.setText(prefs.getCurrentAddress()[2]);
+                break;
+            case R.id.image_scan:
+                //二维码
+                startActivityForResult(new Intent(mContext, CaptureActivity.class), 5);
+                break;
+            case R.id.add:
+                addBox();
+                break;
+            case R.id.box_image:
+                Intent intent1 = new Intent(mContext, SelectPicPopupWindowActivity.class);
+                startActivityForResult(intent1, PIC);
+                imageType = 1;
+                break;
+            case R.id.box_inner_image:
+                Intent intent3 = new Intent(mContext, SelectPicPopupWindowActivity.class);
+                startActivityForResult(intent3, PIC);
+                imageType = 2;
+                break;
+            case R.id.box_near_image:
+                Intent intent2 = new Intent(mContext, SelectPicPopupWindowActivity.class);
+                startActivityForResult(intent2, PIC);
+                imageType = 3;
+                break;
 
-        try {
-            StringEntity entity = new StringEntity(params.toString(), "UTF-8");
-            client.getPutTask(mContext, workOrder.id + "", tasks.id + "", entity, new CommentHandler() {
-                @Override
-                public void onSuccess(String commen) {
-                    super.onSuccess(commen);
-                    cancelmDialog();
-                    showToast("提交成功");
-                    finish();
-                }
 
-                @Override
-                public void onFailure(String msg) {
-                    super.onFailure(msg);
-                    cancelmDialog();
-                }
-
-                @Override
-                public void onCancel() {
-                    super.onCancel();
-                    cancelmDialog();
-                }
-            });
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         }
     }
 
-    public void initOrderData() {
-        if (workOrder != null) {
-            if (workOrder.serial != null) {
-                code.setText("工单号：" + workOrder.serial);
-            } else {
-                code.setText("工单号：----");
+    public void addBox() {
+        if (!edCode.getText().toString().isEmpty() &&
+                !edDescribe.getText().toString().isEmpty() &&
+                !jd.getText().toString().isEmpty() &&
+                !wd.getText().toString().isEmpty() &&
+                !edContent.getText().toString().isEmpty() &&
+                !edFactory.getText().toString().isEmpty() &&
+                attachments.get(0).base64 != null &&
+                attachments.get(1).base64 != null &&
+                attachments.get(2).base64 != null) {
+            JSONObject object = new JSONObject();
+            object.put("serial_text", edCode.getText().toString());
+            object.put("name", edName.getText().toString());
+            object.put("address", edDescribe.getText().toString());
+            object.put("longitude_baidu", jd.getText().toString());
+            object.put("latitude_baidu", wd.getText().toString());
+            object.put("material", spinnercaizhi.getSelectedItem().toString());
+            object.put("model", edType.getSelectedItem().toString());
+            object.put("business_capacity", edContent.getText().toString());
+            object.put("manufacturer", edFactory.getText().toString());
+            if (edTerminal.getText().toString().length() > 0) {
+                SmartLock lock = new SmartLock();
+                lock.serial_no = edTerminal.getText().toString();
+                lock.name = edName.getText().toString();
+                object.put("smart_lock", lock);
+            }
+            object.put("picture", attachments.get(0));
+            object.put("inside_picture", attachments.get(1));
+            object.put("env_picture", attachments.get(2));
+            Log.d("object", "addBox: object" + object.toString());
+            try {
+                showProgress(0, true);
+                StringEntity entity = new StringEntity(object.toString(), "UTF-8");
+                client.getAddBox(mContext, entity, new CommentHandler() {
+                    @Override
+                    public void onSuccess(String commen) {
+                        super.onSuccess(commen);
+                        cancelmDialog();
+                        showToast("添加成功");
+                        finish();
+
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        super.onFailure(msg);
+                        cancelmDialog();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        super.onCancel();
+                        cancelmDialog();
+                    }
+                });
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
 
-
-            if (workOrder.state != null) {
-                state.setText("状态：" + workOrder.state);
-            } else {
-                state.setText("状态：----");
-            }
-
-            tvState.setText(tasks.state);
-
-            if (workOrder.appoint_to_name != null) {
-                manager.setText("发起人：" + workOrder.appoint_from_name);
-            } else {
-                manager.setText("发起人：----");
-            }
-
-            if (workOrder.task_sheet_type != null) {
-                type.setText("工单类型：" + workOrder.task_sheet_type);
-            } else {
-                type.setText("工单类型：----");
-            }
-
-            if (workOrder.create_time != null) {
-                starttime.setText("发起时间：" + workOrder.create_time);
-            } else {
-                starttime.setText("发起时间：----");
-            }
-
-            if (workOrder.accomplish_time != null) {
-                endtime.setText("要求完成时间：" + workOrder.accomplish_time);
-            } else {
-                endtime.setText("要求完成时间：----");
-            }
-
-            if (workOrder.comment != null) {
-                content.setText("工单内容：" + workOrder.comment);
-            } else {
-                content.setText("工单内容：----");
-            }
-
-
-        }
-
-
-        if (tasks.serial != null) {
-            codeTask.setText("任务单号：" + tasks.serial);
         } else {
-            codeTask.setText("任务单号：" + tasks.serial);
+            showToast("请补充交光箱信息！");
         }
 
-
-        if (tasks.state != null) {
-            stateTask.setText(tasks.state);
-        } else {
-            stateTask.setText("----");
-        }
-
-
-        if (tasks.task_desc != null) {
-            describle.setText("任务描述:" + tasks.task_desc);
-        } else {
-            describle.setText("任务描述：----");
-        }
-
-
-        if (tasks.accomplish_time != null) {
-            time.setText("完成时间：" + tasks.accomplish_time);
-        } else {
-            time.setText("完成时间：----");
-        }
-
-        if (tasks.solve != null) {
-            if (tasks.solve.worker_comment != null) {
-                complete.setText("完成情况：" + tasks.solve.worker_comment);
-            } else {
-                complete.setText("完成情况：----");
-            }
-        }
 
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 5) {
+            if (!StringUtils.isEmpty(data.getStringExtra("code"))) {
+                edTerminal.setText(data.getStringExtra("code"));
+            }
+        }
 
         if (resultCode == Activity.RESULT_CANCELED) {
             return;
@@ -472,12 +497,45 @@ public class TaskControlActivity extends BaseActivity {
                 case CAMERA_PIC:
                     cropPhoto(Uri.fromFile(mUriFile));
                     break;
+                case GETADDRESS:
+                    if (!StringUtils.isEmpty(data.getStringExtra("jd"))) {
+                        jd.setText(data.getStringExtra("jd"));
+                    }
+                    if (!StringUtils.isEmpty(data.getStringExtra("wd"))) {
+                        wd.setText(data.getStringExtra("wd"));
+                    }
+
+                    if (!StringUtils.isEmpty(data.getStringExtra("address"))) {
+                        edDescribe.setText(data.getStringExtra("address"));
+                    }
+
+                    break;
             }
 
 
         }
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setData();
+    }
+
+    public void saveData() {
+
+    }
+
+    public void setData() {
+
+    }
 
     /**
      * 提取保存裁剪之后的图片数据，并设置头像部分的View
@@ -491,11 +549,11 @@ public class TaskControlActivity extends BaseActivity {
 
     protected void onLicenseSelectedCallBack(Uri url) {
         if (imageType == 1) {
-            image1.setImageURI(url);
+            boxImage.setImageURI(url);
         } else if (imageType == 2) {
-            image2.setImageURI(url);
+            boxInnerImage.setImageURI(url);
         } else if (imageType == 3) {
-            image3.setImageURI(url);
+            boxNearImage.setImageURI(url);
         }
         updateAvatorByUrl(url);
     }
@@ -515,21 +573,8 @@ public class TaskControlActivity extends BaseActivity {
      */
     public void cropRawPhoto(Uri uri) {
 
-        Intent intent = new Intent("com.android.camera.action.CROP");
+        Intent intent = initialIntent();
         intent.setDataAndType(uri, "image/*");
-
-        // 设置裁剪
-        intent.putExtra("crop", "true");
-
-        // aspectX , aspectY :宽高的比例
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-
-        // outputX , outputY : 裁剪图片宽高
-        intent.putExtra("outputX", 300);
-        intent.putExtra("outputY", 300);
-        intent.putExtra("return-data", true);
-
         startActivityForResult(intent, CODE_RESULT_REQUEST);
     }
 
@@ -565,28 +610,34 @@ public class TaskControlActivity extends BaseActivity {
     protected void onHeaderSelectedCallBack(Bitmap bp) {
         if (bp != null) {
             if (imageType == 1) {
-                image1.setImageBitmap(bp);
+                boxImage.setImageBitmap(bp);
             } else if (imageType == 2) {
-                image2.setImageBitmap(bp);
+                boxInnerImage.setImageBitmap(bp);
             } else if (imageType == 3) {
-                image3.setImageBitmap(bp);
+                boxNearImage.setImageBitmap(bp);
             }
         }
+
+    }
+
+    private Intent initialIntent() {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.putExtra("crop", "false");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+        intent.putExtra("return-data", true);
+        return intent;
 
     }
 
     private void tryCropProfileImage(Uri uri) {
         try {
             // start gallery to crop photo
-            Intent intent = new Intent("com.android.camera.action.CROP");
+            Intent intent = initialIntent();
             intent.setDataAndType(uri, "image/*");
-            intent.putExtra("crop", "true");
-            intent.putExtra("aspectX", 1);
-            intent.putExtra("aspectY", 1);
-            intent.putExtra("outputX", 300);
-            intent.putExtra("outputY", 300);
-            intent.putExtra("return-data", true);
-            startActivityForResult(intent, AddBoxActivity.PICKPHOTO);// test
+            startActivityForResult(intent, AddDemoActivity.PICKPHOTO);// test
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -632,18 +683,17 @@ public class TaskControlActivity extends BaseActivity {
         }
 
         try {
-            // Launch picker to choose photo for selected contact
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_PICK);
             intent.setData(Uri.parse("content://media/internal/images/media"));
             intent.setType("image/*");
-            intent.putExtra("crop", "true");
+            intent.putExtra("crop", "false");
             intent.putExtra("aspectX", 1);
             intent.putExtra("aspectY", 1);
             intent.putExtra("outputX", 300);
             intent.putExtra("outputY", 300);
             intent.putExtra("return-data", true);
-            startActivityForResult(intent, AddBoxActivity.PICKPHOTO);
+            startActivityForResult(intent, AddDemoActivity.PICKPHOTO);
         } catch (ActivityNotFoundException e) {
             e.printStackTrace();
         }
@@ -662,40 +712,12 @@ public class TaskControlActivity extends BaseActivity {
 
 
     private void cropPhoto(Uri uri) {
-        Intent intent = new Intent("com.android.camera.action.CROP");
+        Intent intent = initialIntent();
         intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", true);
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 300);
-        intent.putExtra("outputY", 300);
         intent.putExtra("scale", true);
-        // intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        intent.putExtra("return-data", true);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         intent.putExtra("noFaceDetection", true);
         startActivityForResult(intent, CROP_PIC);
     }
 
-
-    @OnClick({R.id.image1, R.id.image2, R.id.image3})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.image1:
-                Intent intent1 = new Intent(mContext, SelectPicPopupWindowActivity.class);
-                startActivityForResult(intent1, PIC);
-                imageType = 1;
-                break;
-            case R.id.image2:
-                Intent intent2 = new Intent(mContext, SelectPicPopupWindowActivity.class);
-                startActivityForResult(intent2, PIC);
-                imageType = 2;
-                break;
-            case R.id.image3:
-                Intent intent3 = new Intent(mContext, SelectPicPopupWindowActivity.class);
-                startActivityForResult(intent3, PIC);
-                imageType = 3;
-                break;
-        }
-    }
 }

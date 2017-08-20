@@ -10,9 +10,15 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.odfbox.OdfboxApplication;
 import com.odfbox.R;
+import com.odfbox.handle.CommentHandler;
 import com.odfbox.views.DialogFactory;
+
+import org.apache.http.entity.StringEntity;
+
+import java.io.UnsupportedEncodingException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -54,11 +60,7 @@ public class SettingActivity extends BaseActivity {
                 }, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
-                        OdfboxApplication.finishActivity();
-                        startActivity(new Intent(mContext, LoginActivity.class));
-                        prefs.clear();
-                        finish();
+                        logout();
 
                     }
                 });
@@ -83,4 +85,44 @@ public class SettingActivity extends BaseActivity {
             return null;
         }
     }
+
+    public void logout() {
+        cancelmDialog();
+        showProgress(0, true);
+        JSONObject object = new JSONObject();
+        object.put("action", "logout");
+        try {
+            showProgress(0, true);
+            StringEntity entity = new StringEntity(object.toString(), "UTF-8");
+            client.getLoginState(mContext, entity, new CommentHandler() {
+                @Override
+                public void onSuccess(String commen) {
+                    super.onSuccess(commen);
+                    cancelmDialog();
+                    showToast("退出成功");
+                    dialog.dismiss();
+                    OdfboxApplication.finishActivity();
+                    startActivity(new Intent(mContext, LoginActivity.class));
+                    prefs.clear();
+                    finish();
+                }
+
+                @Override
+                public void onFailure(String msg) {
+                    super.onFailure(msg);
+                    showToast("退出失败");
+                    cancelmDialog();
+                }
+
+                @Override
+                public void onCancel() {
+                    super.onCancel();
+                    cancelmDialog();
+                }
+            });
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

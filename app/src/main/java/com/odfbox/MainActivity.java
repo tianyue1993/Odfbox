@@ -49,11 +49,14 @@ import com.odfbox.activity.SetComLocationActivity;
 import com.odfbox.activity.WarnListActivity;
 import com.odfbox.entity.BoxList;
 import com.odfbox.entity.Odfbox;
+import com.odfbox.entity.VersionOdfbox;
 import com.odfbox.entity.WarnsList;
 import com.odfbox.handle.BoxListHandler;
 import com.odfbox.handle.CommentHandler;
+import com.odfbox.handle.VersionHandler;
 import com.odfbox.handle.WarnHandler;
 import com.odfbox.utils.BoxUtils;
+import com.odfbox.utils.UpdateCheckUtils;
 import com.odfbox.views.DialogFactory;
 
 import org.apache.http.entity.StringEntity;
@@ -128,78 +131,44 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         OdfboxApplication.addActivity(this);
         getPemmission();
+        getVersion();
         setTitleTextView("物联网光交箱", null);
         timer.start();
         mMapView = (MapView) findViewById(R.id.mapview);
         mBaiduMap = mMapView.getMap();
         mBaiduMap.setMyLocationEnabled(true);
-        //从列表跳转显示光交箱
-        if (getIntent().getStringExtra("type") != null) {
-            refresh.setVisibility(View.GONE);
-            backCurrent.setVisibility(View.GONE);
-            llWarns.setVisibility(View.GONE);
-            setLeftTextView(R.mipmap.ic_back, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
-            if (getIntent().getStringExtra("lat") != null && getIntent().getStringExtra("lon") != null) {
-                LatLng latLng = new LatLng(Double.parseDouble(getIntent().getStringExtra("lat")), Double.parseDouble(getIntent().getStringExtra("lon")));
-                MapStatus mMapStatus = new MapStatus.Builder()
-                        .target(latLng).zoom(zoom)
-                        .build();
-                //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
-                MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-                //改变地图状态
-                mBaiduMap.animateMapStatus(mMapStatusUpdate);
-                //构建Marker图标
-                BitmapDescriptor bitmap = BitmapDescriptorFactory
-                        .fromResource(R.mipmap.icon_marka);
-                //构建MarkerOption，用于在地图上添加Marker
-                OverlayOptions option1 = new MarkerOptions()
-                        .position(latLng)
-                        .icon(bitmap);
-                //在地图上添加Marker，并显示
-                mBaiduMap.addOverlay(option1);
-            } else {
-                showToast("没有找到此光交箱的位置");
+
+        llWarns.setVisibility(View.VISIBLE);
+        refresh.setVisibility(View.VISIBLE);
+        backCurrent.setVisibility(View.VISIBLE);
+        getEventList();
+        setRightImage(R.mipmap.ic_white_search, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(mContext, SetComLocationActivity.class), SETLOCATIONCODE);
             }
+        });
+        setLeftTextView(R.mipmap.ic_menu, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mContext, MineActivity.class));
+            }
+        });
 
+        // 定位初始化
+        mLocClient = new LocationClient(mContext);
+        mLocClient.registerLocationListener(new MyLocationListenner());
+        final LocationClientOption option = new LocationClientOption();
+        option.setOpenGps(true); // 打开gps
+        option.setCoorType("bd09ll"); // 设置坐标类型
+        option.setScanSpan(1000);
+        mLocClient.setLocOption(option);
+        mLocClient.start();
+        LatLng ll = new LatLng(100, 100);
+        final MapStatus.Builder builder = new MapStatus.Builder();
+        builder.target(ll).zoom(zoom);
+        mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
 
-        } else {
-            llWarns.setVisibility(View.VISIBLE);
-            refresh.setVisibility(View.VISIBLE);
-            backCurrent.setVisibility(View.VISIBLE);
-            getEventList();
-            setRightImage(R.mipmap.ic_white_search, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivityForResult(new Intent(mContext, SetComLocationActivity.class), SETLOCATIONCODE);
-                }
-            });
-            setLeftTextView(R.mipmap.ic_menu, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(mContext, MineActivity.class));
-                }
-            });
-
-            // 定位初始化
-            mLocClient = new LocationClient(mContext);
-            mLocClient.registerLocationListener(new MyLocationListenner());
-            final LocationClientOption option = new LocationClientOption();
-            option.setOpenGps(true); // 打开gps
-            option.setCoorType("bd09ll"); // 设置坐标类型
-            option.setScanSpan(1000);
-            mLocClient.setLocOption(option);
-            mLocClient.start();
-            LatLng ll = new LatLng(100, 100);
-            final MapStatus.Builder builder = new MapStatus.Builder();
-            builder.target(ll).zoom(zoom);
-            mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-
-        }
 
         llWarns.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,7 +200,6 @@ public class MainActivity extends BaseActivity {
                 if (mLocation != null) {
                     MapStatus mMapStatus = new MapStatus.Builder()
                             .target(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()))
-                            .zoom(zoom)
                             .build();
                     MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
                     mBaiduMap.animateMapStatus(mMapStatusUpdate);
@@ -555,6 +523,7 @@ public class MainActivity extends BaseActivity {
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("info", odfbox);
                         marker.setExtraInfo(bundle);
+
                     }
                 } else {
                     showToast("当前位置附近没有光交箱！");
@@ -673,6 +642,28 @@ public class MainActivity extends BaseActivity {
             getPemmission();
         }
 
+    }
+
+
+    public void getVersion() {
+        client.getVersion(mContext, new VersionHandler() {
+            @Override
+            public void onSuccess(VersionOdfbox commen) {
+                super.onSuccess(commen);
+                if (commen.results.get(0) != null) {
+                    if (commen.results.get(0).revision.contains("v") || commen.results.get(0).revision.contains("V")) {
+                        if (BoxUtils.getIsUpdate(OdfboxApplication.getAppVersions(), commen.results.get(0).revision.substring(1, commen.results.get(0).revision.length()))) {
+                            UpdateCheckUtils.getInstanse().lookVersion(MainActivity.this, true, commen);
+                        }
+                    } else {
+                        if (BoxUtils.getIsUpdate(OdfboxApplication.getAppVersions(), commen.results.get(0).revision.substring(0, commen.results.get(0).revision.length()))) {
+                            UpdateCheckUtils.getInstanse().lookVersion(MainActivity.this, true, commen);
+                        }
+                    }
+
+                }
+            }
+        });
     }
 
 

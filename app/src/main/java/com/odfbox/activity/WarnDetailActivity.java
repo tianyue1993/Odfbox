@@ -188,16 +188,16 @@ public class WarnDetailActivity extends BaseActivity {
                 address.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent();
-                        intent.putExtra("type", "box");
-                        intent.putExtra("lat", odfbox.latitude_baidu + "");
-                        intent.putExtra("lon", odfbox.longitude_baidu + "");
-                        intent.setClass(mContext, OdfboxLocationActivity.class);
+                        Intent intent = new Intent(mContext, OdfboxLocationActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("odfbox", odfbox);
+                        bundle.putString("type", odfbox.alarming + "");
+                        bundle.putString("lat", odfbox.latitude_baidu + "");
+                        bundle.putString("lon", odfbox.longitude_baidu + "");
+                        intent.putExtras(bundle);
                         mContext.startActivity(intent);
                     }
                 });
-
-
             }
         });
     }

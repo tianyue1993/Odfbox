@@ -28,7 +28,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.odfbox.OdfboxApplication;
 import com.odfbox.R;
 import com.odfbox.entity.Attachments;
+import com.odfbox.entity.BoxDefineList;
 import com.odfbox.entity.SmartLock;
+import com.odfbox.handle.BoxDefineHandler;
 import com.odfbox.handle.CommentHandler;
 import com.odfbox.utils.BoxUtils;
 import com.odfbox.utils.GetPathFromUri4kitkat;
@@ -148,7 +150,7 @@ public class AddBoxActivity extends BaseActivity {
     String picture2 = "";
     String picture3 = "";
 
-    String[] OdfBoxModel = new String[100];
+    String[] OdfBoxModel = null;
     String[] OdfBoxMaterial;
 
     @Override
@@ -171,19 +173,6 @@ public class AddBoxActivity extends BaseActivity {
         getConstantDefine("OdfBoxMaterial");
 
 
-        // 建立数据源
-        String[] type = getResources().getStringArray(R.array.type);
-        String[] caizhi = getResources().getStringArray(R.array.caizhi);
-        // 建立Adapter并且绑定数据源
-        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, type);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, caizhi);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //绑定 Adapter到控件
-        edType.setAdapter(typeAdapter);
-        spinnercaizhi.setAdapter(adapter2);
-        edType.setSelection(0, true);
-        spinnercaizhi.setSelection(0, true);
         edType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -254,17 +243,47 @@ public class AddBoxActivity extends BaseActivity {
 
 
     public void getConstantDefine(final String type) {
-        client.getConstantDefine(mContext, type, new CommentHandler() {
+        client.getConstantDefine(mContext, type, new BoxDefineHandler() {
             @Override
-            public void onSuccess(String commen) {
+            public void onSuccess(BoxDefineList commen) {
                 super.onSuccess(commen);
                 if (type.equals("OdfBoxMaterial")) {
-//                    OdfBoxMaterial = commen.toCharArray();
+                    ArrayList<String> material = new ArrayList<String>();
+                    material.add("材质");
+                    for (int i = 0; i < commen.results.size(); i++) {
+                        material.add(commen.results.get(i).text);
+                    }
+                    OdfBoxMaterial = (String[]) material.toArray(new String[commen.results.size()]);
+
                 } else if (type.equals("OdfBoxModel")) {
+                    ArrayList<String> model = new ArrayList<String>();
+                    model.add("型号");
+                    for (int i = 0; i < commen.results.size(); i++) {
+                        model.add(commen.results.get(i).text);
+                    }
+                    OdfBoxModel = (String[]) model.toArray(new String[commen.results.size()]);
+                }
+                if (OdfBoxMaterial != null && OdfBoxModel != null) {
+                    setData();
 
                 }
+
             }
         });
+    }
+
+    public void setData() {
+        // 建立数据源
+//        // 建立Adapter并且绑定数据源
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(this, R.layout.lib_tv_spinner, OdfBoxModel);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, R.layout.lib_tv_spinner, OdfBoxMaterial);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+        adapter2.setDropDownViewResource(android.R.layout.simple_list_item_1);
+        //绑定 Adapter到控件
+        edType.setAdapter(typeAdapter);
+        spinnercaizhi.setAdapter(adapter2);
+        edType.setSelection(0, true);
+        spinnercaizhi.setSelection(0, true);
     }
 
     public void addBox() {
@@ -534,26 +553,6 @@ public class AddBoxActivity extends BaseActivity {
         }
     }
 
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        saveData();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setData();
-    }
-
-    public void saveData() {
-
-    }
-
-    public void setData() {
-
-    }
 
     /**
      * 提取保存裁剪之后的图片数据，并设置头像部分的View

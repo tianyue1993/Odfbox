@@ -9,5 +9,5 @@ package com.odfbox.utils;
 public class Preferences {
     public static final String PICMethod = "picmethod";
     public static final String TOPIC_PHOTO_ID = "position_id"; //选择照片ID
-
+    public static final String REFRESH_BOXLIST = "refresh_boxlist"; //选择照片ID
 }

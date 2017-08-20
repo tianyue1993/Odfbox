@@ -9,8 +9,6 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
 import com.odfbox.MainActivity;
 import com.odfbox.R;
 import com.odfbox.utils.GlobalSetting;
@@ -30,7 +28,6 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
         prefs = GlobalSetting.getInstance(this);
         mContext = this;
-        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "OUlSjHHG7gXwvHD1uf1Yg57GdxzGwoyI");
         ImageView splash = (ImageView) findViewById(R.id.splash);
         Animation animation = new AlphaAnimation(1.0f, 1.0f);
         animation.setDuration(1000);

@@ -1,6 +1,9 @@
 package com.odfbox.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
@@ -30,6 +33,8 @@ import java.util.Iterator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static com.odfbox.utils.Preferences.REFRESH_BOXLIST;
 
 public class MyBoxActivity extends BaseActivity {
 
@@ -75,6 +80,37 @@ public class MyBoxActivity extends BaseActivity {
     protected ArrayList<Odfbox> list = new ArrayList<Odfbox>();
     public boolean isVisible = true;//
     MyOdfboxAdapter adapter;
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (intent.getAction().equals(REFRESH_BOXLIST)) {
+                page_number = 0;
+                adaptList.clear();
+                getList("");
+//                if (isVisible) {
+//
+//                } else {
+//                    String string = "";
+//                    if (StringUtils.isNotEmptyOrNull(edSerail.getText().toString().trim())) {
+//                        string = string + "&lock_serial=" + edSerail.getText().toString().trim();
+//                    }
+//                    if (StringUtils.isNotEmptyOrNull(edCode.getText().toString().trim())) {
+//                        string = string + "&serial_text_like=" + edCode.getText().toString().trim();
+//                    }
+//                    if (StringUtils.isNotEmptyOrNull(edCode.getText().toString().trim())) {
+//                        string = string + "&name_like=" + edName.getText().toString().trim();
+//                    }
+//                    if (StringUtils.isNotEmptyOrNull(edDescribe.getText().toString().trim())) {
+//                        string = string + "&address_like=" + edDescribe.getText().toString().trim();
+//                    }
+//                    getList(string);
+//                }
+            }
+
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +118,9 @@ public class MyBoxActivity extends BaseActivity {
         setContentView(R.layout.activity_my_box);
         OdfboxApplication.addActivity(this);
         ButterKnife.bind(this);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(REFRESH_BOXLIST);
+        registerReceiver(receiver, filter);
         setTitleTextView("我的光交箱", null);
         setRightImage(R.mipmap.ic_white_search, new View.OnClickListener() {
             @Override
@@ -280,7 +319,17 @@ public class MyBoxActivity extends BaseActivity {
         });
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (receiver != null) {
+            unregisterReceiver(receiver);
+        }
+    }
+
     public void getList(String string) {
+        cancelmDialog();
         showProgress(0, true);
         client.getBoxList(mContext, (page_number++) * 10 + "", string, new BoxListHandler() {
             @Override
@@ -335,6 +384,7 @@ public class MyBoxActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         if (isVisible) {
             getList("");
         } else {

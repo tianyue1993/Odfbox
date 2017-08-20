@@ -274,7 +274,7 @@
 
     <Spinner
         android:id="@+id/ed_type"
-        android:layout_width="50dp"
+        android:layout_width="80dp"
         android:layout_height="25dp"
         android:layout_below="@+id/tv_factory"
         android:layout_marginLeft="10dp"
@@ -309,10 +309,10 @@
 
     <Spinner
         android:id="@+id/spinner1"
-        android:layout_width="50dp"
+        android:layout_width="80dp"
         android:layout_height="25dp"
         android:layout_below="@+id/tv_type"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/ed_type"
         android:background="@color/white" />
 
@@ -425,16 +425,24 @@
 
     <EditText
         android:id="@+id/ed_terminal"
-        android:layout_width="150dp"
+        android:layout_width="130dp"
         android:layout_height="25dp"
-        android:layout_alignParentRight="true"
         android:layout_below="@+id/tv_terminal"
-        android:layout_marginRight="25dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/ed_state"
         android:background="@color/white"
-        android:gravity="center"
         android:textColor="@color/text_grey"
         android:textColorHint="@color/grey"
         android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/image_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_terminal"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/ed_terminal"
+        android:src="@mipmap/ic_scan_code" />
 
     <TextView
         android:id="@+id/last_close_time"

@@ -32,6 +32,8 @@ public class GlobalSetting {
     private static final String TOTAL_ODF_BOX = "total_odf_box";
     private static final String ORG_NAME = "org_name";
 
+    private static final String CHANNEL_ID = "channel_id";
+
     private GlobalSetting(Context context) {
         mContext = context;
     }
@@ -117,6 +119,7 @@ public class GlobalSetting {
 
     public String getUserId() {
         return getSharedPreferences().getString(USER_ID, "");
+//        return "210";//有数据用户
     }
 
     public void saveToken(String id) {
@@ -198,5 +201,14 @@ public class GlobalSetting {
     public String getOrgName() {
         return getSharedPreferences().getString(ORG_NAME, "");
     }
+
+    public void saveChannelId(String id) {
+        saveString(CHANNEL_ID, id);
+    }
+
+    public String getChannelId() {
+        return getSharedPreferences().getString(CHANNEL_ID, "");
+    }
+
 
 }

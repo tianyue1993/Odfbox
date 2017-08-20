@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="type">
-        <!--<item>请选择型号</item>-->
+        <item>型号</item>
         <item>72芯</item>
         <item>96芯 </item>
         <item>144芯</item>
@@ -15,14 +15,15 @@
     </string-array>
 
     <string-array name="caizhi">
-        <!--<item>请选择箱体材质</item>-->
+        <item>材质</item>
         <item>冷轧板</item>
         <item>不锈钢 </item>
         <item>SMC</item>
     </string-array>
 
     <string-array name="state">
-        <!--<item>请选择工单状态</item>-->
+        <item>工单状态</item>
+        <item>待处理</item>
         <item>未下发</item>
         <item>已下发 </item>
         <item>处理中</item>
@@ -30,9 +31,9 @@
         <item>关闭</item>
     </string-array>
     <string-array name="workType">
-        <!--<item>请选择工单类型</item>-->
+        <item>工单类型</item>
         <item>告警处理</item>
-        <item>巡查清单</item>
+        <item>巡查工单</item>
     </string-array>
 
 

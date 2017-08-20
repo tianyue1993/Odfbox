@@ -3,6 +3,8 @@ package com.odfbox.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import com.cunoraz.gifview.library.GifView;
@@ -26,6 +28,7 @@ public class OpenGuideActivity extends BaseActivity {
 
     Intent intent;
 
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,9 @@ public class OpenGuideActivity extends BaseActivity {
         setTitleTextView("开锁引导", null);
         intent = getIntent();
         id = intent.getStringExtra("id");
-        getProgress();
+        if (id != null) {
+            getProgress();
+        }
         guide.setVisibility(View.VISIBLE);
         guide.setGifResource(R.mipmap.ic_firstx);
         guide.getGifResource();
@@ -63,8 +68,8 @@ public class OpenGuideActivity extends BaseActivity {
                 });
             }
         });
-    }
 
+    }
 
     @Override
     public void onBackPressed() {
@@ -82,12 +87,12 @@ public class OpenGuideActivity extends BaseActivity {
         });
     }
 
-
     public void getProgress() {
         client.getBoxDetail(mContext, id, new BoxDetailHandler() {
             @Override
             public void onSuccess(Odfbox odfbox) {
                 super.onSuccess(odfbox);
+                Log.d("getProgress", "odfbox: " + odfbox.toString());
                 if (odfbox.smart_lock.business_state.equals("已授权")) {
                     intent.setClass(mContext, GuideSecondActivity.class);
                     startActivity(intent);
@@ -108,7 +113,13 @@ public class OpenGuideActivity extends BaseActivity {
                         }
                     });
                 } else {
-                    getProgress();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getProgress();
+                        }
+                    }, 1000);
+
                 }
             }
 
@@ -138,5 +149,10 @@ public class OpenGuideActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        handler.removeMessages(0);
+//        Thread thread = Thread.currentThread();
+//        thread.interrupt();
     }
+
+
 }

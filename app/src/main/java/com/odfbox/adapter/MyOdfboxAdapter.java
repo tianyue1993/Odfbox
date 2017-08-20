@@ -3,6 +3,7 @@ package com.odfbox.adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,11 +129,13 @@ public class MyOdfboxAdapter extends BoxBaseAdapter<Odfbox> {
             holder.map.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent();
-                    intent.putExtra("type", "box");
-                    intent.putExtra("lat", mInfo.latitude_baidu + "");
-                    intent.putExtra("lon", mInfo.longitude_baidu + "");
-                    intent.setClass(mContext, OdfboxLocationActivity.class);
+                    Intent intent = new Intent(mContext, OdfboxLocationActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("odfbox", mInfo);
+                    bundle.putString("type", mInfo.alarming + "");
+                    bundle.putString("lat", mInfo.latitude_baidu + "");
+                    bundle.putString("lon", mInfo.longitude_baidu + "");
+                    intent.putExtras(bundle);
                     mContext.startActivity(intent);
                 }
             });

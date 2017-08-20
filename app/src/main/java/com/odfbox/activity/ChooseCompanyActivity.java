@@ -20,6 +20,9 @@ import com.odfbox.entity.Org;
 import com.odfbox.handle.CommentHandler;
 import com.odfbox.handle.OrgHandler;
 
+import org.apache.http.entity.StringEntity;
+
+import java.io.UnsupportedEncodingException;
 import java.text.NumberFormat;
 
 import butterknife.Bind;
@@ -84,10 +87,10 @@ public class ChooseCompanyActivity extends BaseActivity {
                 prefs.saveOrgId(accessKey.orgs.get(selectPosition).org_id + "");
                 prefs.saveUserId(accessKey.orgs.get(selectPosition).user_id);
                 prefs.saveOrgName(accessKey.orgs.get(selectPosition).name);
-                startActivity(new Intent(mContext, MainActivity.class));
                 ApiClient.getInstance().asyncHttpClient.addHeader("Authorization", prefs.getToken());
                 getOrg();
-                finish();
+                login();
+
             }
 
 
@@ -100,6 +103,33 @@ public class ChooseCompanyActivity extends BaseActivity {
 
     }
 
+    public void login() {
+        JSONObject object = new JSONObject();
+        object.put("action", "login");
+        object.put("platform", "Android");
+        object.put("channel_id_baidu", prefs.getChannelId());
+        try {
+            showProgress(0, true);
+            StringEntity entity = new StringEntity(object.toString(), "UTF-8");
+            client.getLoginState(mContext, entity, new CommentHandler() {
+                @Override
+                public void onSuccess(String commen) {
+                    super.onSuccess(commen);
+                    showToast("登陆成功");
+                    startActivity(new Intent(mContext, MainActivity.class));
+                    finish();
+                }
+
+                @Override
+                public void onFailure(String msg) {
+                    super.onFailure(msg);
+                    showToast("登陆失败");
+                }
+            });
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void getOrg() {
         client.getOrg(mContext, accessKey.orgs.get(selectPosition).org_id + "", new OrgHandler() {

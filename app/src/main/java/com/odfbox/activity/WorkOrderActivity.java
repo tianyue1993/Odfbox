@@ -57,7 +57,7 @@ public class WorkOrderActivity extends BaseActivity {
     Button search;
     @Bind(R.id.ll_search)
     RelativeLayout llSearch;
-    public boolean isVisible = false;//
+    public boolean isVisible = false;
     @Bind(R.id.text_title)
     TextView textTitle;
 
@@ -74,10 +74,10 @@ public class WorkOrderActivity extends BaseActivity {
         setTitleTextView("我的工单", null);
         final String[] workState = getResources().getStringArray(R.array.state);
         final String[] workType = getResources().getStringArray(R.array.workType);
-        ArrayAdapter<String> state = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, workState);
-        ArrayAdapter<String> type = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, workType);
-        state.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> state = new ArrayAdapter<>(this, R.layout.lib_tv_spinner, workState);
+        ArrayAdapter<String> type = new ArrayAdapter<>(this, R.layout.lib_tv_spinner, workType);
+        state.setDropDownViewResource(android.R.layout.simple_list_item_1);
+        type.setDropDownViewResource(android.R.layout.simple_list_item_1);
         //绑定 Adapter到控件
         spinner1.setAdapter(state);
         spinner2.setAdapter(type);
@@ -154,7 +154,7 @@ public class WorkOrderActivity extends BaseActivity {
             public void onClick(View v) {
                 adaptList.clear();
                 page_number = 0;
-                getList("&serial=" + code.getText().toString() + "&min_appoint_time=" + starttime.getText().toString() + "&max_appoint_time=" + endtime.getText().toString() + "&state=" + spinner1.getSelectedItem().toString() + "&task_sheet_type=" + spinner2.getSelectedItem().toString());
+                getList("&serial=" + code.getText().toString() + "&min_appoint_time=" + starttime.getText().toString() + "&max_appoint_time=" + endtime.getText().toString() + "&state_category=" + spinner1.getSelectedItem().toString() + "&task_sheet_type=" + spinner2.getSelectedItem().toString());
             }
         });
 
@@ -320,7 +320,7 @@ public class WorkOrderActivity extends BaseActivity {
             public void onClick(View v) {
                 if (!loadStatus && list.size() != 0) {
                     if (isVisible) {
-                        getList("&serial=" + code.getText().toString() + "&min_appoint_time=" + starttime.getText().toString() + "&max_appoint_time=" + endtime.getText().toString() + "&state=" + spinner1.getSelectedItem().toString() + "&task_sheet_type=" + spinner2.getSelectedItem().toString());
+                        getList("&serial=" + code.getText().toString() + "&min_appoint_time=" + starttime.getText().toString() + "&max_appoint_time=" + endtime.getText().toString() + "&state_category=" + spinner1.getSelectedItem().toString() + "&task_sheet_type=" + spinner2.getSelectedItem().toString());
                     } else {
                         getList("");
                     }
@@ -336,7 +336,7 @@ public class WorkOrderActivity extends BaseActivity {
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
                     if (loadMore && !loadStatus) {
                         if (isVisible) {
-                            getList("&serial=" + code.getText().toString() + "&min_appoint_time=" + starttime.getText().toString() + "&max_appoint_time=" + endtime.getText().toString() + "&state=" + spinner1.getSelectedItem().toString() + "&task_sheet_type=" + spinner2.getSelectedItem().toString());
+                            getList("&serial=" + code.getText().toString() + "&min_appoint_time=" + starttime.getText().toString() + "&max_appoint_time=" + endtime.getText().toString() + "&state_category=" + spinner1.getSelectedItem().toString() + "&task_sheet_type=" + spinner2.getSelectedItem().toString());
                         } else {
                             getList("");
                         }
@@ -367,7 +367,7 @@ public class WorkOrderActivity extends BaseActivity {
                 page_number = 0;
                 adaptList.clear();
                 if (isVisible) {
-                    getList("&serial=" + code.getText().toString() + "&min_appoint_time=" + starttime.getText().toString() + "&max_appoint_time=" + endtime.getText().toString() + "&state=" + spinner1.getSelectedItem().toString() + "&task_sheet_type=" + spinner2.getSelectedItem().toString());
+                    getList("&serial=" + code.getText().toString() + "&min_appoint_time=" + starttime.getText().toString() + "&max_appoint_time=" + endtime.getText().toString() + "&state_category=" + spinner1.getSelectedItem().toString() + "&task_sheet_type=" + spinner2.getSelectedItem().toString());
                 } else {
                     getList("");
                 }

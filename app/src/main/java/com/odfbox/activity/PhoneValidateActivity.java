@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -26,6 +25,9 @@ import com.odfbox.handle.CommentHandler;
 import com.odfbox.handle.OrgHandler;
 import com.odfbox.utils.StringUtils;
 
+import org.apache.http.entity.StringEntity;
+
+import java.io.UnsupportedEncodingException;
 import java.text.NumberFormat;
 
 import butterknife.Bind;
@@ -243,11 +245,40 @@ public class PhoneValidateActivity extends BaseActivity implements TextWatcher {
                     prefs.saveBoxData(nt.format(percent), org.total_odf_box + "");
                 }
                 prefs.saveOrgName(org.name);
-                startActivity(new Intent(mContext, MainActivity.class));
-                finish();
-                Log.d("getOrg", "getOrg: " + org.toString());
+
+                login();
+
             }
         });
+    }
+
+
+    public void login() {
+        JSONObject object = new JSONObject();
+        object.put("action", "login");
+        object.put("platform", "Android");
+        object.put("channel_id_baidu", prefs.getChannelId());
+        try {
+            showProgress(0, true);
+            StringEntity entity = new StringEntity(object.toString(), "UTF-8");
+            client.getLoginState(mContext, entity, new CommentHandler() {
+                @Override
+                public void onSuccess(String commen) {
+                    super.onSuccess(commen);
+                    showToast("登陆成功");
+                    startActivity(new Intent(mContext, MainActivity.class));
+                    finish();
+                }
+
+                @Override
+                public void onFailure(String msg) {
+                    super.onFailure(msg);
+                    showToast("登陆失败");
+                }
+            });
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
 }

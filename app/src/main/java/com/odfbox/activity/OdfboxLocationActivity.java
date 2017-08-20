@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,8 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baidu.location.BDLocation;
-import com.baidu.location.LocationClient;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -30,20 +26,11 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.geocode.GeoCodeOption;
-import com.baidu.mapapi.search.geocode.GeoCodeResult;
-import com.baidu.mapapi.search.geocode.GeoCoder;
-import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
-import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
-import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.odfbox.OdfboxApplication;
 import com.odfbox.R;
-import com.odfbox.entity.BoxList;
 import com.odfbox.entity.Odfbox;
-import com.odfbox.handle.BoxListHandler;
 import com.odfbox.handle.CommentHandler;
-import com.odfbox.utils.BoxUtils;
 import com.odfbox.views.DialogFactory;
 
 import org.apache.http.entity.StringEntity;
@@ -100,20 +87,15 @@ public class OdfboxLocationActivity extends BaseActivity {
     ImageView box_image;
     @Bind(R.id.title)
     TextView titile;
-    Marker marker;
 
-    MapStatus mapStatus = null;
     public MapView mMapView;
     public BaiduMap mBaiduMap;
-    public int SETLOCATIONCODE = 12;
-    public LocationClient mLocClient;
-    public boolean isFirstLoc = true;
     public boolean visible = true;
-    BDLocation mLocation = null;
-    public boolean ifOpen = true;
     public float zoom = 16;
     BitmapDescriptor warnbitmap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_marka_warn);
     BitmapDescriptor markabitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_marka);
+
+    Odfbox odfbox = new Odfbox();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,63 +118,37 @@ public class OdfboxLocationActivity extends BaseActivity {
                 finish();
             }
         });
-        if (getIntent().getStringExtra("lat") != null && getIntent().getStringExtra("lon") != null) {
+
+        Bundle bundle = getIntent().getExtras();
+        odfbox = (Odfbox) bundle.getSerializable("odfbox");
+        if (bundle.getString("lat") != null && bundle.getString("lon") != null) {
             LatLng latLng = new LatLng(Double.parseDouble(getIntent().getStringExtra("lat")), Double.parseDouble(getIntent().getStringExtra("lon")));
             MapStatus mMapStatus = new MapStatus.Builder()
                     .target(latLng).zoom(zoom)
                     .build();
-            //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
             MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-            //改变地图状态
             mBaiduMap.animateMapStatus(mMapStatusUpdate);
-            //构建Marker图标
-            BitmapDescriptor bitmap = BitmapDescriptorFactory
-                    .fromResource(R.mipmap.icon_marka);
-            //构建MarkerOption，用于在地图上添加Marker
-            OverlayOptions option1 = new MarkerOptions()
-                    .position(latLng)
-                    .icon(bitmap);
+
+            OverlayOptions option1;
+            if (bundle.getString("type").equals("true")) {
+                option1 = new MarkerOptions()
+                        .position(latLng)
+                        .icon(warnbitmap);
+            } else {
+                option1 = new MarkerOptions()
+                        .position(latLng)
+                        .icon(markabitmap);
+            }
             //在地图上添加Marker，并显示
-            mBaiduMap.addOverlay(option1);
+            //使用marker携带info信息，当点击事件的时候可以通过marker获得info信息
+            Marker marker = (Marker) mBaiduMap.addOverlay(option1);
+            Bundle bundle1 = new Bundle();
+            bundle1.putSerializable("info", odfbox);
+            marker.setExtraInfo(bundle1);
         } else {
             showToast("没有找到此光交箱的位置");
         }
 
-
-        mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
-
-            @Override
-            public void onMapStatusChangeStart(MapStatus status) {
-
-            }
-
-            // 移动结束，在这里需要计算出中心点坐标
-            @Override
-            public void onMapStatusChangeFinish(final MapStatus status) {
-                mapStatus = status;
-                final GeoCoder geoCoder = GeoCoder.newInstance();
-                geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(status.target));
-                geoCoder.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
-                    @Override
-                    public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
-
-                    }
-
-                    @Override
-                    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
-                        String adress = reverseGeoCodeResult.getAddress();
-                        if (!TextUtils.isEmpty(adress)) {
-                            showToast(reverseGeoCodeResult.getAddress() + "");
-                            getList(reverseGeoCodeResult.getLocation().longitude + "", reverseGeoCodeResult.getLocation().latitude + "", BoxUtils.getZoom((int) status.zoom) + "");
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onMapStatusChange(MapStatus status) {
-            }
-        });
 
         //地图点击事件
         mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
@@ -218,9 +174,10 @@ public class OdfboxLocationActivity extends BaseActivity {
                                                    mBaiduMap.animateMapStatus(mMapStatusUpdate);
                                                    final Bundle bundle = marker.getExtraInfo();
                                                    final Odfbox odfbox;
-                                                   if (bundle != null) {
+                                                   if (bundle != null && bundle.containsKey("info")) {
                                                        odfbox = (Odfbox) bundle.getSerializable("info");
                                                    } else {
+                                                       odfbox = new Odfbox();
                                                        return true;
                                                    }
                                                    openes.setVisibility(View.VISIBLE);
@@ -336,31 +293,31 @@ public class OdfboxLocationActivity extends BaseActivity {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
-            final GeoCoder geoCoder = GeoCoder.newInstance();
-            geoCoder.geocode(new GeoCodeOption().city("昆明").address(data.getStringExtra("address")));
-            geoCoder.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
-                @Override
-                public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
-                    mBaiduMap.clear();
-                    getList(geoCodeResult.getLocation().longitude + "", geoCodeResult.getLocation().latitude + "", "2000");
-                    MapStatus mMapStatus = new MapStatus.Builder()
-                            .target(new LatLng(geoCodeResult.getLocation().latitude, geoCodeResult.getLocation().longitude))
-                            .build();
-                    MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-                    mBaiduMap.animateMapStatus(mMapStatusUpdate);
-                }
-
-                @Override
-                public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
-
-                }
-            });
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (data != null) {
+//            final GeoCoder geoCoder = GeoCoder.newInstance();
+//            geoCoder.geocode(new GeoCodeOption().city("昆明").address(data.getStringExtra("address")));
+//            geoCoder.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
+//                @Override
+//                public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
+//                    mBaiduMap.clear();
+//                    getList(geoCodeResult.getLocation().longitude + "", geoCodeResult.getLocation().latitude + "", "2000");
+//                    MapStatus mMapStatus = new MapStatus.Builder()
+//                            .target(new LatLng(geoCodeResult.getLocation().latitude, geoCodeResult.getLocation().longitude))
+//                            .build();
+//                    MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+//                    mBaiduMap.animateMapStatus(mMapStatusUpdate);
+//                }
+//
+//                @Override
+//                public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
+//
+//                }
+//            });
+//        }
+//    }
 
     @Override
     protected void onDestroy() {
@@ -383,61 +340,59 @@ public class OdfboxLocationActivity extends BaseActivity {
         mMapView.onPause();
     }
 
-    public void getList(String lat, String lon, String distance) {
-
-        client.getNearBox(mContext, lat, lon, distance, new BoxListHandler() {
-            @Override
-            public void onSuccess(BoxList commen) {
-                super.onSuccess(commen);
-                cancelmDialog();
-                Log.d("Reqeust:", "Reqeust: " + commen.results.toString());
-                if (commen.results.size() != 0) {
-                    for (int i = 0; i < commen.results.size(); i++) {
-                        //定义Maker坐标点
-                        final Odfbox odfbox = commen.results.get(i);
-                        LatLng point = new LatLng(odfbox.latitude_baidu, odfbox.longitude_baidu);
-                        //构建Marker图标
-                        BitmapDescriptor bitmap;
-                        if (odfbox.alarming) {
-                            bitmap = warnbitmap;
-                        } else {
-                            bitmap = markabitmap;
-                        }
-                        //构建MarkerOption，用于在地图上添加Marker
-                        OverlayOptions option = new MarkerOptions()
-                                .position(point)
-                                .icon(bitmap);
-                        //在地图上添加Marker，并显示
-                        Marker marker = (Marker) mBaiduMap.addOverlay(option);
-                        //使用marker携带info信息，当点击事件的时候可以通过marker获得info信息
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("info", odfbox);
-                        marker.setExtraInfo(bundle);
-                    }
-                } else {
-                    showToast("当前位置附近没有光交箱！");
-                }
-
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                super.onFailure(msg);
-                cancelmDialog();
-            }
-
-            @Override
-            public void onCancel() {
-                super.onCancel();
-                cancelmDialog();
-            }
-        });
-    }
+//    public void getList(String lat, String lon, String distance) {
+//
+//        client.getNearBox(mContext, lat, lon, distance, new BoxListHandler() {
+//            @Override
+//            public void onSuccess(BoxList commen) {
+//                super.onSuccess(commen);
+//                cancelmDialog();
+//                Log.d("Reqeust:", "Reqeust: " + commen.results.toString());
+//                if (commen.results.size() != 0) {
+//                    for (int i = 0; i < commen.results.size(); i++) {
+//                        //定义Maker坐标点
+//                        final Odfbox odfbox = commen.results.get(i);
+//                        LatLng point = new LatLng(odfbox.latitude_baidu, odfbox.longitude_baidu);
+//                        //构建Marker图标
+//                        BitmapDescriptor bitmap;
+//                        if (odfbox.alarming) {
+//                            bitmap = warnbitmap;
+//                        } else {
+//                            bitmap = markabitmap;
+//                        }
+//                        //构建MarkerOption，用于在地图上添加Marker
+//                        OverlayOptions option = new MarkerOptions()
+//                                .position(point)
+//                                .icon(bitmap);
+//                        //在地图上添加Marker，并显示
+//                        Marker marker = (Marker) mBaiduMap.addOverlay(option);
+//                        //使用marker携带info信息，当点击事件的时候可以通过marker获得info信息
+//                        Bundle bundle = new Bundle();
+//                        bundle.putSerializable("info", odfbox);
+//                        marker.setExtraInfo(bundle);
+//                    }
+//                } else {
+//                    showToast("当前位置附近没有光交箱！");
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(String msg) {
+//                super.onFailure(msg);
+//                cancelmDialog();
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                super.onCancel();
+//                cancelmDialog();
+//            }
+//        });
+//    }
 
 
     public void getPemmission() {
-
-
         if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
         } else if (ContextCompat.checkSelfPermission(this, ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {

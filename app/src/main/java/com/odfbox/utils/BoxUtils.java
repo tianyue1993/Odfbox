@@ -1,10 +1,9 @@
 package com.odfbox.utils;
 
-import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.util.Log;
 
 import org.apache.commons.codec.binary.Base64;
@@ -20,7 +19,7 @@ import static android.os.Environment.getExternalStorageDirectory;
 public class BoxUtils {
     private static final String SDCARD_ROOT = getExternalStorageDirectory().getPath();
     private static final String DOCTOR_SDCARD_PATH = SDCARD_ROOT
-            + "/zhsaq_app";
+            + "/odfbox_app";
 
     public static final String APP_PACKAGE_NAME = "com.zhsaq.family";
     public static final String APP_CACHE_PHONE_PATH = "/data/data/"
@@ -65,21 +64,32 @@ public class BoxUtils {
 
 
     /**
-     * @param @param  ctx
-     * @param @return 设定文件
-     * @return String 返回类型
-     * @throws
-     * @Title: readDeviceId
      * @Description: 获取手机信息
      */
     public static String readDeviceId(Context ctx) {
-        TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Activity.TELEPHONY_SERVICE);
-        String deviceId = tm.getDeviceId();
-        if (TextUtils.isEmpty(deviceId)) {
-            String time = Long.toString((System.currentTimeMillis() / (1000 * 60 * 60)));
-            deviceId = time + time;
+        String device_id = "" + android.provider.Settings.Secure.getString(ctx.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+        if (device_id.length() < 5) {
+            TelephonyManager tm = (TelephonyManager) ctx.getSystemService(ctx.TELEPHONY_SERVICE);
+            String tmdevice_id = "" + tm.getDeviceId();
+            if (tmdevice_id.length() < 5) {
+                String deviceSereisId = tm.getSimSerialNumber();
+                if (deviceSereisId.length() < 5) {
+                    String m_szDevIDShort = "35" + // we make this look like a
+                            // valid IMEI
+                            Build.BOARD.length() % 10 + Build.BRAND.length() % 10 + Build.CPU_ABI.length() % 10 + Build.DEVICE.length() % 10 + Build.DISPLAY.length() % 10 + Build.HOST.length() % 10 + Build.ID.length() % 10 + Build.MANUFACTURER.length() % 10 + Build.MODEL.length() % 10 + Build.PRODUCT.length() % 10 + Build.TAGS.length() % 10 + Build.TYPE.length() % 10 + Build.USER.length() % 10; // 13
+                    // digits
+                    device_id = "imei" + m_szDevIDShort;
+                } else {
+                    device_id = "tmSimSerialNumber" + deviceSereisId;
+                }
+            } else {
+                device_id = "tmDeviceId" + tmdevice_id;
+            }
         }
-        return deviceId;
+
+        Integer.parseInt(device_id, 16);
+        Log.d("device_id", "readDeviceId: " + Integer.parseInt(device_id, 16));
+        return Integer.parseInt(device_id, 16) + "";
     }
 
     public static String getImgBase64(String imgFile) {
@@ -121,40 +131,36 @@ public class BoxUtils {
         zoomCache.put(20, 10);
         zoomCache.put(21, 5);
         zoomCache.put(22, 2);
-
-
     }
 
     public static int getZoom(int level) {
-//        @0,
-//        @0,
-//        @0, // < 3
-//        @2000000, // level 3
-//        @1000000, // 4
-//        @500000, // 5
-//        @200000, // 6
-//        @100000, // 7
-//        @50000, // 8
-//        @25000, // 9
-//        @20000, // 10
-//        @10000, // 11
-//        @5000, // 12
-//        @2000, // 13
-//        @1000, // 14
-//        @500, // 15
-//        @200, // 16
-//        @100, // 17
-//        @50, // 18
-//        @20, // 19
-//        @10, // 20
-//        @5, // 21
-//        @2 // 22
-
         Integer key = new Integer(level);
         if (zoomCache.containsKey(key)) {
-            return zoomCache.get(key)* 10 ;
+            return zoomCache.get(key) * 10;
         }
-        return 200* 10 ;
+        return 200 * 10;
     }
 
+
+    public static boolean getIsUpdate(String current, String recent) {
+        String a1 = "";
+        String a2 = "";
+        String b1 = "";
+        String b2 = "";
+        a1 = current.substring(0, current.indexOf("."));
+        a2 = recent.substring(0, recent.indexOf("."));
+        b1 = current.substring(current.indexOf(".") + 1, current.length());
+        b2 = recent.substring(recent.indexOf(".") + 1, recent.length());
+        if (Integer.parseInt(a1) < Integer.parseInt(a2)) {
+            return true;
+        } else if (Integer.parseInt(a1) == Integer.parseInt(a2)) {
+            if (Float.parseFloat(b1) < Float.parseFloat(b2)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

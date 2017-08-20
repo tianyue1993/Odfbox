@@ -1,6 +1,7 @@
 package com.odfbox.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -13,7 +14,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,13 +30,17 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.odfbox.OdfboxApplication;
 import com.odfbox.R;
 import com.odfbox.entity.Attachments;
+import com.odfbox.entity.BoxDefineList;
 import com.odfbox.entity.Odfbox;
 import com.odfbox.entity.SmartLock;
+import com.odfbox.handle.BoxDefineHandler;
 import com.odfbox.handle.CommentHandler;
 import com.odfbox.utils.BoxUtils;
 import com.odfbox.utils.GetPathFromUri4kitkat;
 import com.odfbox.utils.StringUtils;
+import com.odfbox.views.DialogFactory;
 import com.odfbox.views.SmoothImageView;
+import com.odfbox.zxing.activity.CaptureActivity;
 
 import org.apache.http.entity.StringEntity;
 
@@ -57,6 +61,7 @@ import butterknife.OnClick;
 import static com.odfbox.R.id.ed_describe;
 import static com.odfbox.R.id.image_box;
 import static com.odfbox.R.id.image_near;
+import static com.odfbox.utils.Preferences.REFRESH_BOXLIST;
 
 public class BoxDetailActivity extends BaseActivity {
 
@@ -135,6 +140,13 @@ public class BoxDetailActivity extends BaseActivity {
     TextView eltric;
     @Bind(R.id.activity_box_detail)
     RelativeLayout activityBoxDetail;
+    @Bind(R.id.last_close_time)
+    TextView lastCloseTime;
+    @Bind(R.id.tv_eltric)
+    TextView tvEltric;
+    @Bind(R.id.image_scan)
+    ImageView imageScan;
+    Dialog dialog;
 
     ArrayList<Attachments> attachments = new ArrayList<>();
 
@@ -155,18 +167,15 @@ public class BoxDetailActivity extends BaseActivity {
 
     protected Bitmap photo;
     protected File mCurrentPhotoFile;
-    @Bind(R.id.last_close_time)
-    TextView lastCloseTime;
-    @Bind(R.id.tv_eltric)
-    TextView tvEltric;
     private Uri photoUri;
     private File mUriFile;
     private static final int CAMERA_PIC = 21;
     private static final int CROP_PIC = 22;
     private static final int CODE_CAMERA_REQUEST = 30;
     private static final int CODE_RESULT_REQUEST = 33;
-
     Odfbox odfbox;
+    String[] OdfBoxModel = null;
+    String[] OdfBoxMaterial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,19 +188,23 @@ public class BoxDetailActivity extends BaseActivity {
         odfbox = (Odfbox) bundle.getSerializable("info");
         Log.d("odfbox", "onCreate: odfbox" + odfbox.toString());
         initData();
+        getConstantDefine("OdfBoxModel");
+        getConstantDefine("OdfBoxMaterial");
     }
 
 
     public void initData() {
-        edName.setClickable(false);
-        edDescribe.setClickable(false);
-        edCode.setClickable(false);
-        edFactory.setClickable(false);
-        edContent.setClickable(false);
-        edTime.setClickable(false);
-        edState.setClickable(false);
-        edTerminal.setClickable(false);
-        mapAddress.setVisibility(View.INVISIBLE);
+        edName.setEnabled(false);
+        edDescribe.setEnabled(false);
+        edCode.setEnabled(false);
+        edFactory.setEnabled(false);
+        edContent.setEnabled(false);
+        edTime.setEnabled(false);
+        edState.setEnabled(false);
+        edTerminal.setEnabled(false);
+        edType.setEnabled(false);
+        spinner1.setEnabled(false);
+        imageScan.setVisibility(View.GONE);
         for (int i = 0; i < 3; i++) {
             Attachments a = new Attachments();
             a.mimetype = "image/jpeg";
@@ -201,6 +214,8 @@ public class BoxDetailActivity extends BaseActivity {
         if (odfbox == null) {
             odfbox = new Odfbox();
         }
+
+
         if (odfbox.picture != null) {
             ImageLoader.getInstance().displayImage("http:" + odfbox.picture.url, boxImage);
         }
@@ -239,53 +254,60 @@ public class BoxDetailActivity extends BaseActivity {
                 if (ifChange == 0) {
                     ifChange = 1;
                     llChange.setVisibility(View.VISIBLE);
-                    edName.setClickable(true);
-                    edDescribe.setClickable(true);
-                    edCode.setClickable(true);
-                    edFactory.setClickable(true);
-                    edContent.setClickable(true);
-                    edTime.setClickable(true);
-                    edState.setClickable(true);
-                    edTerminal.setClickable(true);
-                    mapAddress.setVisibility(View.VISIBLE);
-
+                    edName.setFocusable(true);
+                    edName.setEnabled(true);
+                    edName.requestFocus();
+                    edCode.setEnabled(true);
+                    edCode.setFocusable(true);
+                    edCode.requestFocus();
+                    edFactory.setEnabled(true);
+                    edFactory.setFocusable(true);
+                    edFactory.requestFocus();
+                    edContent.setEnabled(true);
+                    edContent.setFocusable(true);
+                    edContent.requestFocus();
+                    edTime.setEnabled(true);
+                    edTime.setFocusable(true);
+                    edTime.requestFocus();
+                    edState.setEnabled(true);
+                    edState.setFocusable(true);
+                    edState.requestFocus();
+                    edTerminal.setEnabled(true);
+                    edTerminal.setFocusable(true);
+                    edTerminal.requestFocus();
+                    edDescribe.setEnabled(true);
+                    edDescribe.setFocusable(true);
+                    edDescribe.requestFocus();
+                    edType.setEnabled(true);
+                    spinner1.setEnabled(true);
+                    imageScan.setVisibility(View.VISIBLE);
                 } else {
                     ifChange = 0;
                     llChange.setVisibility(View.GONE);
-                    edName.setClickable(false);
-                    edDescribe.setClickable(false);
-                    edCode.setClickable(false);
-                    edFactory.setClickable(false);
-                    edContent.setClickable(false);
-                    edTime.setClickable(false);
-                    edState.setClickable(false);
-                    edTerminal.setClickable(false);
-                    mapAddress.setVisibility(View.INVISIBLE);
+                    edName.setEnabled(false);
+                    edDescribe.setEnabled(false);
+                    edCode.setEnabled(false);
+                    edFactory.setEnabled(false);
+                    edContent.setEnabled(false);
+                    edTime.setEnabled(false);
+                    edState.setEnabled(false);
+                    edTerminal.setEnabled(false);
+                    edType.setEnabled(false);
+                    spinner1.setEnabled(false);
+                    imageScan.setVisibility(View.GONE);
                 }
             }
         });
 
-        // 建立数据源
-        final String[] type = getResources().getStringArray(R.array.type);
-        final String[] caizhi = getResources().getStringArray(R.array.caizhi);
-// 建立Adapter并且绑定数据源
-        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, type);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, caizhi);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//绑定 Adapter到控件
-        edType.setAdapter(typeAdapter);
-        spinner1.setAdapter(adapter2);
-        edType.setSelection(0, true);
-        spinner1.setSelection(0, true);
+
+//        edType.setSelection(0, true);
+//        spinner1.setSelection(0, true);
         edType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv = (TextView) view;
                 tv.setTextColor(getResources().getColor(R.color.text_grey));    //设置颜色
                 tv.setTextSize(12.0f);    //设置大小
-                tv.setGravity(Gravity.CENTER_HORIZONTAL);   //设置居中
-
             }
 
             @Override
@@ -299,7 +321,7 @@ public class BoxDetailActivity extends BaseActivity {
                 TextView tv = (TextView) view;
                 tv.setTextColor(getResources().getColor(R.color.text_grey));    //设置颜色
                 tv.setTextSize(12.0f);    //设置大小
-                tv.setGravity(Gravity.CENTER_HORIZONTAL);   //设置居中
+//                tv.setGravity(Gravity.CENTER_HORIZONTAL);   //设置居中
             }
 
             @Override
@@ -308,7 +330,66 @@ public class BoxDetailActivity extends BaseActivity {
         });
     }
 
-    @OnClick({image_box, R.id.image_inner, image_near, R.id.btn_cancel, R.id.btn_sure, R.id.map_address, R.id.current_address})
+
+    public void getConstantDefine(final String type) {
+        client.getConstantDefine(mContext, type, new BoxDefineHandler() {
+            @Override
+            public void onSuccess(BoxDefineList commen) {
+                super.onSuccess(commen);
+                if (type.equals("OdfBoxMaterial")) {
+                    ArrayList<String> material = new ArrayList<String>();
+                    material.add("材质");
+                    for (int i = 0; i < commen.results.size(); i++) {
+                        material.add(commen.results.get(i).text);
+                    }
+                    OdfBoxMaterial = (String[]) material.toArray(new String[commen.results.size()]);
+
+                } else if (type.equals("OdfBoxModel")) {
+                    ArrayList<String> model = new ArrayList<String>();
+                    model.add("型号");
+                    for (int i = 0; i < commen.results.size(); i++) {
+                        model.add(commen.results.get(i).text);
+                    }
+                    OdfBoxModel = (String[]) model.toArray(new String[commen.results.size()]);
+                }
+                if (OdfBoxMaterial != null && OdfBoxModel != null) {
+                    setData();
+                }
+
+            }
+        });
+    }
+
+    public void setData() {
+        // 建立数据源
+        // 建立Adapter并且绑定数据源
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(this, R.layout.lib_tv_spinner, OdfBoxModel);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, R.layout.lib_tv_spinner, OdfBoxMaterial);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+        adapter2.setDropDownViewResource(android.R.layout.simple_list_item_1);
+        //绑定 Adapter到控件
+        edType.setAdapter(typeAdapter);
+        spinner1.setAdapter(adapter2);
+
+        if (odfbox.material != null) {
+            for (int i = 0; i < OdfBoxMaterial.length; i++) {
+                if (odfbox.material.equals(OdfBoxMaterial[i])) {
+                    spinner1.setSelection(i, true);
+                }
+            }
+        }
+        if (odfbox.model != null) {
+            for (int i = 0; i < OdfBoxModel.length; i++) {
+                if (odfbox.model.equals(OdfBoxModel[i])) {
+                    edType.setSelection(i, true);
+                }
+            }
+        }
+
+    }
+
+
+    @OnClick({image_box, R.id.image_inner, image_near, R.id.btn_cancel, R.id.btn_sure, R.id.map_address, R.id.current_address, R.id.image_scan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case image_box:
@@ -380,19 +461,74 @@ public class BoxDetailActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_cancel:
-                llChange.setVisibility(View.GONE);
-                ifChange = 0;
+
+                dialog = DialogFactory.getDialogFactory().showCommonDialog(mContext, "您尚未提交修改，是否退出？", "取消", "确定", new View.OnClickListener() {
+                    @SuppressWarnings("unused")
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                }, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (dialog != null && dialog.isShowing()) {
+                            llChange.setVisibility(View.GONE);
+                            ifChange = 0;
+                            llChange.setVisibility(View.GONE);
+                            edName.setEnabled(false);
+                            edDescribe.setEnabled(false);
+                            edCode.setEnabled(false);
+                            edFactory.setEnabled(false);
+                            edContent.setEnabled(false);
+                            edTime.setEnabled(false);
+                            edState.setEnabled(false);
+                            edTerminal.setEnabled(false);
+                            edType.setEnabled(false);
+                            spinner1.setEnabled(false);
+                            imageScan.setVisibility(View.GONE);
+                            dialog.dismiss();
+                        }
+
+                    }
+                });
+
                 break;
             case R.id.btn_sure:
+
                 editBox();
+
                 break;
             case R.id.map_address:
-                startActivityForResult(new Intent(mContext, SearchActivity.class), GETADDRESS);
+                if (ifChange == 1)
+
+                {
+                    startActivityForResult(new Intent(mContext, SearchActivity.class), GETADDRESS);
+                } else
+
+                {
+                    Intent intent = new Intent(mContext, OdfboxLocationActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("odfbox", odfbox);
+                    bundle.putString("type", odfbox.alarming + "");
+                    bundle.putString("lat", odfbox.latitude_baidu + "");
+                    bundle.putString("lon", odfbox.longitude_baidu + "");
+                    intent.putExtras(bundle);
+                }
+
                 break;
             case R.id.current_address:
                 jd.setText(prefs.getCurrentAddress()[0]);
                 wd.setText(prefs.getCurrentAddress()[1]);
                 edDescribe.setText(prefs.getCurrentAddress()[2]);
+                break;
+            case R.id.image_scan:
+
+                //二维码
+                startActivityForResult(new Intent(mContext, CaptureActivity.class),
+
+                        5);
+                break;
+            default:
                 break;
         }
     }
@@ -479,6 +615,7 @@ public class BoxDetailActivity extends BaseActivity {
                     super.onSuccess(commen);
                     cancelmDialog();
                     showToast("修改成功");
+                    sendBroadcast(new Intent(REFRESH_BOXLIST));
                     finish();
                 }
 
@@ -506,7 +643,6 @@ public class BoxDetailActivity extends BaseActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         try {
             if (requestCode == 5) {
                 if (!StringUtils.isEmpty(data.getStringExtra("code"))) {

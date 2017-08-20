@@ -63,6 +63,12 @@ public class EventListAdapter extends BoxBaseAdapter<Event> {
 
             }
 
+            if (mInfo.alarm) {
+                holder.tv_type.setTextColor(mContext.getResources().getColor(R.color.red));
+            } else {
+                holder.tv_type.setTextColor(mContext.getResources().getColor(R.color.text_grey));
+            }
+
             if (mInfo.time != null) {
                 holder.time.setText("时          间        " + mInfo.time);
             } else {
