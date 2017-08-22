@@ -12,7 +12,6 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="10dp"
-        android:singleLine="true"
         android:text="工  单 号：----"
         android:textColor="@color/text_grey"
         android:textSize="11sp" />
@@ -47,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/state"
+        android:layout_below="@+id/code"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="5dp"
         android:text="工单类型:----"
@@ -62,7 +61,6 @@
         android:layout_below="@+id/type"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="5dp"
-        android:singleLine="true"
         android:text="发起时间:----"
         android:textColor="@color/text_grey"
         android:textSize="11sp" />
@@ -73,10 +71,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/state"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/type"
+        android:layout_below="@+id/manager"
         android:layout_marginRight="25dp"
         android:layout_marginTop="5dp"
-        android:singleLine="true"
         android:text="要求完成时间:----"
         android:textColor="@color/text_grey"
         android:textSize="11sp" />

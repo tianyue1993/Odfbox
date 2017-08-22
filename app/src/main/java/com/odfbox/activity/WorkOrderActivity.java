@@ -128,6 +128,8 @@ public class WorkOrderActivity extends BaseActivity {
                     if (listview.getFooterViewsCount() > 0) {
                         listview.removeFooterView(footer);
                     }
+                } else {
+
                 }
             }
         });

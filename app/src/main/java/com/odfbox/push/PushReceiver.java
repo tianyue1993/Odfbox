@@ -2,13 +2,12 @@ package com.odfbox.push;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.baidu.android.pushservice.PushMessageReceiver;
 import com.odfbox.OdfboxApplication;
 import com.odfbox.activity.WarnListActivity;
-import com.odfbox.utils.GlobalSetting;
 
 import java.util.List;
 
@@ -37,9 +36,12 @@ public class PushReceiver extends PushMessageReceiver {
     public void onBind(Context context, int i, String s, String s1, String s2, String s3) {
         Log.d(TAG, "onBind: channelid" + s2);
         if (i == 0) {
-            GlobalSetting.getInstance(context).saveChannelId(s2);
-        } else {
-            Toast.makeText(OdfboxApplication.getContext(), "推送绑定失败", Toast.LENGTH_SHORT).show();
+            if (!s2.isEmpty()) {
+                SharedPreferences preferences = context.getSharedPreferences("CHANNELID", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("channelid", s2);
+                editor.commit();
+            }
         }
 
     }

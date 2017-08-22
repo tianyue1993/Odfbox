@@ -499,13 +499,9 @@ public class BoxDetailActivity extends BaseActivity {
 
                 break;
             case R.id.map_address:
-                if (ifChange == 1)
-
-                {
+                if (ifChange == 1) {
                     startActivityForResult(new Intent(mContext, SearchActivity.class), GETADDRESS);
-                } else
-
-                {
+                } else {
                     Intent intent = new Intent(mContext, OdfboxLocationActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("odfbox", odfbox);
@@ -513,6 +509,7 @@ public class BoxDetailActivity extends BaseActivity {
                     bundle.putString("lat", odfbox.latitude_baidu + "");
                     bundle.putString("lon", odfbox.longitude_baidu + "");
                     intent.putExtras(bundle);
+                    startActivity(intent);
                 }
 
                 break;

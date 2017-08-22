@@ -98,8 +98,6 @@ public class TaskControlActivity extends BaseActivity {
     RelativeLayout rlImage;
     @Bind(R.id.commit)
     Button commit;
-    @Bind(R.id.activity_task_control)
-    RelativeLayout activityTaskControl;
 
     String picture1 = "";
     String picture2 = "";

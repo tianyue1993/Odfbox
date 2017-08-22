@@ -94,7 +94,7 @@ public class WarnListActivity extends BaseActivity {
             }
         });
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
         c.add(Calendar.MONTH, -1);
         start_time.setText(formatter.format(c.getTime()));
@@ -170,6 +170,13 @@ public class WarnListActivity extends BaseActivity {
                                                              } else {
                                                                  getList("&odf_box_serial_like" + edJd.getText().toString() + "&odf_box_name_like" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
                                                              }
+                                                         } else {
+                                                             adaptList.clear();
+                                                             page_number = 0;
+                                                             alrming = false;
+                                                             if (!checkboxOrder.isChecked()) {
+                                                                 getList("");
+                                                             }
                                                          }
                                                      }
                                                  }
@@ -188,7 +195,14 @@ public class WarnListActivity extends BaseActivity {
                                                              if (isVisible) {
                                                                  getList("");
                                                              } else {
-                                                                 getList("&odf_box_serial_like" + edJd.getText().toString() + "&odf_box_name_like" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
+                                                                 getList("&odf_box_serial_like=" + edJd.getText().toString() + "&odf_box_name_like=" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
+                                                             }
+                                                         } else {
+                                                             adaptList.clear();
+                                                             page_number = 0;
+                                                             alrming = false;
+                                                             if (!checkboxWarns.isChecked()) {
+                                                                 getList("");
                                                              }
                                                          }
                                                      }
@@ -208,7 +222,7 @@ public class WarnListActivity extends BaseActivity {
                                           if (isVisible) {
                                               getList("");
                                           } else {
-                                              getList("&odf_box_serial_like" + edJd.getText().toString() + "&odf_box_name_like" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
+                                              getList("&odf_box_serial_like=" + edJd.getText().toString() + "&odf_box_name_like=" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
                                           }
                                       }
                                   }
@@ -229,7 +243,7 @@ public class WarnListActivity extends BaseActivity {
                     if (isVisible) {
                         getList("");
                     } else {
-                        getList("&odf_box_serial_like" + edJd.getText().toString() + "&odf_box_name_like" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
+                        getList("&odf_box_serial_like=" + edJd.getText().toString() + "&odf_box_name_like=" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
                     }
                 }
             }
@@ -244,7 +258,7 @@ public class WarnListActivity extends BaseActivity {
                         if (isVisible) {
                             getList("");
                         } else {
-                            getList("&odf_box_serial_like" + edJd.getText().toString() + "&odf_box_name_like" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
+                            getList("&odf_box_serial_like=" + edJd.getText().toString() + "&odf_box_name_like=" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
                         }
                     }
                     if (list.size() == 0) {
@@ -275,7 +289,7 @@ public class WarnListActivity extends BaseActivity {
                 if (isVisible) {
                     getList("");
                 } else {
-                    getList("&odf_box_serial_like" + edJd.getText().toString() + "&odf_box_name_like" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
+                    getList("&odf_box_serial_like=" + edJd.getText().toString() + "&odf_box_name_like=" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
                 }
             }
         });
@@ -295,6 +309,7 @@ public class WarnListActivity extends BaseActivity {
     }
 
     public void getList(String string) {
+        cancelmDialog();
         showProgress(0, true);
         client.getWarnList(mContext, (page_number++) * 10 + "", string, alrming, new WarnHandler() {
             @Override

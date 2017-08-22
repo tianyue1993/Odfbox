@@ -31,7 +31,6 @@ public class GlobalSetting {
     private static final String COVERAGE_RATE = "coverage_rate";
     private static final String TOTAL_ODF_BOX = "total_odf_box";
     private static final String ORG_NAME = "org_name";
-
     private static final String CHANNEL_ID = "channel_id";
 
     private GlobalSetting(Context context) {
@@ -200,14 +199,6 @@ public class GlobalSetting {
 
     public String getOrgName() {
         return getSharedPreferences().getString(ORG_NAME, "");
-    }
-
-    public void saveChannelId(String id) {
-        saveString(CHANNEL_ID, id);
-    }
-
-    public String getChannelId() {
-        return getSharedPreferences().getString(CHANNEL_ID, "");
     }
 
 

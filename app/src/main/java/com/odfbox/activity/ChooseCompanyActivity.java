@@ -1,6 +1,8 @@
 package com.odfbox.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -104,10 +106,11 @@ public class ChooseCompanyActivity extends BaseActivity {
     }
 
     public void login() {
+        SharedPreferences preferences = mContext.getSharedPreferences("CHANNELID", Context.MODE_PRIVATE);
         JSONObject object = new JSONObject();
         object.put("action", "login");
         object.put("platform", "Android");
-        object.put("channel_id_baidu", prefs.getChannelId());
+        object.put("channel_id_baidu", preferences.getString("channelid", ""));
         try {
             showProgress(0, true);
             StringEntity entity = new StringEntity(object.toString(), "UTF-8");

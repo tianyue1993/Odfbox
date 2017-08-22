@@ -96,7 +96,7 @@ public class GuideAdapter extends BoxBaseAdapter<GuideList.Guide> {
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
             isLoading = true;
-            File file = new File(Environment
+            final File file = new File(Environment
                     .getExternalStorageDirectory()
                     + "/odf", title + "");
             try {
@@ -133,6 +133,7 @@ public class GuideAdapter extends BoxBaseAdapter<GuideList.Guide> {
                             Toast.makeText(mContext, "下载失败...", Toast.LENGTH_SHORT).show();
                             textView.setText("下载失败");
                             isLoading = false;
+                            file.delete();
                         }
                     });
         }

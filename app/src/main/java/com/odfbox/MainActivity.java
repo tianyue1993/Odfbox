@@ -1,7 +1,9 @@
 package com.odfbox;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -123,6 +125,9 @@ public class MainActivity extends BaseActivity {
     public float zoom = 16;
     BitmapDescriptor warnbitmap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_marka_warn);
     BitmapDescriptor markabitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_marka);
+    SharedPreferences preferences;
+
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +137,20 @@ public class MainActivity extends BaseActivity {
         OdfboxApplication.addActivity(this);
         getPemmission();
         getVersion();
+        preferences = mContext.getSharedPreferences("CHANNELID", Context.MODE_PRIVATE);
+//        dialog = DialogFactory.getDialogFactory().showCommonDialog(mContext, preferences.getString("channelid", "未取到"), "取消", "确定", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        }, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                login();
+//                dialog.dismiss();
+//            }
+//        });
+        login();
         setTitleTextView("物联网光交箱", null);
         timer.start();
         mMapView = (MapView) findViewById(R.id.mapview);
@@ -544,6 +563,20 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
+
+    public void login() {
+        JSONObject object = new JSONObject();
+        object.put("action", "login");
+        object.put("platform", "Android");
+        object.put("channel_id_baidu", preferences.getString("channelid", ""));
+        try {
+            StringEntity entity = new StringEntity(object.toString(), "UTF-8");
+            client.getLoginState(mContext, entity, new CommentHandler());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void getEventList() {
         client.getMainWarnList(mContext, new WarnHandler() {
