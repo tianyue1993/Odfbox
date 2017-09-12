@@ -26,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="25dp"
-            android:text="未处理"
             android:textColor="@color/red" />
     </RelativeLayout>
 
@@ -101,7 +100,7 @@
             android:layout_marginLeft="30dp"
             android:background="@color/button_bg"
             android:text="处理"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </LinearLayout>
 
     <ImageView

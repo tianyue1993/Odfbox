@@ -5,6 +5,9 @@ import android.os.Build;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.odfbox.OdfboxApplication;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -143,24 +146,55 @@ public class BoxUtils {
 
 
     public static boolean getIsUpdate(String current, String recent) {
-        String a1 = "";
-        String a2 = "";
-        String b1 = "";
-        String b2 = "";
-        a1 = current.substring(0, current.indexOf("."));
-        a2 = recent.substring(0, recent.indexOf("."));
-        b1 = current.substring(current.indexOf(".") + 1, current.length());
-        b2 = recent.substring(recent.indexOf(".") + 1, recent.length());
-        if (Integer.parseInt(a1) < Integer.parseInt(a2)) {
-            return true;
-        } else if (Integer.parseInt(a1) == Integer.parseInt(a2)) {
-            if (Float.parseFloat(b1) < Float.parseFloat(b2)) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
+//        String a1 = "";
+//        String a2 = "";
+//        String b1 = "";
+//        String b2 = "";
+//        String c1 = "";
+//        String c2 = "";
+//        String d1 = "";
+//        String d2 = "";
+//        a1 = current.substring(0, current.indexOf("."));
+//        a2 = recent.substring(0, recent.indexOf("."));
+//        b1 = current.substring(current.indexOf(".") + 1, current.length());
+//        b2 = recent.substring(recent.indexOf(".") + 1, recent.length());
+//        c1 = b1.substring(b1.indexOf(".") + 1, b1.length());
+//        c2 = b2.substring(b2.indexOf(".") + 1, b2.length());
+//        d1 = b1.substring(0, b1.indexOf("."));
+//        d2 = b2.substring(0, b2.indexOf("."));
+//        if (Integer.parseInt(a1) < Integer.parseInt(a2)) {
+//            return true;
+//        } else if (Integer.parseInt(a1) == Integer.parseInt(a2)) {
+//            if (Float.parseFloat(d1) < Float.parseFloat(d2)) {
+//                return true;
+//            } else if (Integer.parseInt(d1) == Integer.parseInt(d2)) {
+//                if (Float.parseFloat(c1) < Float.parseFloat(c2)) {
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//            } else {
+//                return false;
+//            }
+//        } else {
+//            return false;
+//        }
+        if (current.isEmpty() || recent.isEmpty()) {
+            Toast.makeText(OdfboxApplication.getContext(), "获取版本信息失败!可能有新版本，建议重试或重新安装！", Toast.LENGTH_SHORT).show();
             return false;
         }
+        String strCur = current + ".";
+        String strRec = recent + ".";
+        for (int i = 0, j = 0, k = 0; i < 3; i++) {
+            int nIndexC = strCur.indexOf(".", j);
+            int nIndexR = strRec.indexOf(".", k);
+            int nC = Integer.parseInt(strCur.substring(j, nIndexC));
+            int nR = Integer.parseInt(strRec.substring(k, nIndexR));
+            j = nIndexC + 1;
+            k = nIndexR + 1;
+            if (nC < nR) return true;
+        }
+        return false;
+
     }
 }

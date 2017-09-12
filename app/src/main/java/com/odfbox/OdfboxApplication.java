@@ -103,7 +103,6 @@ public class OdfboxApplication extends Application {
         prefs = GlobalSetting.getInstance(this);
         initDoMain();
         initImageLoader();
-        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "sDCH6H63zs9e1Zqd6lyZOmo6");
     }
 
     /**

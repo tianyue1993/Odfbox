@@ -24,12 +24,12 @@
         android:layout_below="@+id/text_title"
         android:orientation="horizontal">
 
-        <CheckBox
+        <TextView
             android:id="@+id/checkbox_undo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/things_selector"
+            android:background="@mipmap/ic_check"
             android:button="@null"
             android:checked="true"
             android:gravity="center"
@@ -37,12 +37,12 @@
             android:textColor="@color/text_grey"
             android:textSize="14sp" />
 
-        <CheckBox
+        <TextView
             android:id="@+id/checkbox_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/things_selector"
+            android:background="@mipmap/ic_uncheck"
             android:button="@null"
             android:checked="false"
             android:gravity="center"

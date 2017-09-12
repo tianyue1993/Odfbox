@@ -34,6 +34,7 @@ import com.odfbox.handle.BoxDefineHandler;
 import com.odfbox.handle.CommentHandler;
 import com.odfbox.utils.BoxUtils;
 import com.odfbox.utils.GetPathFromUri4kitkat;
+import com.odfbox.utils.Preferences;
 import com.odfbox.utils.StringUtils;
 import com.odfbox.zxing.activity.CaptureActivity;
 
@@ -141,7 +142,6 @@ public class AddBoxActivity extends BaseActivity {
     private static final int CROP_PIC = 22;
     private static final int CODE_CAMERA_REQUEST = 30;
     private static final int CODE_RESULT_REQUEST = 33;
-    private static final int GETADDRESS = 5;
 
 
     ArrayList<Attachments> attachments = new ArrayList<>();
@@ -207,7 +207,7 @@ public class AddBoxActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.map_address:
-                startActivityForResult(new Intent(mContext, SearchActivity.class), GETADDRESS);
+                startActivityForResult(new Intent(mContext, SearchActivity.class), Preferences.GETADDRESS);
                 break;
             case R.id.current_address:
                 jd.setText(prefs.getCurrentAddress()[0]);
@@ -534,7 +534,7 @@ public class AddBoxActivity extends BaseActivity {
                 case CAMERA_PIC:
                     cropPhoto(Uri.fromFile(mUriFile));
                     break;
-                case GETADDRESS:
+                case Preferences.GETADDRESS:
                     if (!StringUtils.isEmpty(data.getStringExtra("jd"))) {
                         jd.setText(data.getStringExtra("jd"));
                     }

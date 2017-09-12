@@ -88,15 +88,16 @@ public class EventListAdapter extends BoxBaseAdapter<Event> {
                 holder.tv_code.setText("----");
             }
 
-            if (mInfo.handle == null && mInfo.task_sheet == null) {
-                holder.state.setText("未处理");
-                holder.state.setTextColor(mContext.getResources().getColor(R.color.red));
-                holder.handle.setVisibility(View.VISIBLE);
-            } else {
-                holder.state.setText("完成");
-                holder.state.setTextColor(mContext.getResources().getColor(R.color.text_grey));
-                holder.handle.setVisibility(View.GONE);
-            }
+            if (mInfo.alarm)
+                if (mInfo.handle == null && mInfo.task_sheet == null) {
+                    holder.state.setText("未处理");
+                    holder.state.setTextColor(mContext.getResources().getColor(R.color.red));
+                    holder.handle.setVisibility(View.VISIBLE);
+                } else {
+                    holder.state.setText("完成");
+                    holder.state.setTextColor(mContext.getResources().getColor(R.color.text_grey));
+                    holder.handle.setVisibility(View.GONE);
+                }
             holder.handle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

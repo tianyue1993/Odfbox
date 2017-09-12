@@ -46,6 +46,7 @@ import com.baidu.mapapi.search.sug.SuggestionSearchOption;
 import com.odfbox.OdfboxApplication;
 import com.odfbox.R;
 import com.odfbox.entity.Address;
+import com.odfbox.utils.Preferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +80,6 @@ public class SearchActivity extends Activity implements
     Address address;
     BitmapDescriptor bitmap;
 
-    public int GETADDRESS = 10;
 
     /**
      * 搜索关键字输入窗口
@@ -269,7 +269,7 @@ public class SearchActivity extends Activity implements
                 data.putExtra("address", didian.getText().toString());
                 data.putExtra("jd", jd.getText().toString());
                 data.putExtra("wd", wd.getText().toString());
-                setResult(GETADDRESS, data);
+                setResult(Preferences.GETADDRESS, data);
                 finish();
 
 

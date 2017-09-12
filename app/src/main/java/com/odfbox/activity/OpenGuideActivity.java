@@ -25,9 +25,7 @@ public class OpenGuideActivity extends BaseActivity {
     Dialog dialog;
     Dialog exist;
     String id;
-
     Intent intent;
-
     Handler handler = new Handler();
 
     @Override

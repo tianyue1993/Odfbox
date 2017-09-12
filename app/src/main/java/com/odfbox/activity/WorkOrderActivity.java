@@ -10,8 +10,6 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -38,9 +36,9 @@ import butterknife.ButterKnife;
 public class WorkOrderActivity extends BaseActivity {
 
     @Bind(R.id.checkbox_undo)
-    CheckBox checkboxUndo;
+    TextView checkboxUndo;
     @Bind(R.id.checkbox_search)
-    CheckBox checkboxSearch;
+    TextView checkboxSearch;
     @Bind(R.id.listview)
     DownPullRefreshListView listview;
     @Bind(R.id.code)
@@ -64,6 +62,7 @@ public class WorkOrderActivity extends BaseActivity {
     private ArrayList<WorkOrder> adaptList = new ArrayList<>();
     protected ArrayList<WorkOrder> list = new ArrayList<>();
     WorkOrderAdapter adapter;
+    private int curTab = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,11 +112,12 @@ public class WorkOrderActivity extends BaseActivity {
 
         adapter = new WorkOrderAdapter(mContext, adaptList);
         listview.setAdapter(adapter);
-        checkboxUndo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkboxUndo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    checkboxSearch.setChecked(false);
+            public void onClick(View v) {
+                if (curTab == 1) {
+                    checkboxUndo.setBackgroundResource(R.mipmap.ic_check);
+                    checkboxSearch.setBackgroundResource(R.mipmap.ic_uncheck);
                     llSearch.setVisibility(View.GONE);
                     isVisible = false;
                     page_number = 0;
@@ -128,16 +128,16 @@ public class WorkOrderActivity extends BaseActivity {
                     if (listview.getFooterViewsCount() > 0) {
                         listview.removeFooterView(footer);
                     }
-                } else {
-
+                    curTab = 0;
                 }
             }
         });
-        checkboxSearch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkboxSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    checkboxUndo.setChecked(false);
+            public void onClick(View v) {
+                if (curTab == 0) {
+                    checkboxSearch.setBackgroundResource(R.mipmap.ic_check);
+                    checkboxUndo.setBackgroundResource(R.mipmap.ic_uncheck);
                     llSearch.setVisibility(View.VISIBLE);
                     isVisible = true;
                     adaptList.clear();
@@ -146,6 +146,7 @@ public class WorkOrderActivity extends BaseActivity {
                     if (listview.getFooterViewsCount() > 0) {
                         listview.removeFooterView(footer);
                     }
+                    curTab = 1;
                 }
             }
         });
@@ -156,7 +157,7 @@ public class WorkOrderActivity extends BaseActivity {
             public void onClick(View v) {
                 adaptList.clear();
                 page_number = 0;
-                getList("&serial=" + code.getText().toString() + "&min_appoint_time=" + starttime.getText().toString() + "&max_appoint_time=" + endtime.getText().toString() + "&state_category=" + spinner1.getSelectedItem().toString() + "&task_sheet_type=" + spinner2.getSelectedItem().toString());
+                getList("&serial=" + code.getText().toString() + "&min_appoint_time=" + starttime.getText().toString() + "&max_appoint_time=" + endtime.getText().toString() + "&state=" + spinner1.getSelectedItem().toString() + "&task_sheet_type=" + spinner2.getSelectedItem().toString());
             }
         });
 
@@ -173,6 +174,7 @@ public class WorkOrderActivity extends BaseActivity {
                 View dataview = View.inflate(mContext, R.layout.time_layout, null);
                 final DatePicker timePicker = (DatePicker) dataview.findViewById(R.id.time_picker);
                 final Button commit = (Button) dataview.findViewById(R.id.commit);
+                final Button cancle = (Button) dataview.findViewById(R.id.cancel);
                 builder.setView(dataview);
                 builder.setTitle("选择开始时间");
                 final Dialog dialog = builder.create();
@@ -187,6 +189,12 @@ public class WorkOrderActivity extends BaseActivity {
                         starttime.setText(timePicker.getYear() + "-" + month + "-" + timePicker.getDayOfMonth());
                     }
                 });
+                cancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
                 dialog.show();
             }
         });
@@ -194,11 +202,11 @@ public class WorkOrderActivity extends BaseActivity {
         endtime.setOnClickListener(new View.OnClickListener() {
                                        @Override
                                        public void onClick(View v) {
-
                                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                                            View dataview = View.inflate(mContext, R.layout.time_layout, null);
                                            final DatePicker timePicker = (DatePicker) dataview.findViewById(R.id.time_picker);
                                            final Button commit = (Button) dataview.findViewById(R.id.commit);
+                                           final Button cancle = (Button) dataview.findViewById(R.id.cancel);
                                            builder.setView(dataview);
                                            builder.setTitle("选择结束时间");
                                            final Dialog dialog = builder.create();
@@ -213,6 +221,12 @@ public class WorkOrderActivity extends BaseActivity {
                                                    endtime.setText(timePicker.getYear() + "-" + month + "-" + timePicker.getDayOfMonth());
                                                }
                                            });
+                                           cancle.setOnClickListener(new View.OnClickListener() {
+                                               @Override
+                                               public void onClick(View v) {
+                                                   dialog.dismiss();
+                                               }
+                                           });
                                            dialog.show();
                                        }
 
@@ -225,8 +239,8 @@ public class WorkOrderActivity extends BaseActivity {
             String serail = getIntent().getStringExtra("serial");
             if (serail != null) {
                 code.setText(serail);
-                checkboxSearch.setChecked(true);
-                checkboxUndo.setChecked(false);
+                checkboxUndo.setBackgroundResource(R.mipmap.ic_check);
+                checkboxSearch.setBackgroundResource(R.mipmap.ic_uncheck);
                 llSearch.setVisibility(View.VISIBLE);
                 isVisible = true;
                 adaptList.clear();

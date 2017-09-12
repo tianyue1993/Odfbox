@@ -50,8 +50,6 @@ import static com.odfbox.OdfboxApplication.getContext;
  * 网络请求
  */
 public class ApiClient {
-    private static final String PROTOCOL_CHARSET = "utf-8";
-    private static final String PROTOCOL_CONTENT_TYPE = String.format("application/json; charset=%s", PROTOCOL_CHARSET);
     public static AsyncHttpClient asyncHttpClient;
     private GlobalSetting pres;
     private volatile static ApiClient instance;

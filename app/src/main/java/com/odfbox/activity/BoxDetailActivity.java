@@ -37,6 +37,7 @@ import com.odfbox.handle.BoxDefineHandler;
 import com.odfbox.handle.CommentHandler;
 import com.odfbox.utils.BoxUtils;
 import com.odfbox.utils.GetPathFromUri4kitkat;
+import com.odfbox.utils.Preferences;
 import com.odfbox.utils.StringUtils;
 import com.odfbox.views.DialogFactory;
 import com.odfbox.views.SmoothImageView;
@@ -500,7 +501,7 @@ public class BoxDetailActivity extends BaseActivity {
                 break;
             case R.id.map_address:
                 if (ifChange == 1) {
-                    startActivityForResult(new Intent(mContext, SearchActivity.class), GETADDRESS);
+                    startActivityForResult(new Intent(mContext, SearchActivity.class), Preferences.GETADDRESS);
                 } else {
                     Intent intent = new Intent(mContext, OdfboxLocationActivity.class);
                     Bundle bundle = new Bundle();
@@ -635,7 +636,6 @@ public class BoxDetailActivity extends BaseActivity {
 
     }
 
-    private static final int GETADDRESS = 5;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -820,7 +820,7 @@ public class BoxDetailActivity extends BaseActivity {
                 case CAMERA_PIC:
                     cropPhoto(Uri.fromFile(mUriFile));
                     break;
-                case GETADDRESS:
+                case Preferences.GETADDRESS:
                     if (!StringUtils.isEmpty(data.getStringExtra("jd"))) {
                         jd.setText(data.getStringExtra("jd"));
                     }

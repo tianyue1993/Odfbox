@@ -22,13 +22,12 @@
         android:layout_below="@+id/text_title"
         android:orientation="horizontal">
 
-        <CheckBox
+        <TextView
             android:id="@+id/checkbox_order"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:background="@drawable/things_selector"
-            android:button="@null"
+            android:background="@mipmap/ic_uncheck"
             android:checked="false"
             android:gravity="center"
             android:saveEnabled="true"
@@ -36,13 +35,12 @@
             android:textColor="@color/text_grey"
             android:textSize="14sp" />
 
-        <CheckBox
+        <TextView
             android:id="@+id/checkbox_warns"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/things_selector"
-            android:button="@null"
+            android:background="@mipmap/ic_check"
             android:checked="true"
             android:gravity="center"
             android:text="告警优先"

@@ -111,7 +111,6 @@ public class MainActivity extends BaseActivity {
     ImageView box_image;
     @Bind(R.id.title)
     TextView titile;
-    Marker marker;
 
     MapStatus mapStatus = null;
     public MapView mMapView;
@@ -126,8 +125,6 @@ public class MainActivity extends BaseActivity {
     BitmapDescriptor warnbitmap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_marka_warn);
     BitmapDescriptor markabitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_marka);
     SharedPreferences preferences;
-
-    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

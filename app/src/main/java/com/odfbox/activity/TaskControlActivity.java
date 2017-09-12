@@ -122,7 +122,6 @@ public class TaskControlActivity extends BaseActivity {
     private static final int CROP_PIC = 22;
     private static final int CODE_CAMERA_REQUEST = 30;
     private static final int CODE_RESULT_REQUEST = 33;
-    private static final int GETADDRESS = 5;
 
 
     ArrayList<Attachments> attachments = new ArrayList<>();

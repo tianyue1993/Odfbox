@@ -24,7 +24,12 @@ public class StringUtils {
         return (str == null || str.length() == 0);
     }
 
-    public static boolean isNotEmptyOrNull(CharSequence str) {
-        return !isEmpty(str);
+    public static boolean isNotEmptyOrNull(String str) {
+        if (str.length() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 }

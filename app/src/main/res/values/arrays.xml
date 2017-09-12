@@ -23,7 +23,6 @@
 
     <string-array name="state">
         <item>工单状态</item>
-        <item>待处理</item>
         <item>未下发</item>
         <item>已下发 </item>
         <item>处理中</item>

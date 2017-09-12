@@ -145,7 +145,7 @@ public class MyBoxActivity extends BaseActivity {
                     if (StringUtils.isNotEmptyOrNull(edCode.getText().toString().trim())) {
                         string = string + "&serial_text_like=" + edCode.getText().toString().trim();
                     }
-                    if (StringUtils.isNotEmptyOrNull(edCode.getText().toString().trim())) {
+                    if (StringUtils.isNotEmptyOrNull(edName.getText().toString().trim())) {
                         string = string + "&name_like=" + edName.getText().toString().trim();
                     }
                     if (StringUtils.isNotEmptyOrNull(edDescribe.getText().toString().trim())) {
@@ -186,7 +186,7 @@ public class MyBoxActivity extends BaseActivity {
                         if (StringUtils.isNotEmptyOrNull(edCode.getText().toString().trim())) {
                             string = string + "&serial_text_like=" + edCode.getText().toString().trim();
                         }
-                        if (StringUtils.isNotEmptyOrNull(edCode.getText().toString().trim())) {
+                        if (StringUtils.isNotEmptyOrNull(edName.getText().toString().trim())) {
                             string = string + "&name_like=" + edName.getText().toString().trim();
                         }
                         if (StringUtils.isNotEmptyOrNull(edDescribe.getText().toString().trim())) {
@@ -215,7 +215,7 @@ public class MyBoxActivity extends BaseActivity {
                             if (StringUtils.isNotEmptyOrNull(edCode.getText().toString().trim())) {
                                 string = string + "&serial_text_like=" + edCode.getText().toString().trim();
                             }
-                            if (StringUtils.isNotEmptyOrNull(edCode.getText().toString().trim())) {
+                            if (StringUtils.isNotEmptyOrNull(edName.getText().toString().trim())) {
                                 string = string + "&name_like=" + edName.getText().toString().trim();
                             }
                             if (StringUtils.isNotEmptyOrNull(edDescribe.getText().toString().trim())) {
@@ -233,10 +233,11 @@ public class MyBoxActivity extends BaseActivity {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 listview.setFirstItemIndex(firstVisibleItem);
-                if (firstVisibleItem != 1 && list.size() != 0) {
+                if (firstVisibleItem != 1 && list.size() >= 10) {
                     loadMore = firstVisibleItem + visibleItemCount == totalItemCount;
                 } else {
                     loadMore = false;
+                    page_number = 0;
                 }
             }
         };
@@ -259,7 +260,7 @@ public class MyBoxActivity extends BaseActivity {
                     if (StringUtils.isNotEmptyOrNull(edCode.getText().toString().trim())) {
                         string = string + "&serial_text_like=" + edCode.getText().toString().trim();
                     }
-                    if (StringUtils.isNotEmptyOrNull(edCode.getText().toString().trim())) {
+                    if (StringUtils.isNotEmptyOrNull(edName.getText().toString().trim())) {
                         string = string + "&name_like=" + edName.getText().toString().trim();
                     }
                     if (StringUtils.isNotEmptyOrNull(edDescribe.getText().toString().trim())) {
@@ -376,7 +377,7 @@ public class MyBoxActivity extends BaseActivity {
             if (StringUtils.isNotEmptyOrNull(edCode.getText().toString().trim())) {
                 string = string + "&serial_text_like=" + edCode.getText().toString().trim();
             }
-            if (StringUtils.isNotEmptyOrNull(edCode.getText().toString().trim())) {
+            if (StringUtils.isNotEmptyOrNull(edName.getText().toString().trim())) {
                 string = string + "&name_like=" + edName.getText().toString().trim();
             }
             if (StringUtils.isNotEmptyOrNull(edDescribe.getText().toString().trim())) {

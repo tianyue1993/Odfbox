@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -39,9 +37,9 @@ public class WarnListActivity extends BaseActivity {
     @Bind(R.id.text_title)
     TextView textTitle;
     @Bind(R.id.checkbox_order)
-    CheckBox checkboxOrder;
+    TextView checkboxOrder;
     @Bind(R.id.checkbox_warns)
-    CheckBox checkboxWarns;
+    TextView checkboxWarns;
     @Bind(R.id.ll_type)
     LinearLayout llType;
     @Bind(R.id.listview)
@@ -69,8 +67,9 @@ public class WarnListActivity extends BaseActivity {
     private ArrayList<Warns> adaptList = new ArrayList<>();
     protected ArrayList<Warns> list = new ArrayList<Warns>();
     private WarnsAdapter mAdapter;
-    public boolean isVisible = true;
-    public boolean alrming = true;
+    private boolean isVisible = true;
+    private boolean alrming = true;
+    private int curTab = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +106,7 @@ public class WarnListActivity extends BaseActivity {
                 View dataview = View.inflate(mContext, R.layout.time_layout, null);
                 final DatePicker timePicker = (DatePicker) dataview.findViewById(R.id.time_picker);
                 final Button commit = (Button) dataview.findViewById(R.id.commit);
+                final Button cancle = (Button) dataview.findViewById(R.id.cancel);
                 builder.setView(dataview);
                 builder.setTitle("选择开始时间");
                 final Dialog dialog = builder.create();
@@ -121,6 +121,12 @@ public class WarnListActivity extends BaseActivity {
                         start_time.setText(timePicker.getYear() + "-" + month + "-" + timePicker.getDayOfMonth());
                     }
                 });
+                cancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
                 dialog.show();
             }
         });
@@ -133,6 +139,7 @@ public class WarnListActivity extends BaseActivity {
                                             View dataview = View.inflate(mContext, R.layout.time_layout, null);
                                             final DatePicker timePicker = (DatePicker) dataview.findViewById(R.id.time_picker);
                                             final Button commit = (Button) dataview.findViewById(R.id.commit);
+                                            final Button cancle = (Button) dataview.findViewById(R.id.cancel);
                                             builder.setView(dataview);
                                             builder.setTitle("选择结束时间");
                                             final Dialog dialog = builder.create();
@@ -147,6 +154,12 @@ public class WarnListActivity extends BaseActivity {
                                                     end_time.setText(timePicker.getYear() + "-" + month + "-" + timePicker.getDayOfMonth());
                                                 }
                                             });
+                                            cancle.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
                                             dialog.show();
                                         }
 
@@ -155,60 +168,47 @@ public class WarnListActivity extends BaseActivity {
         );
 
 
-        checkboxWarns.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        checkboxWarns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (curTab == 0) {
+                    checkboxWarns.setBackgroundResource(R.mipmap.ic_check);
+                    checkboxOrder.setBackgroundResource(R.mipmap.ic_uncheck);
+                    adaptList.clear();
+                    page_number = 0;
+                    alrming = true;
+                    if (isVisible) {
+                        getList("");
+                    } else {
+                        getList("&odf_box_serial_like" + edJd.getText().toString() + "&odf_box_name_like" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
+                    }
+                    curTab = 1;
+                }
 
-                                                 {
-                                                     @Override
-                                                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                         if (isChecked) {
-                                                             checkboxOrder.setChecked(false);
-                                                             adaptList.clear();
-                                                             page_number = 0;
-                                                             alrming = true;
-                                                             if (isVisible) {
-                                                                 getList("");
-                                                             } else {
-                                                                 getList("&odf_box_serial_like" + edJd.getText().toString() + "&odf_box_name_like" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
-                                                             }
-                                                         } else {
-                                                             adaptList.clear();
-                                                             page_number = 0;
-                                                             alrming = false;
-                                                             if (!checkboxOrder.isChecked()) {
-                                                                 getList("");
-                                                             }
-                                                         }
-                                                     }
-                                                 }
 
-        );
-        checkboxOrder.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+            }
+        });
 
-                                                 {
-                                                     @Override
-                                                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                         if (isChecked) {
-                                                             checkboxWarns.setChecked(false);
-                                                             adaptList.clear();
-                                                             page_number = 0;
-                                                             alrming = false;
-                                                             if (isVisible) {
-                                                                 getList("");
-                                                             } else {
-                                                                 getList("&odf_box_serial_like=" + edJd.getText().toString() + "&odf_box_name_like=" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
-                                                             }
-                                                         } else {
-                                                             adaptList.clear();
-                                                             page_number = 0;
-                                                             alrming = false;
-                                                             if (!checkboxWarns.isChecked()) {
-                                                                 getList("");
-                                                             }
-                                                         }
-                                                     }
-                                                 }
 
-        );
+        checkboxOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (curTab == 1) {
+                    checkboxOrder.setBackgroundResource(R.mipmap.ic_check);
+                    checkboxWarns.setBackgroundResource(R.mipmap.ic_uncheck);
+                    adaptList.clear();
+                    page_number = 0;
+                    alrming = false;
+                    if (isVisible) {
+                        getList("");
+                    } else {
+                        getList("&odf_box_serial_like=" + edJd.getText().toString() + "&odf_box_name_like=" + edWd.getText().toString() + "&min_date=" + start_time.getText().toString() + "&max_date=" + end_time.getText().toString());
+                    }
+                    curTab = 0;
+                }
+
+            }
+        });
 
         initData();
 

@@ -93,6 +93,7 @@ public class EventControlActivity extends BaseActivity {
                 View dataview = View.inflate(mContext, R.layout.time_layout, null);
                 final DatePicker timePicker = (DatePicker) dataview.findViewById(R.id.time_picker);
                 final Button commit = (Button) dataview.findViewById(R.id.commit);
+                final Button cancle = (Button) dataview.findViewById(R.id.cancel);
                 builder.setView(dataview);
                 builder.setTitle("选择开始时间");
                 final Dialog dialog = builder.create();
@@ -105,6 +106,12 @@ public class EventControlActivity extends BaseActivity {
                         dialog.dismiss();
                         int month = timePicker.getMonth() + 1;
                         completeTime.setText(timePicker.getYear() + "-" + month + "-" + timePicker.getDayOfMonth());
+                    }
+                });
+                cancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
                     }
                 });
                 dialog.show();
