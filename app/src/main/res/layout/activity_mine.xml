@@ -1,257 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_bg"
     tools:context="com.odfbox.activity.MineActivity">
 
-    <ImageView
-        android:id="@+id/iamge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@mipmap/ic_mine" />
-
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="25dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="25dp"
-        android:padding="8dp"
-        android:src="@mipmap/ic_back" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:padding="5dp"
-        android:text="物联网光交箱"
-        android:textColor="#4a59b6"
-        android:textSize="20sp" />
-
-    <ImageView
-        android:id="@+id/avator"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_below="@+id/title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="2dp"
-        android:src="@mipmap/ic_avator" />
-
-    <TextView
-        android:id="@+id/phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/avator"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:text="18511303640"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@id/company"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/phone"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:text="云南移动分公司"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-
-    <TextView
-        android:id="@+id/count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/iamge"
-        android:layout_marginLeft="47dp"
-        android:layout_marginTop="10dp"
-        android:text="光交箱总数：418"
-        android:textColor="@color/text_grey"
-        android:textSize="12sp" />
-
-
-    <TextView
-        android:id="@+id/probability"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/iamge"
-        android:layout_marginRight="47dp"
-        android:layout_marginTop="10dp"
-        android:text="监控覆盖率：80%"
-        android:textColor="@color/text_grey"
-        android:textSize="12sp" />
-
-
     <RelativeLayout
-        android:id="@+id/ll_warn"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@+id/probability"
-        android:layout_marginTop="10dp"
-        android:background="@color/white">
-
-        <TextView
-            android:id="@+id/text2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="48dp"
-            android:drawableLeft="@mipmap/ic_warn"
-            android:drawablePadding="5dp"
-            android:gravity="center_vertical"
-            android:text="事件、告警"
-            android:textColor="@color/text_grey"
-            android:textSize="14sp" />
-
-
-        <TextView
-            android:id="@+id/undo_count1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/text2"
-            android:drawablePadding="10dp"
-            android:gravity="center_vertical"
-            android:text="[0]"
-            android:textColor="@color/red"
-            android:textSize="10sp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/iamge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_mine" />
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="25dp"
+            android:padding="8dp"
+            android:src="@mipmap/ic_back" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:padding="5dp"
+            android:text="物联网光交箱"
+            android:textColor="#4a59b6"
+            android:textSize="20sp"
+            android:visibility="invisible" />
+
+        <RelativeLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/avator"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="30dp"
+                android:src="@mipmap/ic_logo" />
+
+
+            <TextView
+                android:id="@id/company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/avator"
+                android:text="云南移动分公司"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/iamge"
+            android:background="#f1eedf"
+            android:gravity="center"
+            android:text="18511303640"
+            android:textColor="@color/text_grey"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phone"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="光交箱总数：418"
+            android:textColor="@color/text_grey"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/probability"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="30dp"
-            android:src="@mipmap/ic_more" />
-
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_warn"
-        android:layout_marginTop="13dp"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:id="@+id/add_box"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_below="@+id/probability"
-            android:background="@color/white">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="48dp"
-                android:drawableLeft="@mipmap/ic_add_box"
-                android:drawablePadding="5dp"
-                android:gravity="center_vertical"
-                android:text="新增光交箱"
-                android:textColor="@color/text_grey"
-                android:textSize="14sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="30dp"
-                android:src="@mipmap/ic_more" />
-
-
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/add_box"
-            android:layout_marginLeft="48dp"
-            android:layout_marginRight="30dp" />
+            android:layout_below="@id/phone"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:paddingRight="20dp"
+            android:text="监控覆盖率：80%"
+            android:textColor="@color/text_grey"
+            android:textSize="12sp" />
 
 
         <RelativeLayout
-            android:id="@+id/my_box"
+            android:id="@+id/ll_warn"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_below="@+id/probability"
+            android:layout_marginTop="10dp"
             android:background="@color/white">
 
             <TextView
+                android:id="@+id/text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="48dp"
-                android:drawableLeft="@mipmap/ic_mybox"
+                android:layout_marginLeft="20dp"
+                android:drawableLeft="@mipmap/ic_warn"
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
-                android:text="我的光交箱"
+                android:text="事件、告警"
                 android:textColor="@color/text_grey"
                 android:textSize="14sp" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="30dp"
-                android:src="@mipmap/ic_more" />
-
-
-        </RelativeLayout>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/ll_manager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_box"
-        android:layout_marginTop="13dp"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:id="@+id/add_workorder"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_below="@+id/probability"
-            android:background="@color/white">
 
             <TextView
-                android:id="@+id/text1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="48dp"
-                android:drawableLeft="@mipmap/ic_workorder"
-                android:drawablePadding="5dp"
-                android:gravity="center_vertical"
-                android:text="我的工单"
-                android:textColor="@color/text_grey"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/undo_count2"
+                android:id="@+id/undo_count1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
-                android:layout_toRightOf="@+id/text1"
+                android:layout_toRightOf="@+id/text2"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:text="[0]"
@@ -269,128 +152,293 @@
 
         </RelativeLayout>
 
-        <ImageView
+        <LinearLayout
+            android:id="@+id/ll_box"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/add_box"
-            android:layout_marginLeft="48dp"
-            android:layout_marginRight="30dp" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_warn"
+            android:layout_marginTop="13dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/add_box"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/probability"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:drawableLeft="@mipmap/ic_add_box"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:text="新增光交箱"
+                    android:textColor="@color/text_grey"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:src="@mipmap/ic_more" />
 
 
-        <RelativeLayout
-            android:id="@+id/my_manager"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_below="@+id/probability"
-            android:background="@color/white">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="48dp"
-                android:drawableLeft="@mipmap/ic_manager"
-                android:drawablePadding="5dp"
-                android:gravity="center_vertical"
-                android:text="施工管理"
-                android:textColor="@color/text_grey"
-                android:textSize="14sp" />
+            </RelativeLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="30dp"
-                android:src="@mipmap/ic_more" />
-
-
-        </RelativeLayout>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/ll_user"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_manager"
-        android:layout_marginTop="13dp"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:id="@+id/user_help"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_below="@+id/probability"
-            android:background="@color/white">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/add_box"
                 android:layout_marginLeft="48dp"
-                android:drawableLeft="@mipmap/ic_user_help"
-                android:drawablePadding="5dp"
-                android:gravity="center_vertical"
-                android:text="用户指南"
-                android:textColor="@color/text_grey"
-                android:textSize="14sp" />
+                android:layout_marginRight="30dp" />
+
+
+            <RelativeLayout
+                android:id="@+id/my_box"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/probability"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:drawableLeft="@mipmap/ic_mybox"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:text="我的光交箱"
+                    android:textColor="@color/text_grey"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:src="@mipmap/ic_more" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_manager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_box"
+            android:layout_marginTop="13dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/add_workorder"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/probability"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:drawableLeft="@mipmap/ic_workorder"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:text="我的工单"
+                    android:textColor="@color/text_grey"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/undo_count2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/text1"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:text="[0]"
+                    android:textColor="@color/red"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:src="@mipmap/ic_more" />
+
+
+            </RelativeLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="30dp"
-                android:src="@mipmap/ic_more" />
-
-
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/add_box"
-            android:layout_marginLeft="48dp"
-            android:layout_marginRight="30dp" />
-
-
-        <RelativeLayout
-            android:id="@+id/my_setting"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_below="@+id/probability"
-            android:background="@color/white">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/add_box"
                 android:layout_marginLeft="48dp"
-                android:drawableLeft="@mipmap/ic_setting"
-                android:drawablePadding="5dp"
-                android:gravity="center_vertical"
-                android:text="设置"
-                android:textColor="@color/text_grey"
-                android:textSize="14sp" />
+                android:layout_marginRight="30dp" />
+
+
+            <RelativeLayout
+                android:id="@+id/my_manager"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/probability"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:drawableLeft="@mipmap/ic_manager"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:text="施工管理"
+                    android:textColor="@color/text_grey"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:src="@mipmap/ic_more" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_manager"
+            android:layout_marginTop="13dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/my_data"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/probability"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:drawableLeft="@mipmap/ic_data"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:text="数据统计"
+                    android:textColor="@color/text_grey"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:src="@mipmap/ic_more" />
+
+
+            </RelativeLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="30dp"
-                android:src="@mipmap/ic_more" />
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/add_box"
+                android:layout_marginLeft="48dp"
+                android:layout_marginRight="30dp" />
+
+            <RelativeLayout
+                android:id="@+id/user_help"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/probability"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:drawableLeft="@mipmap/ic_user_help"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:text="用户指南"
+                    android:textColor="@color/text_grey"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:src="@mipmap/ic_more" />
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
 
-    </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/my_setting"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/probability"
+                android:layout_marginTop="13dp"
+                android:background="@color/white">
 
-</RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:drawableLeft="@mipmap/ic_setting"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:text="设置"
+                    android:textColor="@color/text_grey"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30dp"
+                    android:src="@mipmap/ic_more" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</ScrollView>
 
 
 

@@ -19,7 +19,6 @@ import butterknife.OnClick;
 
 
 /**
- * Created by tianyue on 2017/6/29.
  * 我的相关设置页面
  */
 
@@ -61,6 +60,8 @@ public class MineActivity extends BaseActivity {
     TextView undoCount1;
     @Bind(R.id.undo_count2)
     TextView undoCount2;
+    @Bind(R.id.my_data)
+    RelativeLayout myData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class MineActivity extends BaseActivity {
         setContentView(R.layout.activity_mine);
         OdfboxApplication.addActivity(this);
         ButterKnife.bind(this);
-        phone.setText(prefs.getUserPhone());
+        phone.setText("用户名称  " + prefs.getUserPhone());
         company.setText(prefs.getOrgName());
         count.setText("光交箱总数：" + prefs.getBoxData()[1]);
         probability.setText("监控覆盖率：" + prefs.getBoxData()[0] + "");
@@ -82,7 +83,7 @@ public class MineActivity extends BaseActivity {
         getOrderUntreated();
     }
 
-    @OnClick({R.id.back, R.id.ll_warn, R.id.add_box, R.id.my_box, R.id.add_workorder, R.id.my_manager, R.id.user_help, R.id.my_setting})
+    @OnClick({R.id.back, R.id.ll_warn, R.id.add_box, R.id.my_box, R.id.add_workorder, R.id.my_manager, R.id.user_help, R.id.my_setting, R.id.my_data})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -108,6 +109,9 @@ public class MineActivity extends BaseActivity {
                 break;
             case R.id.my_setting:
                 startActivity(new Intent(mContext, SettingActivity.class));
+                break;
+            case R.id.my_data:
+                startActivity(new Intent(mContext, DataStatisticsActivity.class));
                 break;
         }
     }

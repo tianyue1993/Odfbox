@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_data_statistics"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.odfbox.activity.DataStatisticsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/gray_bg">
+
+        <ImageView
+            android:id="@+id/previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:src="@mipmap/ic_previous" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/text_grey"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:src="@mipmap/ic_un_next" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="157dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/event_list_bg">
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="14dp"
+            android:drawableLeft="@mipmap/ic_total_count"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="光交箱总数   15555"
+            android:textColor="@color/text_grey"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_smart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/total"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="25dp"
+            android:text="智能锁"
+            android:textColor="@color/text_grey"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/smart_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_smart"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="10dp"
+            android:text="222"
+            android:textColor="@color/text_grey"
+            android:textSize="13sp" />
+
+        <com.odfbox.views.CircleProgressBar
+            android:id="@+id/progressBar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/total"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@+id/tv_smart"
+            app:circleBackground="@color/white"
+            app:ringColor="#4fa355"
+            app:textColor="@color/text_grey" />
+
+        <com.odfbox.views.CircleProgressBar
+            android:id="@+id/progressBar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/total"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="25dp"
+            app:circleBackground="@color/white"
+            app:ringColor="#4fa355"
+            app:textColor="@color/text_grey" />
+
+        <TextView
+            android:id="@+id/tv_warn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/total"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="25dp"
+            android:layout_toLeftOf="@+id/progressBar2"
+            android:text="报警数"
+            android:textColor="@color/text_grey"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/warn_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_warn"
+            android:layout_below="@+id/tv_warn"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/progressBar2"
+            android:text="222"
+            android:textColor="@color/text_grey"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="157dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/event_list_bg">
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="14dp"
+            android:drawableLeft="@mipmap/ic_order_count"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:text="工单数   15"
+            android:textColor="@color/text_grey"
+            android:textSize="17sp" />
+
+
+        <TextView
+            android:id="@+id/tv_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/count"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="25dp"
+            android:text="完成数"
+            android:textColor="@color/text_grey"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/order_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_order"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="10dp"
+            android:text="222"
+            android:textColor="@color/text_grey"
+            android:textSize="13sp" />
+
+        <com.odfbox.views.CircleProgressBar
+            android:id="@+id/progressBar3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/count"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@+id/tv_order"
+            app:circleBackground="@color/white"
+            app:ringColor="#4fa355"
+            app:textColor="@color/text_grey" />
+    </RelativeLayout>
+
+
+</LinearLayout>

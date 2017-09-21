@@ -45,37 +45,39 @@ public class TaskAdapter extends BoxBaseAdapter<Tasks> {
 
         if (mInfo != null) {
             if (mInfo.serial != null) {
-                holder.code.setText("任务单号：" + mInfo.serial);
+                holder.code.setText("任务单号   " + mInfo.serial);
             } else {
-                holder.code.setText("任务单号：" + mInfo.serial);
+                holder.code.setText("任务单号   " + mInfo.serial);
             }
 
             if (mInfo.state != null) {
                 holder.tv_state.setText(mInfo.state);
             } else {
-                holder.tv_state.setText("----");
+                holder.tv_state.setText("   ----");
             }
 
 
             if (mInfo.task_desc != null) {
-                holder.describle.setText("任务描述:" + mInfo.task_desc);
+                holder.describle.setText("任务描述   " + mInfo.task_desc);
             } else {
-                holder.describle.setText("任务描述：----");
+                holder.describle.setText("任务描述   ----");
             }
 
 
             if (mInfo.accomplish_time != null) {
-                holder.time.setText("完成时间：" + mInfo.accomplish_time);
+                holder.time.setText(mInfo.accomplish_time);
             } else {
-                holder.time.setText("完成时间：----");
+                holder.time.setText(" ----");
             }
 
             if (mInfo.solve != null) {
                 if (mInfo.solve.worker_comment != null) {
-                    holder.complete.setText("完成情况：" + mInfo.solve.worker_comment);
+                    holder.complete.setText(mInfo.solve.worker_comment);
                 } else {
-                    holder.complete.setText("完成情况：----");
+                    holder.complete.setText("  ----");
                 }
+            } else {
+                holder.complete.setText("  ----");
             }
 
         }

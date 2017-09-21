@@ -38,6 +38,8 @@ public class WarnsAdapter extends BoxBaseAdapter<Warns> {
             holder.address = (TextView) convertView.findViewById(R.id.address);
             holder.time = (TextView) convertView.findViewById(R.id.time);
             holder.event = (TextView) convertView.findViewById(R.id.event);
+            holder.boxCode = (TextView) convertView.findViewById(R.id.box_code);
+            holder.orderCode = (TextView) convertView.findViewById(R.id.order_code);
             holder.imageView = (ImageView) convertView.findViewById(R.id.image);
             convertView.setTag(holder);
         } else {
@@ -53,8 +55,10 @@ public class WarnsAdapter extends BoxBaseAdapter<Warns> {
             }
             holder.time.setText(mInfo.time);
             holder.event.setText(mInfo.text);
+            holder.orderCode.setText("关联工单号   " + mInfo.related);
+            holder.boxCode.setText("光交箱编号   " + mInfo.odf_box);
             if (mInfo.position != null)
-                holder.address.setText(mInfo.position.address);
+                holder.address.setText("地            址   " + mInfo.position.address);
 
             if (mInfo.picture != null) {
                 ImageLoader.getInstance().displayImage("http:" + mInfo.picture.thumbnail_url, holder.imageView);
@@ -84,7 +88,7 @@ public class WarnsAdapter extends BoxBaseAdapter<Warns> {
 
 
     private static class ViewHolder {
-        TextView address, time, event;
+        TextView address, time, event, orderCode, boxCode;
         ImageView imageView;
 
     }

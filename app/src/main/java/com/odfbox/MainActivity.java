@@ -1,5 +1,6 @@
 package com.odfbox;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -47,7 +48,7 @@ import com.odfbox.activity.BaseActivity;
 import com.odfbox.activity.BoxDetailActivity;
 import com.odfbox.activity.MineActivity;
 import com.odfbox.activity.OpenGuideActivity;
-import com.odfbox.activity.SetComLocationActivity;
+import com.odfbox.activity.SearchBoxNewActivity;
 import com.odfbox.activity.WarnListActivity;
 import com.odfbox.entity.BoxList;
 import com.odfbox.entity.Odfbox;
@@ -60,6 +61,7 @@ import com.odfbox.handle.WarnHandler;
 import com.odfbox.utils.BoxUtils;
 import com.odfbox.utils.UpdateCheckUtils;
 import com.odfbox.views.DialogFactory;
+import com.odfbox.zxing.activity.CaptureActivity;
 
 import org.apache.http.entity.StringEntity;
 
@@ -74,43 +76,6 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.text1)
-    TextView text1;
-    @Bind(R.id.text2)
-    TextView text2;
-    @Bind(R.id.text3)
-    TextView text3;
-    @Bind(R.id.text4)
-    TextView text4;
-    @Bind(R.id.ll_warns)
-    RelativeLayout llWarns;
-    @Bind(R.id.refresh)
-    ImageView refresh;
-    @Bind(R.id.back_current)
-    ImageView backCurrent;
-    private Dialog use;
-    @Bind(R.id.address)
-    TextView address;
-    @Bind(R.id.detail)
-    TextView detail;
-    @Bind(R.id.code)
-    TextView code;
-    @Bind(R.id.caizhi)
-    TextView caizhi;
-    @Bind(R.id.code1)
-    TextView code1;
-    @Bind(R.id.content)
-    TextView content;
-    @Bind(R.id.phone)
-    TextView phone;
-    @Bind(R.id.open)
-    Button open;
-    @Bind(R.id.openes)
-    RelativeLayout openes;
-    @Bind(R.id.box_image)
-    ImageView box_image;
-    @Bind(R.id.title)
-    TextView titile;
 
     MapStatus mapStatus = null;
     public MapView mMapView;
@@ -125,6 +90,61 @@ public class MainActivity extends BaseActivity {
     BitmapDescriptor warnbitmap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_marka_warn);
     BitmapDescriptor markabitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_marka);
     SharedPreferences preferences;
+    @Bind(R.id.mapview)
+    MapView mapview;
+    @Bind(R.id.text)
+    TextView text;
+    @Bind(R.id.ll_warns_title)
+    RelativeLayout llWarnsTitle;
+    @Bind(R.id.text1)
+    TextView text1;
+    @Bind(R.id.text1_time)
+    TextView text1Time;
+    @Bind(R.id.text2)
+    TextView text2;
+    @Bind(R.id.text2_time)
+    TextView text2Time;
+    @Bind(R.id.text3)
+    TextView text3;
+    @Bind(R.id.text3_time)
+    TextView text3Time;
+    @Bind(R.id.ll_warns)
+    RelativeLayout llWarns;
+    @Bind(R.id.warn_layout)
+    RelativeLayout warnLayout;
+    @Bind(R.id.address)
+    TextView address;
+    @Bind(R.id.detail)
+    TextView detail;
+    @Bind(R.id.box_image)
+    ImageView boxImage;
+    @Bind(R.id.code)
+    TextView code;
+    @Bind(R.id.caizhi)
+    TextView caizhi;
+    @Bind(R.id.code1)
+    TextView code1;
+    @Bind(R.id.content)
+    TextView content;
+    @Bind(R.id.phone)
+    TextView phone;
+    @Bind(R.id.open)
+    Button open;
+    @Bind(R.id.openes)
+    RelativeLayout openes;
+    @Bind(R.id.refresh)
+    ImageView refresh;
+    @Bind(R.id.back_current)
+    ImageView backCurrent;
+    @Bind(R.id.sacn_openlock)
+    ImageView openLock;
+    @Bind(R.id.rl_text1)
+    RelativeLayout rlText1;
+    @Bind(R.id.rl_text2)
+    RelativeLayout rlText2;
+    @Bind(R.id.rl_text3)
+    RelativeLayout rlText3;
+    private Dialog use;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +181,8 @@ public class MainActivity extends BaseActivity {
         setRightImage(R.mipmap.ic_white_search, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(mContext, SetComLocationActivity.class), SETLOCATIONCODE);
+//                startActivityForResult(new Intent(mContext, SetComLocationActivity.class), SETLOCATIONCODE);
+                startActivity(new Intent(mContext, SearchBoxNewActivity.class));
             }
         });
         setLeftTextView(R.mipmap.ic_menu, new View.OnClickListener() {
@@ -186,25 +207,21 @@ public class MainActivity extends BaseActivity {
         mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
 
 
-        llWarns.setOnClickListener(new View.OnClickListener() {
+        warnLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ifOpen) {
-                    text1.setVisibility(View.GONE);
-                    text2.setVisibility(View.GONE);
-                    text3.setVisibility(View.GONE);
-                    text4.setVisibility(View.GONE);
+                    llWarns.setVisibility(View.GONE);
+                    llWarnsTitle.setVisibility(View.VISIBLE);
                     ifOpen = false;
                 } else {
-                    text1.setVisibility(View.VISIBLE);
-                    text2.setVisibility(View.VISIBLE);
-                    text3.setVisibility(View.VISIBLE);
-                    text4.setVisibility(View.VISIBLE);
+                    llWarns.setVisibility(View.VISIBLE);
+                    llWarnsTitle.setVisibility(View.GONE);
                     ifOpen = true;
                 }
             }
         });
-        titile.setOnClickListener(new View.OnClickListener() {
+        text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(mContext, WarnListActivity.class));
@@ -326,7 +343,7 @@ public class MainActivity extends BaseActivity {
 
 
                                                    if (odfbox.picture != null && odfbox.picture.url != null) {
-                                                       ImageLoader.getInstance().displayImage("http:" + odfbox.picture.url + "", box_image);
+                                                       ImageLoader.getInstance().displayImage("http:" + odfbox.picture.url + "", boxImage);
                                                    }
 
                                                    detail.setOnClickListener(new View.OnClickListener() {
@@ -408,6 +425,14 @@ public class MainActivity extends BaseActivity {
 
         );
 
+        openLock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, CaptureActivity.class);
+                intent.putExtra("type", "1");
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -582,11 +607,15 @@ public class MainActivity extends BaseActivity {
                 super.onSuccess(commen);
                 int size = commen.results.size();
                 if (size > 2) {
-                    llWarns.setVisibility(View.VISIBLE);
-                    text1.setText(commen.results.get(0).time + "\n" + commen.results.get(0).text);
-                    text2.setText(commen.results.get(1).time + "\n" + commen.results.get(1).text);
-                    text3.setText(commen.results.get(2).time + "\n" + commen.results.get(2).text);
-                    text1.setOnClickListener(new View.OnClickListener() {
+                    warnLayout.setVisibility(View.VISIBLE);
+                    text1.setText(commen.results.get(0).text);
+                    text.setText(commen.results.get(0).text);
+                    text1Time.setText(commen.results.get(0).time);
+                    text2.setText(commen.results.get(1).text);
+                    text2Time.setText(commen.results.get(1).time);
+                    text3.setText(commen.results.get(2).text);
+                    text3Time.setText(commen.results.get(2).time);
+                    rlText1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if (commen.results.get(0).position != null) {
@@ -601,7 +630,7 @@ public class MainActivity extends BaseActivity {
                         }
                     });
 
-                    text2.setOnClickListener(new View.OnClickListener() {
+                    rlText2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if (commen.results.get(1).position != null) {
@@ -616,7 +645,7 @@ public class MainActivity extends BaseActivity {
                         }
                     });
 
-                    text3.setOnClickListener(new View.OnClickListener() {
+                    rlText3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if (commen.results.get(2).position != null) {
@@ -633,7 +662,7 @@ public class MainActivity extends BaseActivity {
 
 
                 } else {
-                    llWarns.setVisibility(View.GONE);
+                    warnLayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -648,8 +677,8 @@ public class MainActivity extends BaseActivity {
             ActivityCompat.requestPermissions(this, new String[]{ACCESS_NETWORK_STATE}, 3);
         } else if (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE}, 5);
-        } else if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, 6);
+        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 6);
         }
     }
 

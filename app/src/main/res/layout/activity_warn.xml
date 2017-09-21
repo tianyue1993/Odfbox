@@ -2,15 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_bg">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/text_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:layout_below="@+id/ll_search"
-        android:layout_marginTop="5dp"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:text="涉及0个光交箱"
         android:textColor="@color/button_bg"
         android:textSize="11sp" />
@@ -18,7 +17,7 @@
     <LinearLayout
         android:id="@+id/ll_type"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_below="@+id/text_title"
         android:orientation="horizontal">
 
@@ -26,7 +25,7 @@
             android:id="@+id/checkbox_order"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:background="@mipmap/ic_uncheck"
             android:checked="false"
             android:gravity="center"
@@ -50,14 +49,21 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:layout_below="@+id/ll_type"
+        android:background="@color/gray_bg" />
+
     <com.odfbox.views.DownPullRefreshListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_type"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/line"
         android:background="@color/gray_bg"
-        android:dividerHeight="2dp"
+        android:divider="@color/gray_bg"
+        android:dividerHeight="10dp"
         android:scrollbars="none">
 
     </com.odfbox.views.DownPullRefreshListView>

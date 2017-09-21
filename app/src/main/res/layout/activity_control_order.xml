@@ -7,68 +7,24 @@
     android:background="@color/white"
     tools:context="com.odfbox.activity.ControlOrderActivity">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:background="@color/gray_bg"
-        android:gravity="center"
-        android:text="工单信息"
-        android:textColor="@color/black" />
-
-    <ImageView
-        android:id="@+id/line1"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@+id/text"
-        android:background="@color/grey" />
-
-
     <RelativeLayout
         android:id="@+id/work_news"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/line1"
-        android:background="@color/gray_bg"
+        android:background="@color/white"
         android:orientation="vertical"
         android:paddingBottom="5dp">
 
         <TextView
             android:id="@+id/code"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:text="工单号："
             android:textColor="@color/text_grey"
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="85dp"
-            android:layout_marginTop="8dp"
-            android:text="状态："
-            android:textColor="@color/text_grey"
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/manager"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/state"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/state"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="5dp"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:text="发起人:"
-            android:textColor="@color/text_grey"
-            android:textSize="11sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/type"
@@ -77,35 +33,67 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/code"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="工单类型:"
             android:textColor="@color/text_grey"
-            android:textSize="11sp" />
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/code"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/type"
+            android:text="状态："
+            android:textColor="@color/red"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/manager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/state"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="发起人:"
+            android:textColor="@color/text_grey"
+            android:textSize="14sp" />
+
 
         <TextView
             android:id="@+id/starttime"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/type"
+            android:layout_below="@+id/manager"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="5dp"
-            android:text="发起时间:"
-            android:textColor="@color/text_grey"
-            android:textSize="11sp" />
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@mipmap/ic_start"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="发起时间"
+            android:textColor="#666666"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/endtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/state"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/manager"
+            android:layout_marginLeft="30dp"
             android:layout_marginRight="25dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@mipmap/ic_end"
+            android:gravity="center"
             android:singleLine="true"
-            android:text="完成时间:"
-            android:textColor="@color/text_grey"
-            android:textSize="11sp" />
+            android:text="完成时间"
+            android:textColor="#666666"
+            android:textSize="12sp" />
 
 
         <TextView
@@ -116,57 +104,44 @@
             android:layout_below="@+id/starttime"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="5dp"
-            android:text="工单内容:"
+            android:layout_marginTop="10dp"
+            android:text="工单内容"
             android:textColor="@color/text_grey"
-            android:textSize="11sp" />
+            android:textSize="14sp" />
 
     </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/line2"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_below="@+id/work_news"
-        android:background="@color/white" />
-
 
     <RelativeLayout
         android:id="@+id/rl_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/line2"
+        android:layout_below="@+id/work_news"
         android:background="@color/gray_bg">
 
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="28dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="25dp"
-            android:gravity="center_vertical"
-            android:text="任务列表"
-            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/count"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="20dp"
             android:gravity="center_vertical"
             android:text="任务数：0"
             android:textColor="@color/button_bg" />
 
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/count"
+            android:layout_marginBottom="15dp"
+            android:divider="@color/gray_bg"
+            android:dividerHeight="15dp"
+            android:scrollbars="none"></ListView>
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_count"
-        android:dividerHeight="5dp"
-        android:scrollbars="none"></ListView>
 
     <RelativeLayout
         android:id="@+id/rl_control"

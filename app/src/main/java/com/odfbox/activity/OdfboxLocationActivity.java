@@ -56,8 +56,6 @@ public class OdfboxLocationActivity extends BaseActivity {
     TextView text2;
     @Bind(R.id.text3)
     TextView text3;
-    @Bind(R.id.text4)
-    TextView text4;
     @Bind(R.id.ll_warns)
     RelativeLayout llWarns;
     @Bind(R.id.refresh)

@@ -9,105 +9,170 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+
     <RelativeLayout
-        android:id="@+id/ll_warns"
-        android:layout_width="match_parent"
+        android:id="@+id/warn_layout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/warns_bg"
-        android:elevation="6dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="25dp"
+        android:visibility="visible">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/ll_warns_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@mipmap/ic_warns_title"
+            android:visibility="gone">
 
             <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="5dp"
-                android:drawableLeft="@mipmap/ic_warn_icon"
-                android:drawablePadding="5dp"
-                android:gravity="center"
-                android:text="告警信息  >>"
-                android:textColor="@color/red"
-                android:textSize="15sp" />
-
-
-            <TextView
-                android:id="@+id/text1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:drawablePadding="5dp"
-                android:ellipsize="end"
-                android:singleLine="false"
-                android:text="告警信息"
-                android:textColor="@color/red"
-                android:textSize="12sp" />
-
-
-            <TextView
-                android:id="@+id/text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:drawablePadding="5dp"
-                android:ellipsize="end"
-                android:singleLine="false"
-                android:text="告警信息"
-                android:textColor="@color/red"
-                android:textSize="12sp" />
-
-
-            <TextView
-                android:id="@+id/text3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:drawablePadding="5dp"
-                android:ellipsize="end"
-                android:singleLine="false"
-
-                android:text="告警信息"
-                android:textColor="@color/red"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/text4"
+                android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:drawablePadding="5dp"
-                android:singleLine="false"
-                android:text="......"
-                android:textColor="@color/red"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:textColor="#e98827"
                 android:textSize="12sp" />
-        </LinearLayout>
+        </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/open_warns"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/ll_warns"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="5dp"
-            android:src="@mipmap/ic_open" />
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@mipmap/ic_warn_bg"
+            android:elevation="6dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rl_text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45dp">
+
+                    <TextView
+                        android:id="@+id/text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:drawablePadding="5dp"
+                        android:ellipsize="end"
+                        android:singleLine="false"
+                        android:text="告警信息"
+                        android:textColor="#e98827"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/text1_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/text1"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="5dp"
+                        android:drawablePadding="5dp"
+                        android:ellipsize="end"
+                        android:singleLine="false"
+                        android:text="告警信息"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rl_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21dp">
+
+                    <TextView
+                        android:id="@+id/text2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+
+                        android:drawablePadding="5dp"
+                        android:ellipsize="end"
+                        android:singleLine="false"
+                        android:text="告警信息"
+                        android:textColor="#e98827"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/text2_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/text2"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="5dp"
+                        android:drawablePadding="5dp"
+                        android:ellipsize="end"
+                        android:singleLine="false"
+                        android:text="告警信息"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rl_text3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19dp">
+
+                    <TextView
+                        android:id="@+id/text3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:drawablePadding="5dp"
+                        android:ellipsize="end"
+                        android:singleLine="false"
+                        android:text="告警信息"
+                        android:textColor="#e98827"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/text3_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/text3"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="5dp"
+                        android:drawablePadding="5dp"
+                        android:ellipsize="end"
+                        android:singleLine="false"
+                        android:text="告警信息"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
-
 
     <ImageView
         android:layout_width="wrap_content"
@@ -268,5 +333,15 @@
         android:layout_marginLeft="10dp"
         android:padding="5dp"
         android:src="@mipmap/ic_back_address" />
+
+    <ImageView
+        android:id="@+id/sacn_openlock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:src="@mipmap/ic_lock_dis" />
+
 
 </RelativeLayout>

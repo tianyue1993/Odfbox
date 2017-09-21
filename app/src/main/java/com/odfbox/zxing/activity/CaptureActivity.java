@@ -1,6 +1,7 @@
 package com.odfbox.zxing.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
@@ -44,9 +46,11 @@ public class CaptureActivity extends Activity implements Callback, View.OnClickL
     private static final float BEEP_VOLUME = 0.10f;
     private boolean vibrate;
     private String contentStr;
-    private int orderId = -1;
     private Button scan_redo_bt;
     private Button scan_cancel_bt;
+    private String type = "";
+
+    private Context mContext;
 
     protected void initCreate() {
         CameraManager.init(CaptureActivity.this.getApplication());
@@ -58,8 +62,12 @@ public class CaptureActivity extends Activity implements Callback, View.OnClickL
         setContentView(R.layout.activity_capture);
         super.onCreate(savedInstanceState);
         CameraManager.init(CaptureActivity.this.getApplication());
+        mContext = this;
         initCreate();
         initView();
+        if (getIntent() != null) {
+            type = getIntent().getStringExtra("type");
+        }
     }
 
     @Override
@@ -151,21 +159,32 @@ public class CaptureActivity extends Activity implements Callback, View.OnClickL
         Intent intent;
         viewfinderView.drawResultBitmap(barcode);
         playBeepSoundAndVibrate();
-        //得到扫描结果
-        contentStr = obj.getText();
-        int end = contentStr.length();
-        int start = end - 14;
-        boolean boo = NetUtil.isConnected(CaptureActivity.this);
-        String code = contentStr.substring(start, end);
-        //比较后台所给唯一标示
-        try {
-            Intent sendData = new Intent();
-            sendData.putExtra("code", code);
-            setResult(5, sendData);
-            finish();
-        } catch (Exception e) {
-            e.fillInStackTrace();
+
+        if (type != null && type.equals("1")) {
+            Toast.makeText(mContext, "saoma", Toast.LENGTH_SHORT).show();
+        } else {
+            //得到扫描结果
+            contentStr = obj.getText();
+            int end = contentStr.length();
+            if (end > 14) {
+                int start = end - 14;
+                boolean boo = NetUtil.isConnected(CaptureActivity.this);
+                String code = contentStr.substring(start, end);
+                //比较后台所给唯一标示
+                try {
+                    Intent sendData = new Intent();
+                    sendData.putExtra("code", code);
+                    setResult(5, sendData);
+                    finish();
+                } catch (Exception e) {
+                    e.fillInStackTrace();
+                }
+            } else {
+                Toast.makeText(mContext, "不规则二维码", Toast.LENGTH_SHORT).show();
+            }
+
         }
+
     }
 
     private void initBeepSound() {

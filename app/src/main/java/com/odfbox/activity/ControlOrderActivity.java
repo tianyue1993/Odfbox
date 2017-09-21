@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,10 +29,6 @@ import butterknife.ButterKnife;
 
 public class ControlOrderActivity extends BaseActivity {
 
-    @Bind(R.id.text)
-    TextView text;
-    @Bind(R.id.line1)
-    ImageView line1;
     @Bind(R.id.code)
     TextView code;
     @Bind(R.id.state)
@@ -50,18 +45,12 @@ public class ControlOrderActivity extends BaseActivity {
     TextView content;
     @Bind(R.id.work_news)
     RelativeLayout workNews;
-    @Bind(R.id.line2)
-    ImageView line2;
-    @Bind(R.id.text1)
-    TextView text1;
     @Bind(R.id.count)
     TextView count;
     @Bind(R.id.rl_count)
     RelativeLayout rlCount;
     @Bind(R.id.listview)
     ListView listview;
-    @Bind(R.id.activity_control_order)
-    RelativeLayout activityControlOrder;
 
     TaskAdapter adapter;
 
@@ -173,47 +162,47 @@ public class ControlOrderActivity extends BaseActivity {
     public void initData() {
         if (workOrder != null) {
             if (workOrder.serial != null) {
-                code.setText("工单号：" + workOrder.serial);
+                code.setText("工单号  " + workOrder.serial);
             } else {
-                code.setText("工单号：----");
+                code.setText("工单号  ----");
             }
 
 
             if (workOrder.state != null) {
-                state.setText("状态：" + workOrder.state);
+                state.setText(workOrder.state);
             } else {
-                state.setText("状态：----");
+                state.setText("状态  ----");
             }
 
 
             if (workOrder.appoint_to_name != null) {
-                manager.setText("发起人：" + workOrder.appoint_from_name);
+                manager.setText("发起人  " + workOrder.appoint_from_name);
             } else {
-                manager.setText("发起人：----");
+                manager.setText("发起人  ----");
             }
 
             if (workOrder.task_sheet_type != null) {
-                type.setText("工单类型：" + workOrder.task_sheet_type);
+                type.setText("工单类型  " + workOrder.task_sheet_type);
             } else {
-                type.setText("工单类型：----");
+                type.setText("工单类型  ----");
             }
 
             if (workOrder.create_time != null) {
-                starttime.setText("发起时间：" + workOrder.create_time);
+                starttime.setText(workOrder.create_time);
             } else {
-                starttime.setText("发起时间：----");
+                starttime.setText("  ----");
             }
 
             if (workOrder.accomplish_time != null) {
-                endtime.setText("完成时间：" + workOrder.accomplish_time);
+                endtime.setText(workOrder.accomplish_time);
             } else {
-                endtime.setText("要求完成时间：----");
+                endtime.setText("  ----");
             }
 
             if (workOrder.comment != null) {
-                content.setText("工单内容：" + workOrder.comment);
+                content.setText("工单内容  " + workOrder.comment);
             } else {
-                content.setText("工单内容：----");
+                content.setText("工单内容  ----");
             }
             if (workOrder.tasks != null) {
                 count.setText("任务数:" + workOrder.tasks.size());

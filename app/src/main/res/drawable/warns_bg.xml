@@ -5,7 +5,7 @@
     <!-- android:radius 弧形的半径 -->
     <solid android:color="#fefded" />
 
-    <corners android:radius="8dp" />
+    <corners android:radius="15dp" />
 
 
 </shape>

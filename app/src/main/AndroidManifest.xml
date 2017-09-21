@@ -163,8 +163,10 @@
         <activity android:name=".activity.EventControlActivity" />
         <activity android:name=".activity.GuideSecondActivity" />
         <activity android:name=".activity.GuideThirdActivity" />
-        <activity android:name=".activity.AddDemoActivity"></activity>
-        <activity android:name=".activity.OdfboxLocationActivity"></activity>
+        <activity android:name=".activity.AddDemoActivity" />
+        <activity android:name=".activity.OdfboxLocationActivity" />
+        <activity android:name=".activity.SearchBoxNewActivity" />
+        <activity android:name=".activity.DataStatisticsActivity"></activity>
     </application>
 
 </manifest>
