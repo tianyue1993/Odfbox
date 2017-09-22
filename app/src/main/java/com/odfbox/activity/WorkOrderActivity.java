@@ -75,7 +75,7 @@ public class WorkOrderActivity extends BaseActivity {
         final String[] workType = getResources().getStringArray(R.array.workType);
         ArrayAdapter<String> state = new ArrayAdapter<>(this, R.layout.lib_tv_spinner, workState);
         ArrayAdapter<String> type = new ArrayAdapter<>(this, R.layout.lib_tv_spinner, workType);
-        state.setDropDownViewResource(android.R.layout.simple_list_item_1);
+        state.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         type.setDropDownViewResource(android.R.layout.simple_list_item_1);
         //绑定 Adapter到控件
         spinner1.setAdapter(state);

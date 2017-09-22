@@ -162,9 +162,9 @@ public class ControlOrderActivity extends BaseActivity {
     public void initData() {
         if (workOrder != null) {
             if (workOrder.serial != null) {
-                code.setText("工单号  " + workOrder.serial);
+                code.setText("工  单  号  " + workOrder.serial);
             } else {
-                code.setText("工单号  ----");
+                code.setText("工  单  号  ----");
             }
 
 
@@ -176,9 +176,9 @@ public class ControlOrderActivity extends BaseActivity {
 
 
             if (workOrder.appoint_to_name != null) {
-                manager.setText("发起人  " + workOrder.appoint_from_name);
+                manager.setText("发  起  人  " + workOrder.appoint_from_name);
             } else {
-                manager.setText("发起人  ----");
+                manager.setText("发  起  人  ----");
             }
 
             if (workOrder.task_sheet_type != null) {

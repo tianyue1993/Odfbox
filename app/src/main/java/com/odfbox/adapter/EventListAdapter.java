@@ -50,9 +50,9 @@ public class EventListAdapter extends BoxBaseAdapter<Event> {
         if (mInfo != null) {
             holder.time.setText(mInfo.time);
             if (mInfo.create_user != null) {
-                holder.control_person.setText("操作人    " + mInfo.create_user);
+                holder.control_person.setText("操   作   人    " + mInfo.create_user);
             } else {
-                holder.control_person.setText("操作人    ----");
+                holder.control_person.setText("操   作   人       ----");
             }
 
 

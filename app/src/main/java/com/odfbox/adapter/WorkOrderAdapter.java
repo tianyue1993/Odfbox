@@ -45,19 +45,19 @@ public class WorkOrderAdapter extends BoxBaseAdapter<WorkOrder> {
 
         if (mInfo != null) {
             if (mInfo.serial != null)
-                holder.code.setText("工单号：" + mInfo.serial);
+                holder.code.setText("工  单  号   " + mInfo.serial);
             if (mInfo.comment != null)
-                holder.content.setText("工单内容：" + mInfo.comment);
+                holder.content.setText("工单内容   " + mInfo.comment);
             if (mInfo.state != null)
-                holder.state.setText("状态：" + mInfo.state);
+                holder.state.setText(mInfo.state);
             if (mInfo.create_time != null)
-                holder.starttime.setText("创建时间：" + mInfo.create_time);
+                holder.starttime.setText(mInfo.create_time);
             if (mInfo.accomplish_time != null)
-                holder.endtime.setText("要求完成时间：" + mInfo.accomplish_time);
+                holder.endtime.setText(mInfo.accomplish_time);
             if (mInfo.appoint_from_name != null)
-                holder.manager.setText("发起人：" + mInfo.appoint_from_name);
+                holder.manager.setText("发  起  人   " + mInfo.appoint_from_name);
             if (mInfo.task_sheet_type != null)
-                holder.type.setText("工单类型：" + mInfo.task_sheet_type);
+                holder.type.setText("工单类型   " + mInfo.task_sheet_type);
 
         }
 

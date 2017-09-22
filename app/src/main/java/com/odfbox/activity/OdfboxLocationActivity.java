@@ -1,5 +1,6 @@
 package com.odfbox.activity;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -50,23 +51,41 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class OdfboxLocationActivity extends BaseActivity {
 
+
+    @Bind(R.id.mapview)
+    MapView mapview;
+    @Bind(R.id.text)
+    TextView text;
+    @Bind(R.id.ll_warns_title)
+    RelativeLayout llWarnsTitle;
     @Bind(R.id.text1)
     TextView text1;
+    @Bind(R.id.text1_time)
+    TextView text1Time;
+    @Bind(R.id.rl_text1)
+    RelativeLayout rlText1;
     @Bind(R.id.text2)
     TextView text2;
+    @Bind(R.id.text2_time)
+    TextView text2Time;
+    @Bind(R.id.rl_text2)
+    RelativeLayout rlText2;
     @Bind(R.id.text3)
     TextView text3;
+    @Bind(R.id.text3_time)
+    TextView text3Time;
+    @Bind(R.id.rl_text3)
+    RelativeLayout rlText3;
     @Bind(R.id.ll_warns)
     RelativeLayout llWarns;
-    @Bind(R.id.refresh)
-    ImageView refresh;
-    @Bind(R.id.back_current)
-    ImageView backCurrent;
-    private Dialog use;
+    @Bind(R.id.warn_layout)
+    RelativeLayout warnLayout;
     @Bind(R.id.address)
     TextView address;
     @Bind(R.id.detail)
     TextView detail;
+    @Bind(R.id.box_image)
+    ImageView boxImage;
     @Bind(R.id.code)
     TextView code;
     @Bind(R.id.caizhi)
@@ -81,11 +100,13 @@ public class OdfboxLocationActivity extends BaseActivity {
     Button open;
     @Bind(R.id.openes)
     RelativeLayout openes;
-    @Bind(R.id.box_image)
-    ImageView box_image;
-    @Bind(R.id.title)
-    TextView titile;
-
+    @Bind(R.id.refresh)
+    ImageView refresh;
+    @Bind(R.id.back_current)
+    ImageView backCurrent;
+    @Bind(R.id.sacn_openlock)
+    ImageView sacnOpenlock;
+    private Dialog use;
     public MapView mMapView;
     public BaiduMap mBaiduMap;
     public boolean visible = true;
@@ -205,7 +226,7 @@ public class OdfboxLocationActivity extends BaseActivity {
 
 
                                                    if (odfbox.picture != null && odfbox.picture.url != null) {
-                                                       ImageLoader.getInstance().displayImage("http:" + odfbox.picture.url + "", box_image);
+                                                       ImageLoader.getInstance().displayImage("http:" + odfbox.picture.url + "", boxImage);
                                                    }
 
                                                    detail.setOnClickListener(new View.OnClickListener() {
@@ -397,8 +418,8 @@ public class OdfboxLocationActivity extends BaseActivity {
             ActivityCompat.requestPermissions(this, new String[]{ACCESS_NETWORK_STATE}, 3);
         } else if (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE}, 5);
-        } else if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, 6);
+        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 6);
         }
     }
 
