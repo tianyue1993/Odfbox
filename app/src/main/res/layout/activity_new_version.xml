@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_new_version"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.odfbox.activity.NewVersionActivity">
+
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="25dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="45dp"
+        android:background="@android:color/holo_green_dark"
+        android:ems="1"
+        android:gravity="center"
+        android:padding="2dp"
+        android:text="新版本"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/text"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/text"
+        android:text="物联网光交箱"
+        android:textColor="@color/text_grey"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/size_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/text"
+        android:textColor="@color/text_grey" />
+
+    <TextView
+        android:id="@+id/text_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="50dp"
+        android:text="更新说明"
+        android:textColor="#666666" />
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/text_detail"
+        android:layout_marginTop="10dp"
+        android:background="@color/gray_bg" />
+
+    <TextView
+        android:id="@+id/detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="15dp"
+        android:textColor="#666666" />
+
+    <ImageView
+        android:id="@+id/iamge_share"
+        android:layout_width="165dp"
+        android:layout_height="165dp"
+        android:layout_below="@+id/detail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_share" />
+
+    <TextView
+        android:id="@+id/share_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iamge_share"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="分享二维码，加入我们"
+        android:textColor="#999999" />
+
+    <Button
+        android:id="@+id/download"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="35dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/button_bg"
+        android:text="下载更新" />
+
+</RelativeLayout>

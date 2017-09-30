@@ -267,6 +267,14 @@ public class OdfboxApplication extends Application {
     }
 
 
+    public static String STATISTICS() {
+        return BASE_URL + "orgs/" + prefs.getOrgId() + "/statistics-months/";
+    }
+
+    public static String TASKSTATISTICS() {
+        return BASE_URL + "orgs/" + prefs.getOrgId() + "/users/" + prefs.getUserId() + "/statistics-months/";
+    }
+
     public static String getAppVersions() {// 当前应用的版本号
         PackageManager manager = mCon.getPackageManager();
         try {

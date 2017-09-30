@@ -54,8 +54,13 @@ public class WarnsAdapter extends BoxBaseAdapter<Warns> {
                 holder.event.setTextColor(mContext.getResources().getColor(R.color.text_grey));
             }
             holder.time.setText(mInfo.time);
-            holder.event.setText(mInfo.text);
-            holder.orderCode.setText("关联工单号   " + mInfo.related);
+            holder.event.setText(mInfo.event_text);
+            if (mInfo.task_sheet != null) {
+                holder.orderCode.setText("关联工单号   " + mInfo.task_sheet.serial);
+            } else {
+                holder.orderCode.setText("关联工单号   ----");
+            }
+
             holder.boxCode.setText("光交箱编号   " + mInfo.odf_box);
             if (mInfo.position != null)
                 holder.address.setText("地            址   " + mInfo.position.address);

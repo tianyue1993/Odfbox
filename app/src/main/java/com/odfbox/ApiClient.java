@@ -221,4 +221,11 @@ public class ApiClient {
         asyncHttpClient.put(context, LOGINSTATE(), params, "application/json", handler);
     }
 
+    public void getStatistics(Context context, String params, BaseResponseHandler handler) {
+        asyncHttpClient.get(context, OdfboxApplication.STATISTICS() + params + "/", handler);
+    }
+
+    public void getTaskStatistics(Context context, String params, BaseResponseHandler handler) {
+        asyncHttpClient.get(context, OdfboxApplication.TASKSTATISTICS() + params + "-01/", handler);
+    }
 }

@@ -15,6 +15,7 @@
         android:background="@color/gray_bg">
 
         <ImageView
+
             android:id="@+id/previous"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,7 +59,7 @@
             android:drawableLeft="@mipmap/ic_total_count"
             android:drawablePadding="10dp"
             android:gravity="center"
-            android:text="光交箱总数   15555"
+            android:text="光交箱总数   0"
             android:textColor="@color/text_grey"
             android:textSize="17sp" />
 
@@ -80,7 +81,7 @@
             android:layout_below="@+id/tv_smart"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="10dp"
-            android:text="222"
+            android:text="0"
             android:textColor="@color/text_grey"
             android:textSize="13sp" />
 
@@ -130,7 +131,7 @@
             android:layout_below="@+id/tv_warn"
             android:layout_marginTop="10dp"
             android:layout_toLeftOf="@+id/progressBar2"
-            android:text="222"
+            android:text="0"
             android:textColor="@color/text_grey"
             android:textSize="13sp" />
 
@@ -153,7 +154,7 @@
             android:drawableLeft="@mipmap/ic_order_count"
             android:drawablePadding="10dp"
             android:gravity="center"
-            android:text="工单数   15"
+            android:text="工单数   0"
             android:textColor="@color/text_grey"
             android:textSize="17sp" />
 
@@ -176,7 +177,7 @@
             android:layout_below="@+id/tv_order"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="10dp"
-            android:text="222"
+            android:text="0"
             android:textColor="@color/text_grey"
             android:textSize="13sp" />
 

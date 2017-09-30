@@ -13,7 +13,8 @@
         android:layout_height="48dp"
         android:layout_below="@+id/probability"
         android:layout_marginTop="22dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,11 +36,41 @@
             android:src="@mipmap/ic_more" />
     </RelativeLayout>
 
+
+    <RelativeLayout
+        android:id="@+id/ll_news"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/probability"
+        android:layout_marginTop="22dp"
+        android:background="@color/white"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="48dp"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="厂商信息"
+            android:textColor="@color/text_grey"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:src="@mipmap/ic_more" />
+    </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/ll_version"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_below="@+id/ll_address"
+        android:layout_below="@+id/ll_news"
         android:layout_marginTop="10dp"
         android:background="@color/white">
 
@@ -54,6 +85,17 @@
             android:text="版本1.0"
             android:textColor="@color/text_grey"
             android:textSize="14sp" />
+
+
+        <ImageView
+            android:id="@+id/new_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="60dp"
+            android:src="@mipmap/ic_new"
+            android:visibility="gone" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -79,6 +121,6 @@
         android:layout_marginTop="140dp"
         android:background="@color/button_bg"
         android:scaleType="fitXY"
-        android:text="退出"
+        android:text="退出登录"
         android:textColor="@color/white" />
 </RelativeLayout>

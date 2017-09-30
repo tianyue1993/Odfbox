@@ -9,7 +9,7 @@ public class Warns extends Entity {
     public String time;
     public String device;
     public String event;
-    public String text;
+    public String event_text;
     public String treat_state;
     public String related;
     public String state;
@@ -17,6 +17,7 @@ public class Warns extends Entity {
     public boolean alarm;
     public String odf_box;
     public Picture picture;
+    public TaskSheet task_sheet;
 
     public class Picture extends Entity {
         public String id;

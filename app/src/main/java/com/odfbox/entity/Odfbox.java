@@ -26,8 +26,7 @@ public class Odfbox extends Entity {
     public String cable_serial = "";
     public String business_capacity = "";
     public String name = "";
-
-
+    public String door_type = "";
 
 
     public class EnvPicture extends Entity {

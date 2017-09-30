@@ -307,15 +307,6 @@
         android:text="型号"
         android:textColor="@color/text_grey" />
 
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="80dp"
-        android:layout_height="25dp"
-        android:layout_below="@+id/tv_type"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/ed_type"
-        android:background="@color/white" />
-
     <TextView
         android:id="@+id/tv_spiner"
         android:layout_width="wrap_content"
@@ -479,6 +470,15 @@
         android:textColor="@android:color/holo_green_dark"
         android:textSize="11sp"
         android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="80dp"
+        android:layout_height="25dp"
+        android:background="@color/white"
+        android:layout_below="@+id/tv_spiner"
+        android:layout_alignRight="@+id/text1"
+        android:layout_alignEnd="@+id/text1" />
 
 
 </RelativeLayout>

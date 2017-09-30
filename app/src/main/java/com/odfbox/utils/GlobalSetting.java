@@ -33,6 +33,8 @@ public class GlobalSetting {
     private static final String ORG_NAME = "org_name";
     private static final String CHANNEL_ID = "channel_id";
 
+    private static final String APP_BANNER_IMAGE = "app_banner_image";
+
     private GlobalSetting(Context context) {
         mContext = context;
     }
@@ -201,5 +203,13 @@ public class GlobalSetting {
         return getSharedPreferences().getString(ORG_NAME, "");
     }
 
+
+    public void saveBannerImage(String id) {
+        saveString(APP_BANNER_IMAGE, id);
+    }
+
+    public String getBannerImage() {
+        return getSharedPreferences().getString(APP_BANNER_IMAGE, "");
+    }
 
 }

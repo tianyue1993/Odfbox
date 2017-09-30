@@ -86,12 +86,19 @@
         android:textColor="@color/text_grey"
         android:textSize="12sp" />
 
+    <ImageView
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="5dp"
+        android:background="@color/white" />
 
     <TextView
         android:id="@+id/jwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/line1"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="10dp"
         android:text="经纬度"
@@ -319,21 +326,6 @@
         android:textColor="@color/text_grey" />
 
 
-    <EditText
-        android:id="@+id/ed_content"
-        android:layout_width="150dp"
-        android:layout_height="25dp"
-        android:layout_alignLeft="@+id/tv_code"
-        android:layout_alignStart="@+id/tv_code"
-        android:layout_below="@+id/tv_content"
-        android:background="@color/white"
-        android:gravity="center"
-        android:inputType="number"
-        android:textColor="@color/text_grey"
-        android:textColorHint="@color/grey"
-        android:textSize="12sp" />
-
-
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
@@ -413,5 +405,19 @@
         android:textColor="@color/text_grey"
         android:textColorHint="@color/grey"
         android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/ed_content"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:inputType="number"
+        android:textColor="@color/text_grey"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp"
+        android:layout_below="@+id/tv_content"
+        android:layout_alignLeft="@+id/tv_content"
+        android:layout_alignStart="@+id/tv_content" />
 
 </RelativeLayout>

@@ -46,11 +46,7 @@ public class Event extends Entity {
 
     }
 
-    public class TaskSheet extends Entity {
-        public String serial;
-        public int id;
-        public String state;
-    }
+
 
     public class Handle {
         public int user;

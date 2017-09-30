@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.odfbox.OdfboxApplication;
 import com.odfbox.R;
 import com.odfbox.entity.WarnsList;
@@ -62,6 +63,12 @@ public class MineActivity extends BaseActivity {
     TextView undoCount2;
     @Bind(R.id.my_data)
     RelativeLayout myData;
+    @Bind(R.id.iamge)
+    ImageView iamge;
+    @Bind(R.id.text2)
+    TextView text2;
+    @Bind(R.id.text1)
+    TextView text1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +80,10 @@ public class MineActivity extends BaseActivity {
         company.setText(prefs.getOrgName());
         count.setText("光交箱总数：" + prefs.getBoxData()[1]);
         probability.setText("监控覆盖率：" + prefs.getBoxData()[0] + "");
+        if (prefs.getBannerImage().length() > 0) {
+            ImageLoader.getInstance().displayImage(prefs.getBannerImage(), iamge);
+        }
+
     }
 
 
@@ -93,7 +104,7 @@ public class MineActivity extends BaseActivity {
                 startActivity(new Intent(mContext, WarnListActivity.class));
                 break;
             case R.id.add_box:
-                startActivity(new Intent(mContext, AddBoxActivity.class));
+                startActivity(new Intent(mContext, AddBoxActivityNew.class));
                 break;
             case R.id.my_box:
                 startActivity(new Intent(mContext, MyBoxActivity.class));

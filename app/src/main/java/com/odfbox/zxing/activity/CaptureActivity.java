@@ -176,6 +176,7 @@ public class CaptureActivity extends Activity implements Callback, View.OnClickL
                     sendData.putExtra("code", code);
                     setResult(5, sendData);
                     finish();
+
                 } catch (Exception e) {
                     e.fillInStackTrace();
                 }
@@ -186,6 +187,7 @@ public class CaptureActivity extends Activity implements Callback, View.OnClickL
         }
 
     }
+
 
     private void initBeepSound() {
         if (playBeep && mediaPlayer == null) {

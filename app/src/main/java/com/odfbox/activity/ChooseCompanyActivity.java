@@ -89,6 +89,7 @@ public class ChooseCompanyActivity extends BaseActivity {
                 prefs.saveOrgId(accessKey.orgs.get(selectPosition).org_id + "");
                 prefs.saveUserId(accessKey.orgs.get(selectPosition).user_id);
                 prefs.saveOrgName(accessKey.orgs.get(selectPosition).name);
+                prefs.saveBannerImage(accessKey.orgs.get(0).app_banner_image);
                 ApiClient.getInstance().asyncHttpClient.addHeader("Authorization", prefs.getToken());
                 getOrg();
                 login();

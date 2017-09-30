@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -271,18 +270,18 @@ public class MyBoxActivity extends BaseActivity {
             }
         });
 
-        //条目点击进入webview详情
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Odfbox recommendItems = adapter.getItem(position - 1);
-                Intent intent = new Intent(mContext, BoxDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("info", recommendItems);
-                intent.putExtras(bundle);
-                mContext.startActivity(intent);
-            }
-        });
+//        //条目点击进入webview详情
+//        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Odfbox recommendItems = adapter.getItem(position - 1);
+//                Intent intent = new Intent(mContext, BoxDetailActivityNew.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("info", recommendItems);
+//                intent.putExtras(bundle);
+//                mContext.startActivity(intent);
+//            }
+//        });
 
     }
 

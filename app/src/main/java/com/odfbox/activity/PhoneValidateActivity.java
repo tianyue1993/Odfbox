@@ -150,6 +150,7 @@ public class PhoneValidateActivity extends BaseActivity implements TextWatcher {
                     prefs.saveOrgId(commen.orgs.get(0).org_id + "");
                     prefs.saveUserId(commen.orgs.get(0).user_id);
                     prefs.saveOrgName(commen.orgs.get(0).name);
+                    prefs.saveBannerImage(commen.orgs.get(0).app_banner_image);
                     getToken(commen.access_key);
                 } else {
                     Intent intent = new Intent();

@@ -45,7 +45,7 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.odfbox.activity.BaseActivity;
-import com.odfbox.activity.BoxDetailActivity;
+import com.odfbox.activity.BoxDetailActivityNew;
 import com.odfbox.activity.MineActivity;
 import com.odfbox.activity.OpenGuideActivity;
 import com.odfbox.activity.SearchBoxNewActivity;
@@ -59,6 +59,7 @@ import com.odfbox.handle.CommentHandler;
 import com.odfbox.handle.VersionHandler;
 import com.odfbox.handle.WarnHandler;
 import com.odfbox.utils.BoxUtils;
+import com.odfbox.utils.StringUtils;
 import com.odfbox.utils.UpdateCheckUtils;
 import com.odfbox.views.DialogFactory;
 import com.odfbox.zxing.activity.CaptureActivity;
@@ -144,6 +145,14 @@ public class MainActivity extends BaseActivity {
     RelativeLayout rlText2;
     @Bind(R.id.rl_text3)
     RelativeLayout rlText3;
+    @Bind(R.id.iamge1)
+    ImageView iamge1;
+    @Bind(R.id.iamge2)
+    ImageView iamge2;
+    @Bind(R.id.door)
+    TextView door;
+    @Bind(R.id.type)
+    TextView type;
     private Dialog use;
 
     @Override
@@ -205,18 +214,20 @@ public class MainActivity extends BaseActivity {
         final MapStatus.Builder builder = new MapStatus.Builder();
         builder.target(ll).zoom(zoom);
         mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-
-
         warnLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ifOpen) {
                     llWarns.setVisibility(View.GONE);
                     llWarnsTitle.setVisibility(View.VISIBLE);
+                    iamge1.setVisibility(View.GONE);
+                    iamge2.setVisibility(View.GONE);
                     ifOpen = false;
                 } else {
                     llWarns.setVisibility(View.VISIBLE);
                     llWarnsTitle.setVisibility(View.GONE);
+                    iamge1.setVisibility(View.VISIBLE);
+                    iamge2.setVisibility(View.VISIBLE);
                     ifOpen = true;
                 }
             }
@@ -301,136 +312,134 @@ public class MainActivity extends BaseActivity {
         });
         //光交箱图标点击事件
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
-                                               @Override
-                                               public boolean onMarkerClick(Marker marker) {
-                                                   LatLng latLng = marker.getPosition();
-                                                   MapStatus mMapStatus = new MapStatus.Builder()
-                                                           .target(latLng)
-                                                           .build();
-                                                   MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-                                                   mBaiduMap.animateMapStatus(mMapStatusUpdate);
-                                                   final Bundle bundle = marker.getExtraInfo();
-                                                   final Odfbox odfbox;
-                                                   if (bundle != null) {
-                                                       odfbox = (Odfbox) bundle.getSerializable("info");
-                                                   } else {
-                                                       return true;
-                                                   }
-                                                   openes.setVisibility(View.VISIBLE);
-                                                   address.setText(odfbox.address);
-                                                   if (odfbox.serial_text != null) {
-                                                       code.setText("光交箱编号：" + odfbox.serial_text);
-                                                   } else {
-                                                       code.setText("光交箱编号：----");
-                                                   }
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                LatLng latLng = marker.getPosition();
+                MapStatus mMapStatus = new MapStatus.Builder()
+                        .target(latLng)
+                        .build();
+                MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+                mBaiduMap.animateMapStatus(mMapStatusUpdate);
+                final Bundle bundle = marker.getExtraInfo();
+                final Odfbox odfbox;
+                if (bundle != null) {
+                    odfbox = (Odfbox) bundle.getSerializable("info");
+                } else {
+                    return true;
+                }
+                openes.setVisibility(View.VISIBLE);
+                address.setText(odfbox.address);
+                if (odfbox.smart_lock != null) {
+                    code.setText("终端编号：" + odfbox.smart_lock.serial_no);
+                } else {
+                    code.setText("终端编号：----");
+                }
 
-                                                   if (odfbox.cable_serial != null) {
-                                                       code1.setText("光缆编号：" + odfbox.cable_serial);
-                                                   } else {
-                                                       code1.setText("光缆编号：----");
-                                                   }
+                if (odfbox.model != null) {
+                    type.setText("型号：" + odfbox.model);
+                } else {
+                    type.setText("型号：----");
+                }
 
-                                                   if (odfbox.material != null) {
-                                                       caizhi.setText("材质：" + odfbox.material);
-                                                   } else {
-                                                       caizhi.setText("材质：----");
-                                                   }
-                                                   if (odfbox.business_capacity != null) {
-                                                       content.setText("光交箱容量：" + odfbox.business_capacity);
-                                                   } else {
-                                                       content.setText("光交箱容量：----");
-                                                   }
+                if (odfbox.door_type != null) {
+                    door.setText("门数：" + odfbox.door_type);
+                } else {
+                    door.setText("门数： ----");
+                }
 
-
-                                                   if (odfbox.picture != null && odfbox.picture.url != null) {
-                                                       ImageLoader.getInstance().displayImage("http:" + odfbox.picture.url + "", boxImage);
-                                                   }
-
-                                                   detail.setOnClickListener(new View.OnClickListener() {
-                                                       @Override
-                                                       public void onClick(View v) {
-                                                           Intent intent = new Intent();
-                                                           intent.putExtras(bundle);
-                                                           intent.setClass(mContext, BoxDetailActivity.class);
-                                                           startActivity(intent);
-                                                       }
-                                                   });
-
-                                                   open.setOnClickListener(new View.OnClickListener() {
-                                                                               @Override
-                                                                               public void onClick(View v) {
-
-                                                                                   use = DialogFactory.getDialogFactory().showCommonDialog(mContext, "确定开锁？", "取消", "确定", new View.OnClickListener() {
-                                                                                               @SuppressWarnings("unused")
-                                                                                               @Override
-                                                                                               public void onClick(View v) {
-                                                                                                   use.dismiss();
-                                                                                               }
-                                                                                           }, new View.OnClickListener() {
-                                                                                               @Override
-                                                                                               public void onClick(View v) {
-
-                                                                                                   if (use != null && use.isShowing()) {
-                                                                                                       use.dismiss();
-                                                                                                       if (odfbox.smart_lock != null) {
-                                                                                                           showProgress(0, true);
-                                                                                                           JSONObject params = new JSONObject();
-                                                                                                           params.put("command", "unlock");
-                                                                                                           params.put("lock_pk", odfbox.id);
-                                                                                                           try {
-                                                                                                               StringEntity entity = new StringEntity(params.toString(), "UTF-8");
-                                                                                                               client.getOpenBox(mContext, odfbox.smart_lock.id + "", entity, new CommentHandler() {
-                                                                                                                   @Override
-                                                                                                                   public void onSuccess(String commen) {
-                                                                                                                       super.onSuccess(commen);
-                                                                                                                       cancelmDialog();
-                                                                                                                       Intent intent = new Intent(mContext, OpenGuideActivity.class);
-                                                                                                                       intent.putExtra("id", odfbox.id + "");
-                                                                                                                       startActivity(intent);
-                                                                                                                   }
-
-                                                                                                                   @Override
-                                                                                                                   public void onFailure(String msg) {
-                                                                                                                       super.onFailure(msg);
-                                                                                                                       cancelmDialog();
-                                                                                                                   }
-
-                                                                                                                   @Override
-                                                                                                                   public void onCancel() {
-                                                                                                                       super.onCancel();
-                                                                                                                       cancelmDialog();
-                                                                                                                   }
-                                                                                                               });
-                                                                                                           } catch (UnsupportedEncodingException e) {
-                                                                                                               e.printStackTrace();
-                                                                                                           }
-                                                                                                       } else {
-                                                                                                           showToast("未能获得智能锁信息，请联系管理员！");
-                                                                                                       }
+                if (odfbox.material != null) {
+                    caizhi.setText("材质：" + odfbox.material);
+                } else {
+                    caizhi.setText("材质：----");
+                }
+                if (odfbox.business_capacity != null) {
+                    content.setText("光交箱容量：" + odfbox.business_capacity);
+                } else {
+                    content.setText("光交箱容量：----");
+                }
 
 
-                                                                                                   }
-                                                                                               }
-                                                                                           }
+                if (odfbox.picture != null && odfbox.picture.url != null) {
+                    ImageLoader.getInstance().displayImage("http:" + odfbox.picture.url + "", boxImage);
+                }
 
-                                                                                   );
-                                                                               }
-                                                                           }
+                detail.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.putExtras(bundle);
+                        intent.setClass(mContext, BoxDetailActivityNew.class);
+                        startActivity(intent);
+                    }
+                });
 
-                                                   );
+                open.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                                                   return true;
-                                               }
-                                           }
+                        use = DialogFactory.getDialogFactory().showCommonDialog(mContext, "确定开锁？", "取消", "确定", new View.OnClickListener() {
+                            @SuppressWarnings("unused")
+                            @Override
+                            public void onClick(View v) {
+                                use.dismiss();
+                            }
+                        }, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
 
-        );
+                                if (use != null && use.isShowing()) {
+                                    use.dismiss();
+                                    if (odfbox.smart_lock != null) {
+                                        showProgress(0, true);
+                                        JSONObject params = new JSONObject();
+                                        params.put("command", "unlock");
+                                        params.put("lock_pk", odfbox.id);
+                                        try {
+                                            StringEntity entity = new StringEntity(params.toString(), "UTF-8");
+                                            client.getOpenBox(mContext, odfbox.smart_lock.id + "", entity, new CommentHandler() {
+                                                @Override
+                                                public void onSuccess(String commen) {
+                                                    super.onSuccess(commen);
+                                                    cancelmDialog();
+                                                    Intent intent = new Intent(mContext, OpenGuideActivity.class);
+                                                    intent.putExtra("id", odfbox.id + "");
+                                                    startActivity(intent);
+                                                }
+
+                                                @Override
+                                                public void onFailure(String msg) {
+                                                    super.onFailure(msg);
+                                                    cancelmDialog();
+                                                }
+
+                                                @Override
+                                                public void onCancel() {
+                                                    super.onCancel();
+                                                    cancelmDialog();
+                                                }
+                                            });
+                                        } catch (UnsupportedEncodingException e) {
+                                            e.printStackTrace();
+                                        }
+                                    } else {
+                                        showToast("未能获得智能锁信息，请联系管理员！");
+                                    }
+
+
+                                }
+                            }
+                        });
+                    }
+                });
+
+                return true;
+            }
+        });
 
         openLock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, CaptureActivity.class);
-                intent.putExtra("type", "1");
-                startActivity(intent);
+                startActivityForResult(new Intent(mContext, CaptureActivity.class), 5);
             }
         });
 
@@ -490,27 +499,70 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (data != null) {
-            final GeoCoder geoCoder = GeoCoder.newInstance();
-            geoCoder.geocode(new GeoCodeOption().city("昆明").address(data.getStringExtra("address")));
-            geoCoder.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
-                @Override
-                public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
-                    mBaiduMap.clear();
-                    getList(geoCodeResult.getLocation().longitude + "", geoCodeResult.getLocation().latitude + "", "2000");
+            if (requestCode == 5) {
+                if (!StringUtils.isEmpty(data.getStringExtra("code"))) {
+                    getList(data.getStringExtra("code"));
+                }
+            } else {
+                final GeoCoder geoCoder = GeoCoder.newInstance();
+                geoCoder.geocode(new GeoCodeOption().city("昆明").address(data.getStringExtra("address")));
+                geoCoder.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
+                    @Override
+                    public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
+                        mBaiduMap.clear();
+                        getList(geoCodeResult.getLocation().longitude + "", geoCodeResult.getLocation().latitude + "", "2000");
+                        MapStatus mMapStatus = new MapStatus.Builder()
+                                .target(new LatLng(geoCodeResult.getLocation().latitude, geoCodeResult.getLocation().longitude))
+                                .build();
+                        MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+                        mBaiduMap.animateMapStatus(mMapStatusUpdate);
+                    }
+
+                    @Override
+                    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
+
+                    }
+                });
+            }
+
+        }
+    }
+
+    public void getList(String string) {
+        cancelmDialog();
+        showProgress(0, true);
+        client.getBoxList(mContext, "0", "&lock_serial=" + string, new BoxListHandler() {
+            @Override
+            public void onCancel() {
+                super.onCancel();
+                cancelmDialog();
+            }
+
+            @Override
+            public void onSuccess(BoxList boxList) {
+                super.onSuccess(boxList);
+                cancelmDialog();
+                if (boxList.results.size() != 0) {
+                    LatLng latLng = new LatLng(boxList.results.get(0).latitude_baidu, boxList.results.get(0).longitude_baidu);
                     MapStatus mMapStatus = new MapStatus.Builder()
-                            .target(new LatLng(geoCodeResult.getLocation().latitude, geoCodeResult.getLocation().longitude))
+                            .target(latLng)
                             .build();
                     MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
                     mBaiduMap.animateMapStatus(mMapStatusUpdate);
+                } else {
+                    showToast("没有找到符合要求的光交箱");
                 }
 
-                @Override
-                public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
+            }
 
-                }
-            });
-        }
+            @Override
+            public void onFailure(String msg) {
+                super.onFailure(msg);
+                cancelmDialog();
+            }
+        });
     }
 
     @Override
@@ -608,12 +660,12 @@ public class MainActivity extends BaseActivity {
                 int size = commen.results.size();
                 if (size > 2) {
                     warnLayout.setVisibility(View.VISIBLE);
-                    text1.setText(commen.results.get(0).text);
-                    text.setText(commen.results.get(0).text);
+                    text1.setText(commen.results.get(0).event_text);
+                    text.setText(commen.results.get(0).event_text);
                     text1Time.setText(commen.results.get(0).time);
-                    text2.setText(commen.results.get(1).text);
+                    text2.setText(commen.results.get(1).event_text);
                     text2Time.setText(commen.results.get(1).time);
-                    text3.setText(commen.results.get(2).text);
+                    text3.setText(commen.results.get(2).event_text);
                     text3Time.setText(commen.results.get(2).time);
                     rlText1.setOnClickListener(new View.OnClickListener() {
                         @Override

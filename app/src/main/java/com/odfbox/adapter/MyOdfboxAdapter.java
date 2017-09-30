@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.odfbox.R;
+import com.odfbox.activity.BoxDetailActivityNew;
 import com.odfbox.activity.OdfboxLocationActivity;
 import com.odfbox.activity.OpenGuideActivity;
 import com.odfbox.activity.SpaceImageDetailActivity;
@@ -85,10 +86,12 @@ public class MyOdfboxAdapter extends BoxBaseAdapter<Odfbox> {
             }
 
 
-            if (mInfo.cable_serial != null) {
-                holder.cder.setText("光缆编号:" + mInfo.cable_serial);
-            } else {
-                holder.cder.setText("光缆编号:" + "----");
+            if (mInfo.smart_lock != null) {
+                if (mInfo.smart_lock.serial_no != null) {
+                    holder.cder.setText("终端编号:" + mInfo.cable_serial);
+                } else {
+                    holder.cder.setText("终端编号:" + "----");
+                }
             }
 
 
@@ -126,6 +129,16 @@ public class MyOdfboxAdapter extends BoxBaseAdapter<Odfbox> {
             });
 
 
+            holder.detail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, BoxDetailActivityNew.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("info", mInfo);
+                    intent.putExtras(bundle);
+                    mContext.startActivity(intent);
+                }
+            });
             holder.map.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -198,6 +211,7 @@ public class MyOdfboxAdapter extends BoxBaseAdapter<Odfbox> {
 
 
         }
+
         return convertView;
     }
 

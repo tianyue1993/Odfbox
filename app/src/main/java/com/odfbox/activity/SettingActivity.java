@@ -7,13 +7,17 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.odfbox.OdfboxApplication;
 import com.odfbox.R;
+import com.odfbox.entity.VersionOdfbox;
 import com.odfbox.handle.CommentHandler;
+import com.odfbox.handle.VersionHandler;
+import com.odfbox.utils.BoxUtils;
 import com.odfbox.views.DialogFactory;
 
 import org.apache.http.entity.StringEntity;
@@ -35,6 +39,11 @@ public class SettingActivity extends BaseActivity {
     @Bind(R.id.version_name)
     TextView versionName;
     Dialog dialog;
+    @Bind(R.id.ll_news)
+    RelativeLayout llNews;
+    @Bind(R.id.new_image)
+    ImageView newImage;
+    VersionOdfbox versionOdfbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +51,22 @@ public class SettingActivity extends BaseActivity {
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
         setTitleTextView("设置", null);
-        versionName.setText(getVersion());
+        versionName.setText("版本：" + getVersion());
+        getUpdate();
     }
 
-    @OnClick({R.id.ll_address, R.id.ll_version, R.id.exit})
+    @OnClick({R.id.ll_address, R.id.ll_news, R.id.ll_version, R.id.exit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_address:
                 startActivity(new Intent(mContext, ComAddressActivity.class));
+                break;
+            case R.id.ll_version:
+                Intent intent = new Intent(mContext, NewVersionActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("version", versionOdfbox);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
             case R.id.exit:
                 dialog = DialogFactory.getDialogFactory().showCommonDialog(mContext, "确定退出？", "取消", "确定", new View.OnClickListener() {
@@ -84,6 +101,33 @@ public class SettingActivity extends BaseActivity {
             e.printStackTrace();
             return null;
         }
+    }
+
+
+    public void getUpdate() {
+        client.getVersion(mContext, new VersionHandler() {
+            @Override
+            public void onSuccess(VersionOdfbox commen) {
+                super.onSuccess(commen);
+                versionOdfbox = commen;
+                if (commen.results.get(0) != null) {
+                    if (commen.results.get(0).revision.contains("v") || commen.results.get(0).revision.contains("V")) {
+                        if (BoxUtils.getIsUpdate(OdfboxApplication.getAppVersions(), commen.results.get(0).revision.substring(1, commen.results.get(0).revision.length()))) {
+                            newImage.setVisibility(View.VISIBLE);
+                        } else {
+                            newImage.setVisibility(View.GONE);
+                        }
+                    } else {
+                        if (BoxUtils.getIsUpdate(OdfboxApplication.getAppVersions(), commen.results.get(0).revision.substring(0, commen.results.get(0).revision.length()))) {
+                            newImage.setVisibility(View.VISIBLE);
+                        } else {
+                            newImage.setVisibility(View.GONE);
+                        }
+                    }
+
+                }
+            }
+        });
     }
 
     public void logout() {

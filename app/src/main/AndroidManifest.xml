@@ -72,6 +72,7 @@
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.WarnListActivity" />
         <activity android:name=".activity.AddBoxActivity" />
+        <activity android:name=".activity.AddBoxActivityNew" />
         <activity android:name=".activity.MyBoxActivity" />
         <activity android:name=".activity.WorkOrderActivity" />
         <activity android:name=".activity.WorkManageActivity" />
@@ -90,6 +91,7 @@
         <activity android:name=".activity.ChooseManagerActivity" />
         <activity android:name=".activity.ControlOrderActivity" />
         <activity android:name=".activity.BoxDetailActivity" />
+        <activity android:name=".activity.BoxDetailActivityNew" />
         <activity android:name=".activity.SetComLocationActivity" />
         <activity android:name=".activity.IuputAddressActivity" />
         <activity android:name=".activity.OpenGuideActivity" />
@@ -166,7 +168,8 @@
         <activity android:name=".activity.AddDemoActivity" />
         <activity android:name=".activity.OdfboxLocationActivity" />
         <activity android:name=".activity.SearchBoxNewActivity" />
-        <activity android:name=".activity.DataStatisticsActivity"></activity>
+        <activity android:name=".activity.DataStatisticsActivity" />
+        <activity android:name=".activity.NewVersionActivity" />
     </application>
 
 </manifest>

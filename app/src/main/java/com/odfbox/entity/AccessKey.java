@@ -17,6 +17,7 @@ public class AccessKey extends Entity {
         public String user_id;
         public String name;
         public String logo;
+        public String app_banner_image;
 
 
     }

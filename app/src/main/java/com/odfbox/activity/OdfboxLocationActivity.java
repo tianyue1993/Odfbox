@@ -131,6 +131,7 @@ public class OdfboxLocationActivity extends BaseActivity {
         refresh.setVisibility(View.GONE);
         backCurrent.setVisibility(View.GONE);
         llWarns.setVisibility(View.GONE);
+        sacnOpenlock.setVisibility(View.GONE);
         setLeftTextView(R.mipmap.ic_back, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,7 +235,7 @@ public class OdfboxLocationActivity extends BaseActivity {
                                                        public void onClick(View v) {
                                                            Intent intent = new Intent();
                                                            intent.putExtras(bundle);
-                                                           intent.setClass(mContext, BoxDetailActivity.class);
+                                                           intent.setClass(mContext, BoxDetailActivityNew.class);
                                                            startActivity(intent);
                                                        }
                                                    });

@@ -29,6 +29,7 @@
             android:layout_marginLeft="30dp"
             android:background="@null"
             android:hint="请输入一个位置描述或者编号"
+            android:imeOptions="actionSearch"
             android:textColor="@color/text_grey"
             android:textColorHint="@color/button_grey"
             android:textSize="14sp" />
@@ -79,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:text="以交光箱位置查询"
+                android:text="以交光箱信息查询"
                 android:textColor="@color/text_grey" />
 
 
@@ -128,5 +129,175 @@
         android:layout_below="@+id/ll_choose_search"
         android:layout_marginTop="30dp"
         android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingTop="35dp"
+        android:src="@mipmap/ic_location"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/openes"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/box_image"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/door"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="门数"
+                android:textColor="@color/text_grey"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="型号"
+                android:textColor="@color/text_grey"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/caizhi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="材质"
+                android:textColor="@color/text_grey"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="终端编号"
+                android:textColor="@color/text_grey"
+                android:textSize="11sp" />
+
+
+            <TextView
+                android:id="@+id/code1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/code"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="光缆编号"
+                android:textColor="@color/text_grey"
+                android:textSize="11sp"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/code1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="光缆编号"
+                android:textColor="@color/text_grey"
+                android:textSize="11sp"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/code1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/content"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/text_grey"
+                android:textSize="11sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@mipmap/ic_map"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="五华区"
+            android:textColor="@color/text_grey"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:text="详情"
+            android:textColor="@color/button_bg" />
+
+        <ImageView
+            android:id="@+id/box_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/detail"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_open_box" />
+
+
+        <Button
+            android:id="@+id/open"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@color/button_bg"
+            android:scaleType="fitXY"
+            android:text="开锁"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

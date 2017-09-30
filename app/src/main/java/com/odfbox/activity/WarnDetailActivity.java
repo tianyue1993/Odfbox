@@ -79,7 +79,7 @@ public class WarnDetailActivity extends BaseActivity {
                 Bundle bundle1 = new Bundle();
                 bundle1.putSerializable("info", boxDetail);
                 intent.putExtras(bundle1);
-                intent.setClass(mContext, BoxDetailActivity.class);
+                intent.setClass(mContext, BoxDetailActivityNew.class);
                 startActivity(intent);
             }
         });
