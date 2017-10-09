@@ -15,12 +15,12 @@
         android:background="@color/gray_bg">
 
         <ImageView
-
             android:id="@+id/previous"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="30dp"
+            android:padding="5dp"
             android:src="@mipmap/ic_previous" />
 
         <TextView
@@ -38,6 +38,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="30dp"
+            android:padding="5dp"
             android:src="@mipmap/ic_un_next" />
     </RelativeLayout>
 

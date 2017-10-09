@@ -10,6 +10,8 @@ import android.view.View;
 
 import com.odfbox.R;
 
+import java.text.DecimalFormat;
+
 public class CircleProgressBar extends View {
     /**
      * 绘制百分比的圆，一共有四部分，分别是里面的文字、背景圆、默认圆环、开始绘制的圆环；
@@ -24,7 +26,7 @@ public class CircleProgressBar extends View {
     private float mCurrentAngle;//当前角度
     private RectF mArcRectF;//画中心园的外接矩形，用来画圆环用
     private float mStartSweepValue;//圆环开始角度
-    private float mTargetPercent;//设置目标的百分比(也就是后台返回的数据)
+    private float mTargetPercent = 0;//设置目标的百分比(也就是后台返回的数据)
     private float mCurrentPercent;//当前百分比
 
     private int mRadius;//圆的半径
@@ -165,20 +167,31 @@ public class CircleProgressBar extends View {
         canvas.drawArc(mArcRectF, mStartSweepValue, mCurrentAngle, false, mArcPaint);
         //画文字 -  此处可以注销(原因：不能绘制有小数的百分比，例如：1.4%   如果是5%、12%这些可以不用注销下面代码)，自定义布局将获取的值写在Textview上，
         // 再使用下面的setTargetPercent方法获取数据动态画圆
-        canvas.drawText(String.valueOf(mCurrentPercent) + "%", mCircleX, mCircleY + mTextSize / 4, mTextPaint);
+//        canvas.drawText(String.valueOf(mCurrentPercent) + "%", mCircleX, mCircleY + mTextSize / 4, mTextPaint);
         //判断当前百分比是否小于设置目标的百分比
-        if (mCurrentPercent < mTargetPercent) {
-            //当前百分比+1
-            mCurrentPercent += 1;
-            //当前角度+360
-            mCurrentAngle += 3.6;
-            //每10ms重画一次
-            postInvalidateDelayed(10);
-        }
+
+        canvas.drawText(String.valueOf(mTargetPercent) + "%", mCircleX, mCircleY + mTextSize / 4, mTextPaint);
+
+        //当前角度+360
+        mCurrentAngle = 3.6f * mTargetPercent;
+        //每10ms重画一次
+        postInvalidateDelayed(10);
+//        if (mCurrentPercent < mTargetPercent) {
+//            //当前百分比+1
+//            mCurrentPercent += 1;
+//            //当前角度+360
+//            mCurrentAngle += 3.6;
+//            //每10ms重画一次
+//            postInvalidateDelayed(10);
+//        }
     }
 
     //设置目标的百分比
     public void setTargetPercent(float percent) {
-        this.mTargetPercent = percent;
+        float f = percent * 100;
+        DecimalFormat fnum = new DecimalFormat("##0.0");
+        String dd = fnum.format(f);
+        this.mTargetPercent = Float.parseFloat(dd);
+        invalidate();
     }
 }

@@ -122,9 +122,10 @@ public class DataStatisticsActivity extends BaseActivity {
             @Override
             public void onSuccess(Statistics commen) {
                 super.onSuccess(commen);
-                float j = (float) commen.odf_box_monitors / (float) commen.odf_boxes;
-                progressBar1.setTargetPercent(j);
-                progressBar2.setTargetPercent(commen.odf_boxes_alarming / commen.odf_boxes);
+                float f1 = (float) commen.odf_box_monitors / (float) commen.odf_boxes;
+                float f2 = (float) commen.odf_boxes_alarming / (float) commen.odf_boxes;
+                progressBar1.setTargetPercent(f1);
+                progressBar2.setTargetPercent(f2);
                 total.setText("光交箱总数   " + commen.odf_boxes);
                 smartCount.setText(commen.odf_box_monitors + "");
                 warnCount.setText(commen.odf_boxes_alarming + "");
